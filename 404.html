@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Não Encontrada - Aratuba</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #FF5733;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #333;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        a {
+            color: #FF5733;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>404 - Página Não Encontrada</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Desculpe, mas a página que você está procurando não existe.</h2>
+            <p>Verifique se o URL está correto ou volte para a <a href="index.html">página inicial</a>.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Aratuba. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para definir o ano atual
+        function setCurrentYear() {
+            const year = new Date().getFullYear();
+            document.getElementById('currentYear').textContent = year;
+        }
+
+        // Chama a função ao carregar a página
+        window.onload = setCurrentYear;
+    </script>
+</body>
+</html>
