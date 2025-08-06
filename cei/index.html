@@ -1,0 +1,80 @@
+<!-- <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/cei/selo-25-padrão-transparente.png">
+    <title>CEI JOSÉ GOMES BRASIL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-image: url("/cei/fundo.jpg");
+             background-size: 95% 100%;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007BFF;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body><center>
+
+    <img src="/cei/selo-25-padrão-transparente.png" width="100">
+    <div class="container">
+        <h1>Lista de Professores</h1>
+        <ul id="linkList"></ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/cei/lista.csv')
+                .then(response => response.text())
+                .then(text => {
+                    const lines = text.split('\n');
+                    const linkList = document.getElementById('linkList');
+                    linkList.innerHTML = '';
+
+                    lines.forEach(line => {
+                        const [url, anchor] = line.split('|');
+                        if (url && anchor) {
+                            const li = document.createElement('li');
+                            const a = document.createElement('a');
+                            a.href = url.trim();
+                            a.textContent = anchor.trim();
+                            a.target = '_blank';
+                            li.appendChild(a);
+                            linkList.appendChild(li);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar o arquivo CSV:', error);
+                });
+        });
+    </script>
+</center></body>
+</html> -->
