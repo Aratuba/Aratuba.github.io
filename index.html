@@ -1,59 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suporte Técnico - Aratuba</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background: #007BFF;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background: #333;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aratuba, Ceará - Bem-vindo ao Coração do Maciço de Baturité</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <h1>Suporte Técnico Aratuba</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Atendimento ao Cliente</h2>
-            <p>Para garantir um atendimento de qualidade, informamos que os e-mails de suporte estão disponíveis apenas para clientes registrados.</p>
-            <p>Se você é um cliente e precisa de assistência, por favor, entre em contato através do seu e-mail cadastrado.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; <span id="currentYear"></span> Aratuba. Todos os direitos reservados.</p>
-    </footer>
+<body class="bg-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-green-600 text-white py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">Aratuba, Ceará</h1>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><a href="#sobre" class="hover:underline">Sobre</a></li>
+          <li><a href="#atracoes" class="hover:underline">Atrações</a></li>
+          <li><a href="#contato" class="hover:underline">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
+  <!-- Hero Section -->
+  <section class="bg-cover bg-center h-96 flex items-center justify-center" style="background-image: url('https://source.unsplash.com/random/1600x900/?nature,ceara')">
+    <div class="text-center text-white bg-black bg-opacity-50 p-6 rounded">
+      <h2 class="text-4xl font-bold mb-4">Bem-vindo a Aratuba</h2>
+      <p class="text-lg">Descubra a beleza e a cultura do Maciço de Baturité</p>
+    </div>
+  </section>
+
+  <!-- Sobre Section -->
+  <section id="sobre" class="py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Sobre Aratuba</h2>
+      <p class="text-lg text-gray-700 mb-4">
+        Aratuba é uma encantadora cidade localizada no Maciço de Baturité, no estado do Ceará, Brasil. Conhecida por seu clima ameno, paisagens naturais exuberantes e rica cultura, a cidade é um destino perfeito para quem busca tranquilidade e contato com a natureza. Aratuba oferece trilhas, cachoeiras e uma vista deslumbrante das serras, além de uma hospitalidade calorosa que reflete o espírito cearense.
+      </p>
+      <p class="text-lg text-gray-700">
+        Fundada em 1957, Aratuba tem uma economia baseada na agricultura, com destaque para o cultivo de flores, frutas e café. A cidade também é conhecida por suas festas tradicionais, como a Festa de São Francisco, que atrai visitantes de toda a região.
+      </p>
+    </div>
+  </section>
+
+  <!-- Atrações Section -->
+  <section id="atracoes" class="bg-gray-200 py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Atrações Turísticas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">Cachoeira da Gameleira</h3>
+          <p class="text-gray-600">Uma bela cachoeira cercada por vegetação nativa, ideal para banhos refrescantes e trilhas ecológicas.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">Serra de Baturité</h3>
+          <p class="text-gray-600">Explore trilhas e mirantes com vistas panorâmicas do Maciço de Baturité, perfeitas para os amantes da natureza.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">Festa de São Francisco</h3>
+          <p class="text-gray-600">Participe dessa celebração tradicional que reúne moradores e visitantes em um evento cheio de cultura e alegria.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato Section -->
+  <section id="contato" class="py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Entre em Contato</h2>
+      <p class="text-lg text-gray-700 text-center">
+        Quer saber mais sobre Aratuba? Entre em contato com a Prefeitura Municipal ou visite-nos para descobrir tudo o que nossa cidade tem a oferecer!
+      </p>
+      <p class="text-lg text-gray-700 text-center mt-4">
+        <strong>Email:</strong> contato@aratuba.ce.gov.br<br>
+        <strong>Telefone:</strong> (85) 1234-5678<br>
+        <strong>Endereço:</strong> Praça Central, Aratuba, CE
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-green-600 text-white py-4">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; <span id="currentYear"></span> Aratuba. Todos os direitos reservados.</p>
+    </div>
+  </footer>
     <script>
         // Função para definir o ano atual
         function setCurrentYear() {
