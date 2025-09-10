@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Estilosa</title>
+    <link rel="icon" type="image/png" href="https://www.ivanildo.net.br/jmc/selo.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #006400; /* Verde escuro */
+            color: #ffffff; /* Branco */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background-color: #4b0082; /* Roxo */
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #ffffff;
+        }
+
+        nav {
+            margin: 2rem 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #4b0082;
+            padding: 0.8rem 1.5rem;
+            margin: 0 1rem;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #1a3c34;
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            max-width: 800px;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        main p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        .highlight {
+            color: #4b0082;
+            font-weight: bold;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            background-color: #006400;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav a {
+                margin: 0.5rem;
+                padding: 0.6rem 1rem;
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<CENTER><IMG SRC="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Kahoot_Logo.svg/1024px-Kahoot_Logo.svg.png"  width="300"></CENTER>
+
+    <header>
+        <h1>CLIQUE NO QUIZ DA SUA TURMA</h1>
+    </header>
+
+    <nav>
+        <a href="http://" id="link1">2º ANO</a>
+        <a href="#sobre" id="link2">5º ANO</a>
+        <a href="#contato" id="link3">9º ANO</a>
+    </nav>
+
+    <main><center> <IMG SRc="https://www.ivanildo.net.br/jmc/selo.png"  width="200"></center>
+       
+    </main>
+
+    <footer>
+        <p></p>
+    </footer>
+
+    <script>
+        const links = document.querySelectorAll('nav a');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert(`Você clicou em ${link.textContent}!`);
+            });
+        });
+    </script>
+</body>
+</html>
+
