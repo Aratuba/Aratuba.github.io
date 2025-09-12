@@ -122,14 +122,31 @@
     <footer>
         <p></p>
     </footer>
-
-    <script>
+    
+      <script>
         const links = document.querySelectorAll('nav a');
 
         links.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert(`Você clicou em ${link.textContent}!`);
+                e.preventDefault(); // Impede a ação padrão do link
+
+                // Verifica se o href é válido
+                const href = link.getAttribute('href');
+                if (!href || href.trim() === '') {
+                    alert('Erro: Este link está vazio ou inválido!');
+                    return;
+                }
+
+                // Mostra um confirm com opção de cancelar
+                const userConfirmed = confirm(`Você clicou em "${link.textContent}". Deseja abrir o link?`);
+                if (userConfirmed) {
+                    // Se o usuário clicar em "OK", segue o link
+                    window.location.href = href;
+                    // Ou use window.open(href, '_blank') para abrir em nova aba
+                } else {
+                    // Se o usuário clicar em "Cancelar", nada acontece
+                    console.log('Ação cancelada pelo usuário.');
+                }
             });
         });
     </script>
