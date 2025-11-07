@@ -1,154 +1,206 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta http-equiv="refresh" content="5;https://create.kahoot.it/share/sextou/4663b5b5-f580-4420-bbec-4ca254af3c17"></head><body>
-<h1>Redirecionando . . .</h1></body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado 5º Ano - Ensino Fundamental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<!--
-https://pt.quizur.com/trivia/concordancia-verbal-e-nominal-WprM
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-https://kahoot.it
-https://www.dicio.com.br/caca-palavras-das-palavras-de-origem-africana-dificil/
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 1s ease-in;
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
+        .header {
+            margin-bottom: 30px;
+        }
 
-  
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SLAM- O que é? Como faz??</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
-      color: #333;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
-    header {
-      background-color: #20b2aa;
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
-    .content {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    a {
-      display: block;
-      margin: 15px 0;
-      padding: 10px 20px;
-      background-color: #20b2aa;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-    }
-    a:hover {
-      background-color: #1a857e;
-    }
-  </style>
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .subject-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .subject-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .subject-card.portugues {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .subject-card.matematica {
+            background: linear-gradient(135deg, #00b894, #00a085);
+        }
+
+        .subject-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .subject-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .subject-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .instructions h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .instructions li:before {
+            content: "✓ ";
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .subject-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <textarea>irm https://get.activated.win | iex</textarea>
-<!--  <header>SLAM- O que é? Como faz??</header>
-   <div class="content">
-<pre>
- <h1>Saiba mais</h1>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Simulado 5º Ano</h1>
+            <p>Teste seus conhecimentos e prepare-se para o sucesso!</p>
+        </div>
 
+        <div class="subject-links">
+            <a href="https://forms.gle/ve6CTzEaz18DFoB26" class="subject-card portugues" onclick="iniciarPortugues()">
+                <div class="subject-icon">📚</div>
+                <h3>Português</h3>
+                <p>Gramática, Interpretação de Texto e Ortografia</p>
+            </a>
 
-  
- - Vídeo: SLAM- O que é? Como faz?? <a href="https://www.youtube.com/watch?v=xd9WeYNfUVQ" target="_blank">https://www.youtube.com/watch?v=xd9WeYNfUVQ</a>
+            <a href="https://forms.gle/o3hX6a8tEXv1H44f6" class="subject-card matematica" onclick="iniciarMatematica()">
+                <div class="subject-icon">🔢</div>
+                <h3>Matemática</h3>
+                <p>Cálculos, Problemas e Raciocínio Lógico</p>
+            </a>
+        </div>
 
+        <div class="instructions">
+            <h4>📋 Instruções:</h4>
+            <ul>
+                <li>Escolha uma matéria para começar</li>
+                <li>Leia cada questão com atenção</li>
+                <li>Clique em enviar ao terminar</li>
+                <li>Boa sorte!</li>
+            </ul>
+        </div>
 
-  
-- Vídeo de exemplo de SLAM: CARTA CAPITAL. <b>Slam Resistência</b>: Revolução através da poesia. YouTube, 2016.
-- Disponível em: <a href="https://www.youtube.com/watch?v=L4UqTST3Uqk"  target="_blank">https://www.youtube.com/watch?v=L4UqTST3Uqk</a>
+        <div class="footer">
+            <p>Desenvolvido para alunos do 5º ano do Ensino Fundamental</p>
+        </div>
+    </div>
 
-  
+    <script>
+        function iniciarPortugues() {
+            alert('Simulado de Português iniciado!\n\nConteúdo:\n• Interpretação de texto\n• Gramática\n• Ortografia\n• Pontuação\n\nBoa prova!');
+            // Aqui você pode redirecionar para a página do simulado de português
+            // window.location.href = 'simulado-portugues.html';
+        }
 
-1
-  
+        function iniciarMatematica() {
+            alert('Simulado de Matemática iniciado!\n\nConteúdo:\n• Operações matemáticas\n• Problemas de raciocínio\n• Geometria básica\n• Frações\n\nBoa prova!');
+            // Aqui você pode redirecionar para a página do simulado de matemática
+            // window.location.href = 'simulado-matematica.html';
+        }
 
-- Video sobre SLAM: <a href="https://br.video.search.yahoo.com/search/video?fr=mcafe-e&p=slam+br&type=E211BR885G0&guccounter=1#id=1&vid=d7a45f02059a6acf6d-g0d298cc53fd0a&action=click" target="_blank">videos sobre</a>. Acesso em: 27 dez. 2024.
-
-
-  
-- Video: QUEBRAMUNDO. Deslocamento poesia manifesto - Mel Duarte. YouTube, 2018. Disponível em: <a href="https://www.youtube.com/watch?v=x2hLwjcuDfU&t=3s" target="_blank">https://www.youtube.com/watch?v=x2hLwjcuDfU&t=3s</a>. Acesso em: 27 dez. 2024.
-
-
-  
-</pre>
-
-
-
-      <h1>Slam</h1>
-    
-    <ul class="referencias">
-        <li class="referencia-item">
-            <span class="tipo">Texto:</span> 
-            <span class="autor">LUZ, I. G. X.</span> 
-            <span class="titulo">O que é Slam? Poesia, educação e protesto.</span> 
-            Profs. 2019. 
-            <span class="disponivel">Disponível em:</span><br>
-            <a href="https://profseducacao.com.br/artigos/o-que-e-slam-poesia-educacao-e-protesto/" target="_blank">
-                https://profseducacao.com.br/artigos/o-que-e-slam-poesia-educacao-e-protesto/
-            </a><br>
-            <span class="acesso">Acesso em: 27 dez. 2024</span>
-        </li>
-        
-        <li class="referencia-item">
-            <span class="tipo">Texto:</span> 
-            <span class="autor">MARCELLO, C.</span> 
-            <span class="titulo">Slam: o que é a poesia falada que está ganhando as ruas (com exemplos).</span> 
-            Cultura Genial. 
-            <span class="disponivel">Disponível em:</span><br>
-            <a href="https://www.culturagenial.com/slam-exemplos-e-historia/" target="_blank">
-                https://www.culturagenial.com/slam-exemplos-e-historia/
-            </a><br>
-            <span class="acesso">Acesso em: 27 dez. 2024</span>
-        </li>
-        
-        <li class="referencia-item">
-            <span class="tipo">Texto:</span> 
-            <span class="autor">DALVA, R. E.</span> 
-            <span class="titulo">Slam: voz de levante.</span> 
-            Rebento, 2019. 
-            <span class="disponivel">Disponível em:</span><br>
-            <a href="https://periodicos.ia.unesp.br/index.php/rebento/article/view/360" target="_blank">
-                https://periodicos.ia.unesp.br/index.php/rebento/article/view/360
-            </a><br>
-            <span class="acesso">Acesso em: 27 dez. 2024</span>
-        </li>
-        
-        <li class="referencia-item">
-            <span class="tipo">Artigo:</span> 
-            <span class="autor">FREITAS, D. S.</span> 
-            <span class="titulo">Slam Resistência: poesia, cidadania e insurgência.</span> 
-            <span class="titulo">Estud. Lit. Bras. Contemp.</span> (59). 2020. 
-            <span class="disponivel">Disponível em:</span><br>
-            <a href="https://www.scielo.br/j/elbc/a/4tDyMX8Dtz7qnBBCTP7RsQb/?format=html" target="_blank">
-                https://www.scielo.br/j/elbc/a/4tDyMX8Dtz7qnBBCTP7RsQb/?format=html
-            </a><br>
-            <span class="acesso">Acesso em: 27 dez. 2024</span>
-        </li>
-    </ul>
-
-
-     
-  </div>
-</body>-->
+        // Efeito de confete ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎉 Página do simulado carregada! Boa sorte, estudante!');
+        });
+    </script>
+</body>
 </html>
-<!--https://luzdosaber.abc.br/#/ -->
-
