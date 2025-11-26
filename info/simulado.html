@@ -1,25 +1,209 @@
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Listagem</title>
-  </head>
-  <body><pre>
-<h1> Sala info</h1>
-<a href="./w.png">Papel de parede</a>
-<a href="https://brave.com/pt-br/download/">Brave</a>
-<a href="https://www.google.com.br/chrome/">Chrome</a>
-    
-<h1> 2021 </h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado 5º Ano - Ensino Fundamental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<a href="./code.htm">code</a>
-<a href="https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/pt-br/ProPlus2021Retail.img">/media/pt-br/ProPlus2021Retail.img</a>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-<h1>Slides</h1>   
-<a href="./modelo.pptx">modelo.pptx show do milhão</a>
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            animation: fadeIn 1s ease-in;
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    
-  </pre></body>
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .subject-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .subject-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .subject-card.portugues {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .subject-card.matematica {
+            background: linear-gradient(135deg, #00b894, #00a085);
+        }
+
+        .subject-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .subject-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .subject-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .instructions h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .instructions li:before {
+            content: "✓ ";
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .subject-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Simulado 5º Ano</h1>
+            <p>Teste seus conhecimentos e prepare-se para o sucesso!</p>
+        </div>
+
+        <div class="subject-links">
+            <a href="https://forms.gle/ve6CTzEaz18DFoB26" class="subject-card portugues" onclick="iniciarPortugues()">
+                <div class="subject-icon">📚</div>
+                <h3>Português</h3>
+                <p>Gramática, Interpretação de Texto e Ortografia</p>
+            </a>
+
+            <a href="https://forms.gle/o3hX6a8tEXv1H44f6" class="subject-card matematica" onclick="iniciarMatematica()">
+                <div class="subject-icon">🔢</div>
+                <h3>Matemática</h3>
+                <p>Cálculos, Problemas e Raciocínio Lógico</p>
+            </a>
+        </div>
+
+        <div class="instructions">
+            <h4>📋 Instruções:</h4>
+            <ul>
+                <li>Escolha uma matéria para começar</li>
+                <li>Leia cada questão com atenção</li>
+                <li>Clique em enviar ao terminar</li>
+                <li>Boa sorte!</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Desenvolvido para alunos do 5º ano do Ensino Fundamental</p>
+        </div>
+    </div>
+
+    <script>
+        function iniciarPortugues() {
+            alert('Simulado de Português iniciado!\n\nConteúdo:\n• Interpretação de texto\n• Gramática\n• Ortografia\n• Pontuação\n\nBoa prova!');
+            // Aqui você pode redirecionar para a página do simulado de português
+            // window.location.href = 'simulado-portugues.html';
+        }
+
+        function iniciarMatematica() {
+            alert('Simulado de Matemática iniciado!\n\nConteúdo:\n• Operações matemáticas\n• Problemas de raciocínio\n• Geometria básica\n• Frações\n\nBoa prova!');
+            // Aqui você pode redirecionar para a página do simulado de matemática
+            // window.location.href = 'simulado-matematica.html';
+        }
+
+        // Efeito de confete ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎉 Página do simulado carregada! Boa sorte, estudante!');
+        });
+    </script>
+</body>
 </html>
