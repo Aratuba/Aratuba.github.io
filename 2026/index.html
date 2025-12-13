@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - Arquivos 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2b46 0%, #1a3a5f 100%);
+            color: #e6f2ff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #64b5f6, #42a5f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .breadcrumb {
+            color: #90caf9;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb a {
+            color: #bbdefb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #64b5f6;
+            text-decoration: underline;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-item i {
+            color: #4fc3f7;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .folder-card, .file-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .folder-card:hover, .file-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            border-color: rgba(100, 181, 246, 0.3);
+        }
+
+        .folder-icon {
+            font-size: 3.2rem;
+            color: #ffb74d;
+            margin-bottom: 15px;
+        }
+
+        .file-icon {
+            font-size: 2.8rem;
+            color: #81c784;
+            margin-bottom: 15px;
+        }
+
+        .image-icon {
+            font-size: 2.8rem;
+            color: #64b5f6;
+            margin-bottom: 15px;
+        }
+
+        .zip-icon {
+            font-size: 2.8rem;
+            color: #ff8a65;
+            margin-bottom: 15px;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: #0d1b2a;
+        }
+
+        .item-name {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            color: #e3f2fd;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .item-details {
+            font-size: 0.85rem;
+            color: #90caf9;
+            margin-bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            flex: 1;
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .btn-folder {
+            background: linear-gradient(90deg, #ffa726, #ff9800);
+            color: #2c3e50;
+        }
+
+        .btn-view {
+            background: linear-gradient(90deg, #42a5f5, #2196f3);
+            color: white;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #66bb6a, #4caf50);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .file-info {
+            font-size: 0.8rem;
+            color: #90caf9;
+            margin-top: 10px;
+            width: 100%;
+            text-align: left;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-size {
+            font-weight: 600;
+            color: #bbdefb;
+        }
+
+        .file-date {
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #90caf9;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .last-updated {
+            color: #64b5f6;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+        }
+
+        .empty-message {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: #90caf9;
+            font-size: 1.2rem;
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .folder-badge {
+            background: rgba(255, 167, 38, 0.2);
+            color: #ffb74d;
+        }
+        
+        .image-badge {
+            background: rgba(66, 165, 245, 0.2);
+            color: #64b5f6;
+        }
+        
+        .zip-badge {
+            background: rgba(255, 138, 101, 0.2);
+            color: #ff8a65;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-folder-open"></i> Arquivos 2026</h1>
+            <div class="breadcrumb">
+                <a href="../"><i class="fas fa-home"></i> Início</a> / <span>2026</span>
+            </div>
+            <p style="color: #bbdefb; margin-top: 10px;">Conteúdo do diretório - Arquivos e pastas do ano 2026</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-folder"></i>
+                    <span>3 Pastas</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-file-image"></i>
+                    <span>3 Imagens</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-file-archive"></i>
+                    <span>1 Arquivo ZIP</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-hdd"></i>
+                    <span>Total: 134 MB</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="gallery-container" id="gallery-container">
+            <!-- Pasta: outros-selos-2026 -->
+            <div class="folder-card">
+                <i class="fas fa-folder folder-icon"></i>
+                <div class="item-name">
+                    outros-selos-2026
+                    <span class="type-badge folder-badge">PASTA</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 13/12/2025
+                    </div>
+                    <div>01:21</div>
+                </div>
+                <div class="button-group">
+                    <a href="outros-selos-2026/" class="btn btn-folder">
+                        <i class="fas fa-folder-open"></i> Abrir Pasta
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pasta: selos-turmas-2026 -->
+            <div class="folder-card">
+                <i class="fas fa-folder folder-icon"></i>
+                <div class="item-name">
+                    selos-turmas-2026
+                    <span class="type-badge folder-badge">PASTA</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div>12:34</div>
+                </div>
+                <div class="button-group">
+                    <a href="selos-turmas-2026/" class="btn btn-folder">
+                        <i class="fas fa-folder-open"></i> Abrir Pasta
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pasta: sem-ano -->
+            <div class="folder-card">
+                <i class="fas fa-folder folder-icon"></i>
+                <div class="item-name">
+                    sem-ano
+                    <span class="type-badge folder-badge">PASTA</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 13/12/2025
+                    </div>
+                    <div>01:12</div>
+                </div>
+                <div class="button-group">
+                    <a href="sem-ano/" class="btn btn-folder">
+                        <i class="fas fa-folder-open"></i> Abrir Pasta
+                    </a>
+                </div>
+            </div>
+
+            <!-- Arquivo ZIP: 2026.zip -->
+            <div class="file-card">
+                <i class="fas fa-file-archive zip-icon"></i>
+                <div class="item-name">
+                    2026.zip
+                    <span class="type-badge zip-badge">ZIP</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 13/12/2025
+                    </div>
+                    <div class="file-size">127.4 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="2026.zip" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+                <div class="file-info">
+                    <i class="fas fa-info-circle"></i> Arquivo compactado com todos os arquivos
+                </div>
+            </div>
+
+            <!-- Imagem: selo-oficial-transparente.png -->
+            <div class="file-card">
+                <img src="selo-oficial-transparente.png" alt="Selo Oficial Transparente" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-selo-transparente').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-selo-transparente" style="display: none;"></i>
+                <div class="item-name">
+                    selo-oficial-transparente.png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 25/04/2025
+                    </div>
+                    <div class="file-size">309.7 KB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-oficial-transparente.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-oficial-transparente.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Imagem: selo-oficial.png -->
+            <div class="file-card">
+                <img src="selo-oficial.png" alt="Selo Oficial" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-selo-oficial').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-selo-oficial" style="display: none;"></i>
+                <div class="item-name">
+                    selo-oficial.png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 08/10/2024
+                    </div>
+                    <div class="file-size">386.0 KB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-oficial.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-oficial.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Imagem: wallpaper-para-computadores.png -->
+            <div class="file-card">
+                <img src="wallpaper-para-computadores.png" alt="Wallpaper para Computadores" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-wallpaper').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-wallpaper" style="display: none;"></i>
+                <div class="item-name">
+                    wallpaper-para-computadores.png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 28/10/2025
+                    </div>
+                    <div class="file-size">319.1 KB</div>
+                </div>
+                <div class="button-group">
+                    <a href="wallpaper-para-computadores.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="wallpaper-para-computadores.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><i class="fas fa-server"></i> Servidor de Arquivos - Galeria Visual</p>
+            <p>Última atualização do diretório: <span class="last-updated">13 de Dezembro de 2025</span></p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #64b5f6;">
+                Total de itens: <strong>7</strong> | Tamanho total: <strong>aproximadamente 134 MB</strong>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Adiciona contagem dinâmica de itens
+        document.addEventListener('DOMContentLoaded', function() {
+            const folderCards = document.querySelectorAll('.folder-card').length;
+            const imageCards = document.querySelectorAll('.file-card').length;
+            
+            // Atualiza estatísticas
+            document.querySelectorAll('.stat-item')[0].querySelector('span').textContent = `${folderCards} Pastas`;
+            document.querySelectorAll('.stat-item')[1].querySelector('span').textContent = `${imageCards - 1} Imagens`; // Subtrai 1 pelo arquivo ZIP
+            document.querySelectorAll('.stat-item')[2].querySelector('span').textContent = '1 Arquivo ZIP';
+            
+            // Formata os tamanhos de arquivo de forma mais legível
+            const fileSizes = document.querySelectorAll('.file-size');
+            fileSizes.forEach(el => {
+                const text = el.textContent;
+                if (text.includes('MB') || text.includes('KB')) return;
+                
+                const bytes = parseInt(text);
+                if (bytes < 1024) {
+                    el.textContent = bytes + ' B';
+                } else if (bytes < 1048576) {
+                    el.textContent = (bytes / 1024).toFixed(1) + ' KB';
+                } else {
+                    el.textContent = (bytes / 1048576).toFixed(1) + ' MB';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
