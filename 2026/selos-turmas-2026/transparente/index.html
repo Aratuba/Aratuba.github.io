@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - selos-turmas-2026/transparente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2b46 0%, #1a3a5f 100%);
+            color: #e6f2ff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #64b5f6, #42a5f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .breadcrumb {
+            color: #90caf9;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .breadcrumb a {
+            color: #bbdefb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #64b5f6;
+            text-decoration: underline;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-item i {
+            color: #4fc3f7;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .file-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            border-color: rgba(100, 181, 246, 0.3);
+        }
+
+        .image-icon {
+            font-size: 2.8rem;
+            color: #64b5f6;
+            margin-bottom: 15px;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: #0d1b2a;
+        }
+
+        .item-name {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            color: #e3f2fd;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .item-details {
+            font-size: 0.85rem;
+            color: #90caf9;
+            margin-bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            flex: 1;
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .btn-view {
+            background: linear-gradient(90deg, #42a5f5, #2196f3);
+            color: white;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #66bb6a, #4caf50);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .file-info {
+            font-size: 0.8rem;
+            color: #90caf9;
+            margin-top: 10px;
+            width: 100%;
+            text-align: left;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-size {
+            font-weight: 600;
+            color: #bbdefb;
+        }
+
+        .file-date {
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #90caf9;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .last-updated {
+            color: #64b5f6;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .image-badge {
+            background: rgba(66, 165, 245, 0.2);
+            color: #64b5f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-folder-open"></i> selos-turmas-2026/transparente</h1>
+            <div class="breadcrumb">
+                <a href="../../../"><i class="fas fa-home"></i> Início</a> / 
+                <a href="../../">2026</a> / 
+                <a href="../">selos-turmas-2026</a> / 
+                <span>transparente</span>
+            </div>
+            <p style="color: #bbdefb; margin-top: 10px;">Conteúdo do diretório - Selos de turmas 2026 (versão transparente)</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-file-image"></i>
+                    <span id="image-count">9 Imagens</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-hdd"></i>
+                    <span id="total-size">44.0 MB</span>
+                </div>
+                <div class="stat-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Atualizado: 13/12/2025</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="gallery-container" id="gallery-container">
+            <!-- Arquivos da lista fornecida -->
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%281%29.png" alt="Selo Ano 2026 (1)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-1').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-1" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (1).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">4.8 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%281%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%281%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%282%29.png" alt="Selo Ano 2026 (2)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-2').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-2" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (2).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">4.6 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%282%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%282%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%283%29.png" alt="Selo Ano 2026 (3)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-3').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-3" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (3).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 13/12/2025
+                    </div>
+                    <div class="file-size">4.8 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%283%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%283%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%284%29.png" alt="Selo Ano 2026 (4)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-4').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-4" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (4).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">5.0 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%284%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%284%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%285%29.png" alt="Selo Ano 2026 (5)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-5').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-5" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (5).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">5.0 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%285%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%285%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%286%29.png" alt="Selo Ano 2026 (6)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-6').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-6" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (6).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">5.0 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%286%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%286%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%287%29.png" alt="Selo Ano 2026 (7)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-7').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-7" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (7).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">5.0 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%287%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%287%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%288%29.png" alt="Selo Ano 2026 (8)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-8').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-8" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (8).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/12/2025
+                    </div>
+                    <div class="file-size">5.0 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%288%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%288%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+
+            <div class="file-card">
+                <img src="selo-ano-2026--%20%289%29.png" alt="Selo Ano 2026 (9)" class="image-preview" onerror="this.style.display='none'; document.getElementById('icon-9').style.display='block';">
+                <i class="fas fa-file-image image-icon" id="icon-9" style="display: none;"></i>
+                <div class="item-name">
+                    selo-ano-2026-- (9).png
+                    <span class="type-badge image-badge">PNG</span>
+                </div>
+                <div class="item-details">
+                    <div class="file-date">
+                        <i class="far fa-calendar"></i> 12/08/2025
+                    </div>
+                    <div class="file-size">4.9 MB</div>
+                </div>
+                <div class="button-group">
+                    <a href="selo-ano-2026--%20%289%29.png" target="_blank" class="btn btn-view">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <a href="selo-ano-2026--%20%289%29.png" download class="btn btn-download">
+                        <i class="fas fa-download"></i> Baixar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><i class="fas fa-server"></i> Servidor de Arquivos - Galeria Visual</p>
+            <p>Última atualização do diretório: <span class="last-updated">13 de Dezembro de 2025</span></p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #64b5f6;">
+                Total de itens: <strong>9</strong> | Tamanho total: <strong>aproximadamente 44.0 MB</strong>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calcular tamanho total
+            const fileSizes = document.querySelectorAll('.file-size');
+            let totalBytes = 0;
+            
+            fileSizes.forEach(el => {
+                const text = el.textContent;
+                if (text.includes('KB')) {
+                    const kb = parseFloat(text.replace(' KB', ''));
+                    totalBytes += kb * 1024;
+                } else if (text.includes('MB')) {
+                    const mb = parseFloat(text.replace(' MB', ''));
+                    totalBytes += mb * 1048576;
+                } else if (text.includes('B')) {
+                    const b = parseFloat(text.replace(' B', ''));
+                    totalBytes += b;
+                }
+            });
+            
+            // Formatar tamanho total
+            let totalFormatted;
+            if (totalBytes < 1024) {
+                totalFormatted = totalBytes + ' B';
+            } else if (totalBytes < 1048576) {
+                totalFormatted = (totalBytes / 1024).toFixed(1) + ' KB';
+            } else {
+                totalFormatted = (totalBytes / 1048576).toFixed(1) + ' MB';
+            }
+            
+            // Atualizar estatísticas
+            document.getElementById('total-size').textContent = totalFormatted;
+            document.querySelector('footer p:last-child strong:last-child').textContent = `aproximadamente ${totalFormatted}`;
+        });
+    </script>
+</body>
+</html>
