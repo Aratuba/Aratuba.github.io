@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Mídias · IntelIGENTES 9º ano</title>
+    <!-- Fonte suave -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #e8e2f5 0%, #d2c6e8 100%);
+            font-family: 'Quicksand', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #2f2b4a;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 48px 48px 36px 36px;
+            box-shadow: 0 20px 40px -15px #564b81;
+            padding: 2rem 2rem 2.5rem;
+            border: 2px solid #d8cdf0;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #433b68;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 0.3rem;
+            border-left: 14px solid #9f8fcf;
+            padding-left: 28px;
+        }
+        h1 i {
+            font-size: 3rem;
+            color: #6b5a9c;
+            background: #ede7ff;
+            padding: 12px;
+            border-radius: 60px;
+            box-shadow: 0 4px 8px #b09ed9;
+        }
+        .subhead {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            margin-top: 0.2rem;
+            padding-left: 40px;
+            color: #54487a;
+            background: #e3dafc;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 60px;
+        }
+        .bimestre-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .card {
+            flex: 1 1 260px;
+            background: white;
+            border-radius: 32px;
+            padding: 1.4rem 1.2rem 1.8rem;
+            box-shadow: 0 10px 18px -6px #7569a2;
+            transition: transform 0.2s ease;
+            border: 1px solid #cfc1ec;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 30px -14px #5a4f85;
+        }
+        .bimestre-titulo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #554787, #7a68b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.2rem;
+            border-bottom: 3px dashed #bfb0e2;
+            padding-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bimestre-titulo i {
+            background: none;
+            -webkit-text-fill-color: #554787;
+            color: #554787;
+            font-size: 2rem;
+        }
+        .aula-lista {
+            list-style: none;
+            margin: 0 0 0.8rem 0;
+            flex-grow: 1;
+        }
+        .aula-item {
+            margin-bottom: 1.4rem;
+            padding: 0.8rem 0.8rem 0.9rem 0.8rem;
+            background: #f5f1fe;
+            border-radius: 22px;
+            border-left: 5px solid #9f8fcf;
+            box-shadow: inset 0 1px 4px #ddd2f0;
+            transition: background 0.15s;
+        }
+        .aula-item:hover {
+            background: #ece4ff;
+        }
+        .aula-num {
+            font-weight: 700;
+            color: #5d4b92;
+            background: #d9ccf5;
+            padding: 0.15rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .aula-num i {
+            font-size: 0.8rem;
+            margin-right: 4px;
+        }
+        .titulo-aula {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #3c315c;
+            margin: 0.4rem 0 0.5rem;
+        }
+        .midia-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e2d8fc;
+            color: #4f3f7c;
+            padding: 0.25rem 1rem 0.25rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0.3rem 0 0.5rem;
+            border: 1px solid #b09ed9;
+        }
+        .detalhe-midia {
+            background: #f2eafd;
+            padding: 0.7rem 0.9rem;
+            border-radius: 18px;
+            margin: 8px 0 0;
+            font-size: 0.9rem;
+            color: #3d3460;
+            border: 1px solid #cdbcf2;
+        }
+        .detalhe-midia i {
+            color: #7d68b0;
+            width: 22px;
+        }
+        .link-externo {
+            color: #4a3985;
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-word;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #e2d8fc;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+        .link-externo:hover {
+            background: #cdbef2;
+            text-decoration: underline;
+        }
+        hr {
+            border: 1px solid #ccbeea;
+            margin: 0.5rem 0 1rem;
+        }
+        .legenda-final {
+            margin-top: 3rem;
+            background: #e9e0fc;
+            border-radius: 100px;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 1.15rem;
+            border: 2px dotted #9f8fcf;
+            color: #3f3763;
+        }
+        .nota {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>
+        <i class="fas fa-infinity"></i> 
+        Filmes & mídias · IntelIGENTES 9º ano
+    </h1>
+    <div class="subhead">
+        <i class="fas fa-feather-alt"></i>  símbolo: infinito – recursos por bimestre
+    </div>
+
+    <div class="bimestre-grid">
+        <!-- 1º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-1"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 01</span>
+                    <div class="titulo-aula">Relembrando o ano</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">animada (qualquer)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 03</span>
+                    <div class="titulo-aula">Rito de iniciação</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> relaxante</span>
+                    <div class="detalhe-midia">música suave</div>
+                    <span class="midia-badge"><i class="fas fa-image"></i> imagens</span>
+                    <div class="detalhe-midia">pontes (para reflexão)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 05</span>
+                    <div class="titulo-aula">Férias inesquecíveis</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">(não especificada)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 10·11·12</span>
+                    <div class="titulo-aula">Dois irmãos: uma jornada fantástica</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Onward (2020) – 102 min</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> tema</span>
+                    <div class="detalhe-midia">"Relax" – Melim (discussão)</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=tHRiiGUK7-Q" target="_blank">youtube.com/watch?v=tHRiiGUK7-Q</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 13</span>
+                    <div class="titulo-aula">Autogerenciamento: foco em soluções</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> Lo-fi beats</span>
+                    <div class="detalhe-midia">música instrumental</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=lhqSIwPUahE" target="_blank">youtube.com/watch?v=lhqSIwPUahE</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 17</span>
+                    <div class="titulo-aula">Sentindo a essência da vida</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> relaxante</span>
+                    <div class="detalhe-midia">música ambiente</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 2º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-2"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 01</span>
+                    <div class="titulo-aula">Você e o infinito</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Trancelim" (recordação)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 02</span>
+                    <div class="titulo-aula">#Avançando na vida</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> karaokê</span>
+                    <div class="detalhe-midia">palavras sorteadas (amor, futuro...)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 05</span>
+                    <div class="titulo-aula">Meu exercício de fortalecimento</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">"O pequeno sapo"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=ezCrX3gvVOM" target="_blank">youtube.com/watch?v=ezCrX3gvVOM</a>
+                    <span class="midia-badge"><i class="fas fa-music"></i> instrumental</span>
+                    <div class="detalhe-midia">calma / Lo-fi</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 06</span>
+                    <div class="titulo-aula">Como eu leio o mundo?</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Meu abrigo" – Melim</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=gUpGTRR4Tt4" target="_blank">youtube.com/watch?v=gUpGTRR4Tt4</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 07</span>
+                    <div class="titulo-aula">Conexões que aproximam</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Pela internet II" – Gilberto Gil</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=X6BA_9cYhpA" target="_blank">youtube.com/watch?v=X6BA_9cYhpA</a>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">Bráulio Bessa – Redes Sociais</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=M2NLC4KLAYw" target="_blank">youtube.com/watch?v=M2NLC4KLAYw</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 09·10·11</span>
+                    <div class="titulo-aula">Soul – Uma aventura com alma</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Soul (2020) – 100 min</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 13</span>
+                    <div class="titulo-aula">Apresentação ação fortalecedora</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">animada / coreografia</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 15</span>
+                    <div class="titulo-aula">Qualidades, atitudes e valores</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Sem perceber" – Paula Santisteban</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=2lSGjs29xXM" target="_blank">youtube.com/watch?v=2lSGjs29xXM</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 16</span>
+                    <div class="titulo-aula">Conhecendo-me melhor</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Maior" – Dani Black e Milton Nascimento</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=mc1ANOYexII" target="_blank">youtube.com/watch?v=mc1ANOYexII</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 17</span>
+                    <div class="titulo-aula">Conhecendo-me melhor II</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">"Alike short film"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=kQitK32mGJQ" target="_blank">youtube.com/watch?v=kQitK32mGJQ</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-3"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 02</span>
+                    <div class="titulo-aula">Compartilhando flores</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Flores no Meu Jardim" – Planta & Raiz / Claudia Leite</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=2e2TdJvV46g" target="_blank">youtube.com/watch?v=2e2TdJvV46g</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 04</span>
+                    <div class="titulo-aula">Vamos falar sobre gratidão</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">(ambiente)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 06</span>
+                    <div class="titulo-aula">Aprendendo através da arte</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Tudo que for leve" – Alice Caymmi</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=BYoMvmx_TPo" target="_blank">youtube.com/watch?v=BYoMvmx_TPo</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 08·09·10</span>
+                    <div class="titulo-aula">Tá Dando Onda</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Surf's Up (2007) – 90 min</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 12</span>
+                    <div class="titulo-aula">Promovendo a paz</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">"Qualquer um"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=byHasknwxu8" target="_blank">youtube.com/watch?v=byHasknwxu8</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 13</span>
+                    <div class="titulo-aula">Validação: o poder de fazer o bem</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">"Validação – poder do elogio"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=PWSMOxOlOac&t=249s" target="_blank">youtube.com/watch?v=PWSMOxOlOac</a>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Não custa nada" – Paula Santisteban</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=3uhiizwmdqQ" target="_blank">youtube.com/watch?v=3uhiizwmdqQ</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 14</span>
+                    <div class="titulo-aula">Oportunidade é você quem cria</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">"Vida Maria"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=yFpoG_htum4" target="_blank">youtube.com/watch?v=yFpoG_htum4</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 4º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-4"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 01</span>
+                    <div class="titulo-aula">Minha caminhada inteligente</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"A vida é um rio" – Raffa Torres</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=iqj2wG_HoPw" target="_blank">youtube.com/watch?v=iqj2wG_HoPw</a>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Tudo Muda" – Guilherme Sousa</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=29wYaZk-6M8" target="_blank">youtube.com/watch?v=29wYaZk-6M8</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 02</span>
+                    <div class="titulo-aula">La Luna: além do exemplo</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> curta</span>
+                    <div class="detalhe-midia">"La luna" – Pixar</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=Pe7Uip-tX9Q" target="_blank">youtube.com/watch?v=Pe7Uip-tX9Q</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 03</span>
+                    <div class="titulo-aula">Avance sempre!</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> mídia</span>
+                    <div class="detalhe-midia">"Pequeno raio de esperança"</div>
+                    <a class="link-externo" href="https://youtu.be/Nhl1nH-Uzoo" target="_blank">youtu.be/Nhl1nH-Uzoo</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 04</span>
+                    <div class="titulo-aula">Autocompaixão</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> vídeo</span>
+                    <div class="detalhe-midia">"Autocompaixão e crítica severa"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=tQO37O2aZbQ" target="_blank">youtube.com/watch?v=tQO37O2aZbQ</a>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Seja Gentil" – Kell Smith</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=PtqFDD_wuBA" target="_blank">youtube.com/watch?v=PtqFDD_wuBA</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 08·09·10</span>
+                    <div class="titulo-aula">Luca</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Luca (2021) – 101 min</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 12</span>
+                    <div class="titulo-aula">Travessia para o Ensino Médio</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Se for amor" – João Gomes</div>
+                    <a class="link-externo" href="https://youtu.be/G4QiIbfpsI0" target="_blank">youtu.be/G4QiIbfpsI0</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 13</span>
+                    <div class="titulo-aula">As asas dos sonhos</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> instrumental</span>
+                    <div class="detalhe-midia">relaxamento</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 18</span>
+                    <div class="titulo-aula">Passaporte carimbado</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Conquistando o Impossível" – Milton Costa</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=QatbYly6pTw" target="_blank">versão cantada</a>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=ujBTXHeBJIo" target="_blank">versão instrumental</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between; background: #ede7ff; border-radius: 32px; padding: 1.5rem;">
+        <div style="flex:1; min-width:200px;">
+            <i class="fas fa-infinity" style="color:#554787"></i> <strong>filmes principais (9º ano):</strong>
+            <ul style="margin-top:0.6rem; list-style-type:circle; padding-left:1.5rem;">
+                <li>Dois irmãos: uma jornada fantástica (2020)</li>
+                <li>Soul (2020)</li>
+                <li>Tá Dando Onda (2007)</li>
+                <li>Luca (2021)</li>
+            </ul>
+        </div>
+        <div style="flex:2; min-width:260px;">
+            <i class="fas fa-link"></i> <strong>links rápidos (destaques):</strong><br>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:8px; margin-top:10px;">
+                <a href="https://www.youtube.com/watch?v=tHRiiGUK7-Q" target="_blank">🎵 Relax (Melim)</a>
+                <a href="https://www.youtube.com/watch?v=ezCrX3gvVOM" target="_blank">🎬 Pequeno sapo</a>
+                <a href="https://www.youtube.com/watch?v=gUpGTRR4Tt4" target="_blank">🎵 Meu abrigo</a>
+                <a href="https://www.youtube.com/watch?v=X6BA_9cYhpA" target="_blank">🎵 Pela internet II</a>
+                <a href="https://www.youtube.com/watch?v=2e2TdJvV46g" target="_blank">🎵 Flores jardim</a>
+                <a href="https://www.youtube.com/watch?v=BYoMvmx_TPo" target="_blank">🎵 Tudo que for leve</a>
+                <a href="https://www.youtube.com/watch?v=byHasknwxu8" target="_blank">🎬 Qualquer um</a>
+                <a href="https://www.youtube.com/watch?v=PWSMOxOlOac" target="_blank">🎬 Validação</a>
+                <a href="https://www.youtube.com/watch?v=yFpoG_htum4" target="_blank">🎬 Vida Maria</a>
+                <a href="https://www.youtube.com/watch?v=Pe7Uip-tX9Q" target="_blank">🎬 La Luna</a>
+                <a href="https://www.youtube.com/watch?v=PtqFDD_wuBA" target="_blank">🎵 Seja Gentil</a>
+                <a href="https://youtu.be/G4QiIbfpsI0" target="_blank">🎵 Se for amor</a>
+                <a href="https://www.youtube.com/watch?v=QatbYly6pTw" target="_blank">🎵 Conquistando</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="legenda-final">
+        <i class="fas fa-infinity"></i>  infinito de aprendizagens – todos os recursos para o 9º ano  <i class="fas fa-feather-alt"></i>
+    </div>
+    <div class="nota">* links baseados nos planos de aula (acesso nov/2023).</div>
+</div>
+</body>
+</html>

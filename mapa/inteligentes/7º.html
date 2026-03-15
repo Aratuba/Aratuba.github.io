@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Mídias · IntelIGENTES 7º ano</title>
+    <!-- Fonte suave -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #eaf2e1 0%, #d9e9cf 100%);
+            font-family: 'Quicksand', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e3a2f;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 48px 48px 36px 36px;
+            box-shadow: 0 20px 40px -15px #2d4d3b;
+            padding: 2rem 2rem 2.5rem;
+            border: 2px solid #cfe3d0;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #1d5e3f;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 0.3rem;
+            border-left: 14px solid #7bb86c;
+            padding-left: 28px;
+        }
+        h1 i {
+            font-size: 3rem;
+            color: #2b7340;
+            background: #e0f0da;
+            padding: 12px;
+            border-radius: 60px;
+            box-shadow: 0 4px 8px #7bb86c66;
+        }
+        .subhead {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            margin-top: 0.2rem;
+            padding-left: 40px;
+            color: #2d6247;
+            background: #d8eed2;
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 60px;
+        }
+        .bimestre-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .card {
+            flex: 1 1 260px;
+            background: white;
+            border-radius: 32px;
+            padding: 1.4rem 1.2rem 1.8rem;
+            box-shadow: 0 10px 18px -6px #3a5e4b;
+            transition: transform 0.2s ease;
+            border: 1px solid #bcddb0;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 26px 30px -14px #517a5c;
+        }
+        .bimestre-titulo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2b7340, #528a5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.2rem;
+            border-bottom: 3px dashed #9fd09c;
+            padding-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bimestre-titulo i {
+            background: none;
+            -webkit-text-fill-color: #2b7340;
+            color: #2b7340;
+            font-size: 2rem;
+        }
+        .aula-lista {
+            list-style: none;
+            margin: 0 0 0.8rem 0;
+            flex-grow: 1;
+        }
+        .aula-item {
+            margin-bottom: 1.4rem;
+            padding: 0.8rem 0.8rem 0.9rem 0.8rem;
+            background: #f2fae9;
+            border-radius: 22px;
+            border-left: 5px solid #7bb86c;
+            box-shadow: inset 0 1px 4px #cbdeb3;
+            transition: background 0.15s;
+        }
+        .aula-item:hover {
+            background: #e4f3da;
+        }
+        .aula-num {
+            font-weight: 700;
+            color: #1f673a;
+            background: #c6e7bc;
+            padding: 0.15rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .aula-num i {
+            font-size: 0.8rem;
+            margin-right: 4px;
+        }
+        .titulo-aula {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1b4e32;
+            margin: 0.4rem 0 0.5rem;
+        }
+        .midia-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #bfe0b5;
+            color: #145a2b;
+            padding: 0.25rem 1rem 0.25rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0.3rem 0 0.5rem;
+            border: 1px solid #8fc18b;
+        }
+        .detalhe-midia {
+            background: #eaf3e2;
+            padding: 0.7rem 0.9rem;
+            border-radius: 18px;
+            margin: 8px 0 0;
+            font-size: 0.9rem;
+            color: #1c4129;
+            border: 1px solid #b3d9a8;
+        }
+        .detalhe-midia i {
+            color: #3b8040;
+            width: 22px;
+        }
+        .link-externo {
+            color: #145a2b;
+            text-decoration: none;
+            font-weight: 600;
+            word-break: break-word;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #d3ebc9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            margin-top: 6px;
+            font-size: 0.85rem;
+        }
+        .link-externo:hover {
+            background: #b9ddaf;
+            text-decoration: underline;
+        }
+        hr {
+            border: 1px solid #c2e1b9;
+            margin: 0.5rem 0 1rem;
+        }
+        .legenda-final {
+            margin-top: 3rem;
+            background: #deefd4;
+            border-radius: 100px;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 1.15rem;
+            border: 2px dotted #7bb86c;
+            color: #1f4f31;
+        }
+        .nota {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>
+        <i class="fas fa-feather-alt"></i> 
+        Filmes & mídias · IntelIGENTES 7º ano
+    </h1>
+    <div class="subhead">
+        <i class="fas fa-tree"></i>  recursos audiovisuais por bimestre (símbolo: triângulo)
+    </div>
+
+    <div class="bimestre-grid">
+        <!-- 1º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-1"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 01</span>
+                    <div class="titulo-aula">Relembrando o ano</div>
+                    <span class="midia-badge"><i class="fas fa-headphones"></i> música animada</span>
+                    <div class="detalhe-midia">qualquer música adequada à faixa etária</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-video"></i> aula 02</span>
+                    <div class="titulo-aula">Desafio da amarelinha</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> vídeo</span>
+                    <div class="detalhe-midia">"Borboletinha" (passo a passo)</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=kD0Sc4-UwWU" target="_blank">youtu.be/kD0Sc4-UwWU</a>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Borboletinha" (versão ritmada)</div>
+                    <a class="link-externo" href="https://youtu.be/28iW_05qWfU" target="_blank">youtu.be/28iW_05qWfU</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 04</span>
+                    <div class="titulo-aula">Rito iniciação (pirâmide)</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música animada</span>
+                    <div class="detalhe-midia">qualquer música animada</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 06</span>
+                    <div class="titulo-aula">Como me percebo</div>
+                    <span class="midia-badge"><i class="fas fa-headphones"></i> sons da natureza</span>
+                    <div class="detalhe-midia">relaxante / sons da natureza</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 09·10·11</span>
+                    <div class="titulo-aula">Toy Story</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Toy Story (1995)</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> trilha</span>
+                    <div class="detalhe-midia">trilha sonora original</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=XGOMInB9tBQ" target="_blank">trilha (youtube)</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 15</span>
+                    <div class="titulo-aula">Conversando sobre valores</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Natiruts Reggae Power" – Natiruts</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=NtV94qNraTY" target="_blank">youtube.com/watch?v=NtV94qNraTY</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 2º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-2"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 01</span>
+                    <div class="titulo-aula">#JuntosSomosFortes</div>
+                    <span class="midia-badge"><i class="fas fa-headphones"></i> música</span>
+                    <div class="detalhe-midia">não especificada (qualquer animada)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fab fa-youtube"></i> aula 02</span>
+                    <div class="titulo-aula">Valeu, amigo!</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Valeu amigo" – Pikeno e Menor</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=ogXM3YOhtGc" target="_blank">youtube.com/watch?v=ogXM3YOhtGc</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 08·09·10</span>
+                    <div class="titulo-aula">Extraordinário</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Extraordinário (Wonder, 2017)</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> tema</span>
+                    <div class="detalhe-midia">"Brand new eyes"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=es4-uVKFEz4&t=23s" target="_blank">youtube.com/watch?v=es4-uVKFEz4</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 11</span>
+                    <div class="titulo-aula">Mostra a tua cara</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> músicas</span>
+                    <div class="detalhe-midia">"Dona de Mim" (Iza) / "Não Temos Tempo" / "Máscara" (Pitty)</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=FnGfgb_YNE8" target="_blank">Iza</a> 
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=EtueAk9ZAT8" target="_blank">Nossa Toca</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 14</span>
+                    <div class="titulo-aula">Meu guia de viagem</div>
+                    <span class="midia-badge"><i class="fas fa-headphones"></i> música</span>
+                    <div class="detalhe-midia">música instrumental</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 15</span>
+                    <div class="titulo-aula">Compartilhando guia</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Descobridor dos sete mares" – Lulu Santos</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=X6R3k1GF3xY" target="_blank">youtube (buscar)</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-video"></i> aula 17</span>
+                    <div class="titulo-aula">Haka (grito de força)</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> vídeo</span>
+                    <div class="detalhe-midia">"A evolução do Haka"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?time_continue=22&v=wrZau5O16Wo" target="_blank">youtube.com/watch?v=wrZau5O16Wo</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-3"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 01</span>
+                    <div class="titulo-aula">Como um girassol</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Como um girassol" – Cidade Negra / Tony Garrido</div>
+                    <a class="link-externo" href="https://youtu.be/Kt1MpsQ-jiA" target="_blank">youtu.be/Kt1MpsQ-jiA</a>
+                    <span class="midia-badge"><i class="fas fa-headphones"></i> música animada</span>
+                    <div class="detalhe-midia">(abertura)</div>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-headphones"></i> aula 02</span>
+                    <div class="titulo-aula">Quatro elementos</div>
+                    <span class="midia-badge"><i class="fas fa-headphones"></i> música</span>
+                    <div class="detalhe-midia">tranquila / relaxante (sugestão no plano)</div>
+                    <a class="link-externo" href="https://youtu.be/dZnm9FK9CFo" target="_blank">youtu.be/dZnm9FK9CFo</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 03</span>
+                    <div class="titulo-aula">Sementes do amanhã</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Girassol" – Kell Smith</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=w7ckG8Sz4dU" target="_blank">youtube.com/watch?v=w7ckG8Sz4dU</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 07·08·09·10</span>
+                    <div class="titulo-aula">Avatar</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">Avatar (2009) – 162 min</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> trilha</span>
+                    <div class="detalhe-midia">trilha sonora</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=3YDz-ftqr1g" target="_blank">youtube.com/watch?v=3YDz-ftqr1g</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 14</span>
+                    <div class="titulo-aula">Nossas atitudes ecológicas</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Mais um dia para agradecer" – Alex e Mancini</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=2sYXLJFf4SE" target="_blank">youtube.com/watch?v=2sYXLJFf4SE</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 16</span>
+                    <div class="titulo-aula">Fortalecendo os laços</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Laços" – Nando Reis e Ana Vilela</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=PQ5cNYyRsxg" target="_blank">youtube.com/watch?v=PQ5cNYyRsxg</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 18</span>
+                    <div class="titulo-aula">Germinando e florescendo</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> músicas</span>
+                    <div class="detalhe-midia">"Como um girassol", "Sementes do amanhã" (Gonzaguinha), "Girassol" (Kell Smith)</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=Mmg_sly8DEA" target="_blank">Gonzaguinha</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 20</span>
+                    <div class="titulo-aula">Autoavaliação</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Fico assim sem você" – Claudinho & Buchecha</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=E2Sr-e-vpWI" target="_blank">youtube.com/watch?v=E2Sr-e-vpWI</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 4º BIMESTRE -->
+        <div class="card">
+            <div class="bimestre-titulo"><i class="fas fa-4"></i>º BIMESTRE</div>
+            <ul class="aula-lista">
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-film"></i> aulas 10·11·12</span>
+                    <div class="titulo-aula">O Rei Leão</div>
+                    <span class="midia-badge"><i class="fas fa-video"></i> filme</span>
+                    <div class="detalhe-midia">O Rei Leão (2019) – 118 min</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Hakuna Matata"</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=2dvd9fh3Zqg" target="_blank">youtube.com/watch?v=2dvd9fh3Zqg</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 16</span>
+                    <div class="titulo-aula">Recriando sonhos</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Aquarela" – Toquinho</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=xT8HIiFQ8Y0" target="_blank">youtube.com/watch?v=xT8HIiFQ8Y0</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 17</span>
+                    <div class="titulo-aula">Planejando a celebração</div>
+                    <span class="midia-badge"><i class="fab fa-youtube"></i> vídeo</span>
+                    <div class="detalhe-midia">Os músicos de Bremen (conto)</div>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=ZUFEQLO9pws" target="_blank">youtube.com/watch?v=ZUFEQLO9pws</a>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Todos Juntos" – Chico Buarque (Saltimbancos)</div>
+                    <a class="link-externo" href="https://www.letras.mus.br/os-saltimbancos/275214/" target="_blank">letra</a>
+                    <a class="link-externo" href="https://www.youtube.com/watch?v=i1Yc7U3en9A" target="_blank">c/audio</a>
+                </li>
+                <li class="aula-item">
+                    <span class="aula-num"><i class="fas fa-music"></i> aula 20</span>
+                    <div class="titulo-aula">Celebração</div>
+                    <span class="midia-badge"><i class="fas fa-music"></i> música</span>
+                    <div class="detalhe-midia">"Todos Juntos" e paródias dos alunos</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between; background: #ecfae4; border-radius: 32px; padding: 1.5rem;">
+        <div style="flex:1; min-width:200px;">
+            <i class="fas fa-paw" style="color:#1d5e3f"></i> <strong>filmes principais:</strong>
+            <ul style="margin-top:0.6rem; list-style-type:circle; padding-left:1.5rem;">
+                <li>Toy Story (1995)</li>
+                <li>Extraordinário (2017)</li>
+                <li>Avatar (2009)</li>
+                <li>O Rei Leão (2019)</li>
+            </ul>
+        </div>
+        <div style="flex:2; min-width:260px;">
+            <i class="fas fa-link"></i> <strong>links rápidos (destaques):</strong><br>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:8px; margin-top:10px;">
+                <a href="https://www.youtube.com/watch?v=ogXM3YOhtGc" target="_blank">🎵 Valeu amigo</a>
+                <a href="https://www.youtube.com/watch?v=w7ckG8Sz4dU" target="_blank">🎵 Girassol</a>
+                <a href="https://www.youtube.com/watch?v=PQ5cNYyRsxg" target="_blank">🎵 Laços</a>
+                <a href="https://www.youtube.com/watch?v=Kt1MpsQ-jiA" target="_blank">🎵 Como um girassol</a>
+                <a href="https://www.youtube.com/watch?v=xT8HIiFQ8Y0" target="_blank">🎵 Aquarela</a>
+                <a href="https://www.youtube.com/watch?v=wrZau5O16Wo" target="_blank">🎬 Haka</a>
+                <a href="https://www.youtube.com/watch?v=2dvd9fh3Zqg" target="_blank">🎵 Hakuna Matata</a>
+                <a href="https://www.youtube.com/watch?v=i1Yc7U3en9A" target="_blank">🎵 Todos Juntos</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="legenda-final">
+        <i class="fas fa-tree"></i>  triângulo de aprendizagens – tudo reunido para o professor  <i class="fas fa-feather-alt"></i>
+    </div>
+    <div class="nota">* links baseados nos planos de aula (acesso out/nov 2023).</div>
+</div>
+</body>
+</html>
