@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando para Kahoot!</title>
+    
+    <!-- Redirecionamento via meta refresh (funciona mesmo com JavaScript desabilitado) -->
+    <meta http-equiv="refresh" content="5;url=https://kahoot.it">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #46178f, #6f2da8);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .delay {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ffd966;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #46178f;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Fallback para o contador via JavaScript */
+        .countdown {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kahoot!</h1>
+        <p>Preparando tudo para você entrar no jogo...</p>
+        
+        <div class="loader"></div>
+        
+        <div class="delay">
+            <span id="seconds">5</span> segundos
+        </div>
+        
+        <p class="countdown" id="countdownMessage">Redirecionando em instantes...</p>
+        
+        <a href="https://kahoot.it" class="button">Ir para Kahoot! agora</a>
+    </div>
+    
+    <script>
+        // Contador regressivo visual (opcional, apenas para melhor experiência)
+        let seconds = 5;
+        const secondsElement = document.getElementById('seconds');
+        const countdownMessage = document.getElementById('countdownMessage');
+        
+        const interval = setInterval(() => {
+            seconds--;
+            secondsElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(interval);
+                countdownMessage.textContent = 'Redirecionando agora!';
+            }
+        }, 1000);
+        
+        // O redirecionamento real já está garantido pela meta tag refresh
+        // Este script é apenas para o contador visual
+    </script>
+</body>
+</html>
