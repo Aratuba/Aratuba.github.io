@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>QR com frases</title>
+
+<style>
+  body {
+    font-family: Arial;
+    background: #f5f5f5;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .item {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  img {
+    width: 180px;
+  }
+
+  p {
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<h2>QR Codes com Frases (Texto puro)</h2>
+
+<div class="grid" id="lista"></div>
+
+<script>
+const frases = [
+"Que a luz da Páscoa ilumine o seu caminho e renove suas energias para enfrentar os desafios da vida.",
+"Que a ressurreição de Cristo nos inspire a seguir em frente, mesmo diante das adversidades.",
+"A Páscoa nos lembra que o amor de Deus é incondicional e que, mesmo nos momentos mais difíceis, podemos contar com Ele.",
+"Que nesta Páscoa possamos renovar nossas esperanças e acreditar que dias melhores virão.",
+"A Páscoa é uma oportunidade para refletir sobre nossas escolhas e mudar aquilo que não nos faz bem.",
+"Que a Páscoa traga paz e tranquilidade para os nossos corações e renove nossa fé em Deus.",
+"Que nesta Páscoa possamos ser mais generosos, solidários e amorosos com as pessoas ao nosso redor.",
+"A Páscoa é uma época de renovação, de deixar para trás aquilo que não nos faz bem e abraçar novas oportunidades.",
+"Que a Páscoa nos lembre da importância de valorizar as pequenas coisas da vida e de agradecer a Deus por cada uma delas.",
+"Que a Páscoa nos ensine a perdoar, a amar e a respeitar as diferenças.",
+"Que nesta Páscoa possamos renovar nossas energias e acreditar que dias melhores virão.",
+"A Páscoa é um momento de reflexão, de olhar para dentro de si e buscar a paz interior.",
+"Que a Páscoa nos lembre que o amor é o sentimento mais importante que podemos cultivar.",
+"Que nesta Páscoa possamos espalhar amor e esperança por onde passarmos.",
+"A Páscoa nos lembra que a vida é uma dádiva e que devemos aproveitá-la ao máximo.",
+"Que a Páscoa traga renovação para a nossa alma e nos ajude a enxergar o mundo de forma mais positiva.",
+"A Páscoa é um momento de reflexão, de renovar a fé e a esperança em dias melhores.",
+"Que nesta Páscoa possamos perdoar aqueles que nos magoaram e seguir em frente com o coração leve.",
+"A Páscoa nos lembra que o amor de Deus é maior do que qualquer coisa e que podemos contar com Ele sempre.",
+"Que a Páscoa nos ensine a ser mais pacientes, mais tolerantes e mais compreensivos com as pessoas ao nosso redor.",
+"Que nesta Páscoa possamos refletir sobre o verdadeiro sentido do perdão e aprender a perdoar a nós mesmos e aos outros.",
+"Que a Páscoa nos inspire a olhar para dentro de nós mesmos e encontrar a força necessária para superar nossos medos e desafios.",
+"Que a celebração da Páscoa nos lembre que a vida é um ciclo de renovação e que sempre há a possibilidade de começar de novo.",
+"Que nesta Páscoa possamos aprender a valorizar mais as pessoas que estão ao nosso redor e agradecer por sua presença em nossas vidas.",
+"Que a Páscoa nos ensine a ter mais compaixão pelos outros e a praticar a empatia diariamente.",
+"Que a celebração da Páscoa nos traga a paz interior e a serenidade necessárias para lidar com os desafios da vida.",
+"Que nesta Páscoa possamos refletir sobre nossas escolhas e nos comprometer a sermos pessoas melhores em todos os aspectos da vida.",
+"Que a Páscoa nos inspire a seguir em frente com fé e esperança, mesmo diante dos momentos mais difíceis.",
+"Que a celebração da Páscoa nos lembre que nunca estamos sozinhos e que sempre há um caminho de luz a seguir.",
+"Que nesta Páscoa possamos celebrar o amor em todas as suas formas e lembrar que ele é a força mais poderosa do universo."
+];
+
+const container = document.getElementById("lista");
+
+frases.forEach((frase, i) => {
+  let div = document.createElement("div");
+  div.className = "item";
+
+  let img = document.createElement("img");
+
+  // 🔥 Aqui está a diferença: o QR recebe a FRASE direto
+  img.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(frase);
+
+  let label = document.createElement("p");
+  label.innerText = (i+1);
+
+  div.appendChild(img);
+  div.appendChild(label);
+  container.appendChild(div);
+});
+</script>
+
+</body>
+</html>

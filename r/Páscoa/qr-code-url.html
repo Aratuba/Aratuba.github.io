@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>QR em lote</title>
+<style>
+  body { font-family: Arial; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  .item {
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h2>QR Codes de 1 até 30</h2>
+
+<div class="grid" id="lista"></div>
+
+<script>
+let container = document.getElementById("lista");
+
+for (let i = 1; i <= 30; i++) {
+  let url = `https://aratuba.abc.br/r/Páscoa/?n=${i}`;
+
+  let div = document.createElement("div");
+  div.className = "item";
+
+  let img = document.createElement("img");
+  img.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(url);
+
+  let label = document.createElement("p");
+  label.innerText = "nº " + i;
+
+  div.appendChild(img);
+  div.appendChild(label);
+  container.appendChild(div);
+}
+</script>
+
+</body>
+</html>
