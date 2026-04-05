@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>✨ Paz & Renovação | Mensagens de Páscoa ✨</title>
+    <!-- Fonts + Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff5e6 0%, #fee9f0 100%);
+            padding: 2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fundo decorativo suave */
+        body::before {
+            content: "🐣🐇🥚🌸🐰";
+            font-size: 130px;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            opacity: 0.08;
+            pointer-events: none;
+            white-space: pre;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "🌸🥚🐣🐇🌸";
+            font-size: 100px;
+            position: absolute;
+            top: 15px;
+            left: -15px;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .easter-container {
+            max-width: 780px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* CARD PRINCIPAL */
+        .easter-card {
+            background: rgba(255, 252, 245, 0.98);
+            backdrop-filter: blur(2px);
+            border-radius: 64px 48px 64px 48px;
+            box-shadow: 0 25px 40px -18px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem 2rem 2.2rem;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 215, 160, 0.7);
+        }
+
+        /* cabeçalho sempre visível (título) */
+        .easter-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .easter-header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #d45c2c, #f5a65b, #f7c56e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .easter-header h1 i {
+            background: none;
+            color: #f3a683;
+            font-size: 2rem;
+        }
+
+        .sub {
+            background: #fff0df;
+            color: #b45f2b;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* ÁREA DA MENSAGEM (quando exibida) */
+        .message-area {
+            background: #fffaf0;
+            border-radius: 48px;
+            padding: 2rem 2rem;
+            margin: 1.2rem 0 1.8rem;
+            box-shadow: inset 0 0 0 1px #fff2e2, 0 12px 20px -12px rgba(0, 0, 0, 0.15);
+            border-left: 8px solid #f7bc5b;
+            transition: 0.2s;
+        }
+
+        .message-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffe3bf;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #b6491a;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .phrase-text {
+            font-size: 1.55rem;
+            line-height: 1.45;
+            font-weight: 500;
+            color: #2f241b;
+        }
+
+        .phrase-text::before {
+            content: "“";
+            font-size: 2rem;
+            color: #f3a683;
+            margin-right: 6px;
+        }
+
+        .phrase-text::after {
+            content: "”";
+            font-size: 2rem;
+            color: #f3a683;
+            vertical-align: top;
+            margin-left: 6px;
+        }
+
+        /* BOTÃO VOLTAR (único elemento extra ao lado da frase) */
+        .back-button-wrapper {
+            text-align: center;
+            margin-top: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 2px solid #ffbc6e;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #c25d2c;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .btn-back:hover {
+            background: #fff1e0;
+            border-color: #ff9f3d;
+            color: #a53f10;
+            transform: translateY(-2px);
+        }
+
+        /* FORMULÁRIO (visível apenas quando NÃO há mensagem ativa) */
+        .form-section {
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .form-icon {
+            font-size: 3rem;
+            color: #f7bc5b;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-section h3 {
+            color: #ac6d3a;
+            margin: 8px 0 6px;
+            font-weight: 600;
+        }
+
+        .form-section p {
+            color: #aa7744;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-number {
+            flex: 2;
+            min-width: 180px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 2px solid #ffe0bc;
+            border-radius: 60px;
+            background: white;
+            text-align: center;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .input-number:focus {
+            border-color: #f7bc5b;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(247, 188, 91, 0.2);
+        }
+
+        .btn-easter {
+            background: linear-gradient(105deg, #f9b43a, #ff8c42);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-easter:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(105deg, #ffa559, #ff6e2e);
+            box-shadow: 0 10px 16px -8px rgba(0, 0, 0, 0.2);
+        }
+
+        .error-message {
+            color: #d9534f;
+            background: #ffe8e6;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .info-note {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.75rem;
+            color: #b58453;
+            background: #fff3e4;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 5px 16px;
+            border-radius: 40px;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 1px dashed #ffd9aa;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #cb8b54;
+        }
+
+        @media (max-width: 550px) {
+            .easter-card {
+                padding: 1.5rem;
+            }
+            .phrase-text {
+                font-size: 1.2rem;
+            }
+            .easter-header h1 {
+                font-size: 1.8rem;
+            }
+            .input-wrapper {
+                flex-direction: column;
+            }
+            .btn-easter {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="easter-container">
+    <div class="easter-card">
+        <div class="easter-header">
+            <h1>
+                <i class="fas fa-egg"></i> 
+                Páscoa de Luz 
+                <i class="fas fa-rabbit"></i>
+            </h1>
+            <div class="sub"><i class="fas fa-feather-alt"></i> Renove a alma · Paz & Esperança</div>
+        </div>
+
+        <!-- SEÇÃO DA MENSAGEM ATIVA (aparece apenas quando um número 1-30 é válido) -->
+        <div id="messageSection" style="display: none;">
+            <div class="message-area">
+                <div class="message-badge">
+                    <i class="fas fa-tag"></i> <span id="msgNumberLabel">Mensagem #0</span>
+                </div>
+                <div class="phrase-text" id="displayPhrase">
+                    Carregando mensagem pascal...
+                </div>
+            </div>
+            <div class="back-button-wrapper">
+                <button id="backToFormBtn" class="btn-back"><i class="fas fa-arrow-left"></i> Escolher outra mensagem</button>
+            </div>
+            <div class="info-note">
+                <i class="fas fa-link"></i> Compartilhe a mensagem: ?n=1 até 30 na URL
+            </div>
+        </div>
+
+        <!-- SEÇÃO DO FORMULÁRIO (aparece quando NÃO há mensagem válida ativa) -->
+        <div id="formSection">
+            <div class="form-section">
+                <div class="form-icon">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h3>✨ Receba uma mensagem especial ✨</h3>
+                <p>Digite um número de <strong>1 a 30</strong> e ganhe uma frase de Páscoa repleta de renovação.</p>
+                <div class="input-wrapper">
+                    <input type="number" id="numberInput" class="input-number" placeholder="Número da mensagem (1 a 30)" min="1" max="30" step="1">
+                    <button id="submitBtn" class="btn-easter"><i class="fas fa-feather-alt"></i> Ver mensagem</button>
+                </div>
+                <div id="formError" class="error-message" style="display: none;"></div>
+                <div class="info-note" style="margin-top: 1.2rem;">
+                    <i class="fas fa-egg"></i> Dica: use ?n=7 na URL para ir direto à sétima mensagem
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            🌸 <i class="fas fa-heart" style="color: #ff7e5e;"></i> Que a Páscoa ilumine seus caminhos <i class="fas fa-dove"></i> 🌸
+        </footer>
+    </div>
+</div>
+
+<script>
+    // ======================== LISTA DAS 30 FRASES DE PÁSCOA ========================
+    const frases = [
+        "Que a luz da Páscoa ilumine o seu caminho e renove suas energias para enfrentar os desafios da vida.",
+        "Que a ressurreição de Cristo nos inspire a seguir em frente, mesmo diante das adversidades.",
+        "A Páscoa nos lembra que o amor de Deus é incondicional e que, mesmo nos momentos mais difíceis, podemos contar com Ele.",
+        "Que nesta Páscoa possamos renovar nossas esperanças e acreditar que dias melhores virão.",
+        "A Páscoa é uma oportunidade para refletir sobre nossas escolhas e mudar aquilo que não nos faz bem.",
+        "Que a Páscoa traga paz e tranquilidade para os nossos corações e renove nossa fé em Deus.",
+        "Que nesta Páscoa possamos ser mais generosos, solidários e amorosos com as pessoas ao nosso redor.",
+        "A Páscoa é uma época de renovação, de deixar para trás aquilo que não nos faz bem e abraçar novas oportunidades.",
+        "Que a Páscoa nos lembre da importância de valorizar as pequenas coisas da vida e de agradecer a Deus por cada uma delas.",
+        "Que a Páscoa nos ensine a perdoar, a amar e a respeitar as diferenças.",
+        "Que nesta Páscoa possamos renovar nossas energias e acreditar que dias melhores virão.",
+        "A Páscoa é um momento de reflexão, de olhar para dentro de si e buscar a paz interior.",
+        "Que a Páscoa nos lembre que o amor é o sentimento mais importante que podemos cultivar.",
+        "Que nesta Páscoa possamos espalhar amor e esperança por onde passarmos.",
+        "A Páscoa nos lembra que a vida é uma dádiva e que devemos aproveitá-la ao máximo.",
+        "Que a Páscoa traga renovação para a nossa alma e nos ajude a enxergar o mundo de forma mais positiva.",
+        "A Páscoa é um momento de reflexão, de renovar a fé e a esperança em dias melhores.",
+        "Que nesta Páscoa possamos perdoar aqueles que nos magoaram e seguir em frente com o coração leve.",
+        "A Páscoa nos lembra que o amor de Deus é maior do que qualquer coisa e que podemos contar com Ele sempre.",
+        "Que a Páscoa nos ensine a ser mais pacientes, mais tolerantes e mais compreensivos com as pessoas ao nosso redor.",
+        "Que nesta Páscoa possamos refletir sobre o verdadeiro sentido do perdão e aprender a perdoar a nós mesmos e aos outros.",
+        "Que a Páscoa nos inspire a olhar para dentro de nós mesmos e encontrar a força necessária para superar nossos medos e desafios.",
+        "Que a celebração da Páscoa nos lembre que a vida é um ciclo de renovação e que sempre há a possibilidade de começar de novo.",
+        "Que nesta Páscoa possamos aprender a valorizar mais as pessoas que estão ao nosso redor e agradecer por sua presença em nossas vidas.",
+        "Que a Páscoa nos ensine a ter mais compaixão pelos outros e a praticar a empatia diariamente.",
+        "Que a celebração da Páscoa nos traga a paz interior e a serenidade necessárias para lidar com os desafios da vida.",
+        "Que nesta Páscoa possamos refletir sobre nossas escolhas e nos comprometer a sermos pessoas melhores em todos os aspectos da vida.",
+        "Que a Páscoa nos inspire a seguir em frente com fé e esperança, mesmo diante dos momentos mais difíceis.",
+        "Que a celebração da Páscoa nos lembre que nunca estamos sozinhos e que sempre há um caminho de luz a seguir.",
+        "Que nesta Páscoa possamos celebrar o amor em todas as suas formas e lembrar que ele é a força mais poderosa do universo."
+    ];
+
+    // Elementos DOM
+    const messageSection = document.getElementById('messageSection');
+    const formSectionElem = document.getElementById('formSection');
+    const displayPhrase = document.getElementById('displayPhrase');
+    const msgNumberLabel = document.getElementById('msgNumberLabel');
+    const backToFormBtn = document.getElementById('backToFormBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const numberInput = document.getElementById('numberInput');
+    const formErrorDiv = document.getElementById('formError');
+
+    // Função auxiliar: obter frase por número (1-index)
+    function getFraseByNumber(num) {
+        if (num >= 1 && num <= 30) {
+            return frases[num - 1];
+        }
+        return null;
+    }
+
+    // Mostrar apenas a mensagem (oculta o formulário completamente)
+    function showOnlyMessage(validNumber) {
+        const frase = getFraseByNumber(validNumber);
+        if (frase) {
+            displayPhrase.innerText = frase;
+            msgNumberLabel.innerText = `Mensagem #${validNumber} · Páscoa`;
+            messageSection.style.display = 'block';
+            formSectionElem.style.display = 'none';
+            // Limpa qualquer erro pendente no form
+            formErrorDiv.style.display = 'none';
+            formErrorDiv.innerText = '';
+        } else {
+            // Caso algo dê errado, volta ao formulário
+            showFormOnly();
+        }
+    }
+
+    // Mostrar apenas o formulário (oculta a mensagem)
+    function showFormOnly() {
+        messageSection.style.display = 'none';
+        formSectionElem.style.display = 'block';
+        if (numberInput) numberInput.value = '';
+        formErrorDiv.style.display = 'none';
+        formErrorDiv.innerText = '';
+    }
+
+    // Valida número e redireciona para a mesma página com ?n=xxx
+    // Isso recarrega e exibe apenas a mensagem conforme regra.
+    function redirectWithNumber(number, errorElement, inputField) {
+        if (isNaN(number) || number === null || number === "") {
+            if (errorElement) {
+                errorElement.innerText = "🐣 Digite um número válido (1 a 30).";
+                errorElement.style.display = 'block';
+            }
+            return false;
+        }
+        const numInt = parseInt(number, 10);
+        if (!Number.isInteger(numInt) || numInt < 1 || numInt > 30) {
+            if (errorElement) {
+                errorElement.innerText = "🌼 Número inválido! Escolha entre 1 e 30. 🌷";
+                errorElement.style.display = 'block';
+            }
+            if (inputField) inputField.value = '';
+            return false;
+        }
+        // Redireciona para a URL com o parâmetro 'n'
+        const url = new URL(window.location.href);
+        url.searchParams.set('n', numInt);
+        window.location.href = url.href;
+        return true;
+    }
+
+    // Lógica de carregamento inicial: analisa parâmetro n na URL
+    function handleInitialLoad() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const nParam = urlParams.get('n');
+        
+        // Se não houver parâmetro 'n' -> formulário
+        if (nParam === null || nParam.trim() === "") {
+            showFormOnly();
+            return;
+        }
+        
+        // Valida se o parâmetro é um número inteiro positivo entre 1 e 30
+        const parsed = parseInt(nParam, 10);
+        const isExactInteger = /^\d+$/.test(nParam.trim()); // evita 5.0, 5abc, etc
+        if (!isExactInteger || isNaN(parsed) || parsed < 1 || parsed > 30) {
+            // Valor inválido na URL -> mostra formulário com mensagem amigável
+            showFormOnly();
+            if (formErrorDiv) {
+                formErrorDiv.innerText = "🔔 O número na URL não é válido (use de 1 a 30). Insira um número abaixo:";
+                formErrorDiv.style.display = 'block';
+            }
+            return;
+        }
+        
+        // Número válido entre 1 e 30: exibe SOMENTE a mensagem, sem formulário
+        showOnlyMessage(parsed);
+    }
+
+    // Eventos: botão do formulário e botão "voltar"
+    function bindEvents() {
+        if (submitBtn) {
+            submitBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const rawValue = numberInput.value;
+                if (rawValue === "") {
+                    formErrorDiv.innerText = "🐰 Por favor, digite um número de 1 a 30.";
+                    formErrorDiv.style.display = 'block';
+                    return;
+                }
+                const num = parseInt(rawValue, 10);
+                redirectWithNumber(num, formErrorDiv, numberInput);
+            });
+        }
+        
+        // Botão voltar ao formulário (remove o parâmetro n da URL e recarrega)
+        if (backToFormBtn) {
+            backToFormBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = new URL(window.location.href);
+                url.searchParams.delete('n');
+                window.location.href = url.href;  // Recarrega a página sem o n, mostrando apenas o formulário
+            });
+        }
+        
+        // Enter no campo do formulário
+        if (numberInput) {
+            numberInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitBtn.click();
+                }
+            });
+        }
+    }
+    
+    // Inicialização
+    function init() {
+        bindEvents();
+        handleInitialLoad();
+    }
+    
+    init();
+</script>
+</body>
+</html>
