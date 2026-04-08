@@ -1,8 +1,8 @@
 @echo off
 setlocal
 
-set "LINK=https://wordwall.net/en-it/community/sports"
-set "ARQUIVO=redirecionar.html"
+set "LINK=https://duckduckgo.com/"
+set "ARQUIVO=d.html"
 set "DELAY=5"
 
 if exist "%ARQUIVO%" del "%ARQUIVO%"
