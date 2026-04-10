@@ -156,13 +156,13 @@
         <tbody id="parametros-body"></tbody>
     </table>
 
-    <button class="btn-geo" id="btnGeo" onclick="getLocation()">📍 Pegar localização automática</button>
+
     <div class="manual-coord">
         <span>Ou insira coordenadas (long,lat):</span>
         <input type="text" id="manualCoords" placeholder="-48.12345,-21.98765" style="width:200px;">
         <button type="button" onclick="setManualCoords()" style="width:auto; padding:8px 15px; background:#5d6d7e;">Usar</button>
     </div>
-    <p id="geo">📍 Nenhuma coordenada definida</p>
+    <p id="geo">📍 Use coordenadas manuais</p>
 
     <button class="btn-calc" onclick="calcular()">📊 Calcular Pontuação</button>
     <p id="resultado"></p>
@@ -305,7 +305,7 @@
         // ========== GERAR KML ==========
         window.gerarKML = async function() {
             if (latAtual === null || lonAtual === null) {
-                alert("Defina a localização primeiro (automática ou manual).");
+                alert("Informe as coordenadas manualmente (longitude,latitude).");
                 return;
             }
             if (!resultadoFinal) {
