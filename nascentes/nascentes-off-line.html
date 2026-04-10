@@ -4,429 +4,245 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Avaliação de Nascente</title>
-<!-- Favicon local (coloque o icon.png na mesma pasta) -->
-<link rel="icon" href="icon.png" type="image/png">
+
 <style>
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #eef3f7;
-        padding: 20px;
-        margin: 0;
-    }
-    h1 { text-align: center; color: #1a5276; }
-    .container {
-        max-width: 950px;
-        margin: auto;
-        background: #fff;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 15px;
-        border: 1px solid #b0c4de;
-        border-radius: 6px;
-        box-sizing: border-box;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: white;
-    }
-    th, td {
-        border: 1px solid #aab7c4;
-        padding: 10px 5px;
-        text-align: center;
-        vertical-align: middle;
-    }
-    th {
-        background-color: #d4e6f1;
-        color: #154360;
-    }
-    .parametro {
-        text-align: left;
-        font-weight: 600;
-        background-color: #f8fbfd;
-        cursor: help;
-    }
-    input[type="radio"] {
-        accent-color: #2e86c1;
-        transform: scale(1.1);
-        margin: 5px;
-    }
-    button {
-        margin-top: 12px;
-        padding: 12px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        width: 100%;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.2s;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .btn-geo { background: #3498db; color: #fff; }
-    .btn-geo:hover { background: #2e86c1; }
-    .btn-calc { background: #2ecc71; color: #fff; }
-    .btn-calc:hover { background: #27ae60; }
-    .btn-kml { background: #9b59b6; color: #fff; }
-    .btn-kml:hover { background: #8e44ad; }
-    button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    #resultado {
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 1.2em;
-        padding: 10px;
-        background: #eaf2f8;
-        border-radius: 8px;
-        text-align: center;
-    }
-    #progresso {
-        margin-top: 5px;
-        font-size: 14px;
-        color: #2c3e50;
-    }
-    #geo {
-        margin-top: 8px;
-        font-family: monospace;
-        background: #f0f0f0;
-        padding: 6px;
-        border-radius: 4px;
-        display: inline-block;
-    }
-    .info-box {
-        background: #dfefff;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        border-left: 6px solid #2980b9;
-    }
-    small {
-        color: #555;
-    }
-    .manual-coord {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #eef3f7;
+    padding: 20px;
+    margin: 0;
+}
+h1 { text-align: center; color: #1a5276; }
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    border: 1px solid #b0c4de;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #aab7c4;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #d4e6f1;
+}
+
+.parametro {
+    text-align: left;
+    font-weight: bold;
+}
+
+small {
+    display: block;
+    font-size: 12px;
+    color: #555;
+}
+
+button {
+    margin-top: 12px;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-calc { background: #2ecc71; color: #fff; }
+.btn-kml { background: #9b59b6; color: #fff; }
+
+#resultado {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#geo {
+    background: #f0f0f0;
+    padding: 6px;
+    border-radius: 4px;
+}
 </style>
 </head>
+
 <body>
 <div class="container">
-    <h1>🌿 Avaliação de Nascente</h1>
-    <div class="info-box">
-        <b>📋 Como preencher:</b><br>
-        • <b>1 = Ruim</b> (pior condição)<br>
-        • <b>2 = Médio</b> (condição intermediária)<br>
-        • <b>3 = Bom</b> (melhor condição)
-    </div>
 
-    <label>🏷️ Nome / Localidade:</label>
-    <input type="text" id="localidade" placeholder="Ex: Nascente do Ribeirão">
+<h1>🌿 Avaliação de Nascente</h1>
 
-    <label>👤 Coletor:</label>
-    <input type="text" id="coletor" placeholder="Nome do responsável">
+<label>🏷️ Nome / Localidade:</label>
+<input type="text" id="localidade">
 
-    <label>📝 Observações:</label>
-    <textarea id="obs" rows="2" placeholder="Condições do tempo, intervenções..."></textarea>
+<label>👤 Coletor:</label>
+<input type="text" id="coletor">
 
-    <label>📸 Fotos (URLs públicas, uma por linha):</label>
-    <textarea id="fotos" rows="2" placeholder="https://exemplo.com/foto1.jpg"></textarea>
+<label>📝 Observações:</label>
+<textarea id="obs"></textarea>
 
-    <p id="progresso"></p>
+<label>📸 Fotos (URLs):</label>
+<textarea id="fotos"></textarea>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Parâmetro</th>
-                <th>Ruim<br><small>(1)</small></th>
-                <th>Médio<br><small>(2)</small></th>
-                <th>Bom<br><small>(3)</small></th>
-            </tr>
-        </thead>
-        <tbody id="parametros-body"></tbody>
-    </table>
+<!-- POTÁVEL DEPOIS -->
+<label>💧 A água é potável? (após análise)</label>
+<select id="potavelDepois">
+<option value="">Selecione...</option>
+<option>Sim</option>
+<option>Não</option>
+</select>
 
+<!-- POTÁVEL ANTES -->
+<label>💧 A água é potável? (antes da avaliação)</label>
+<select id="potavelAntes">
+<option value="">Selecione...</option>
+<option>Sim</option>
+<option>Não</option>
+</select>
 
-    <div class="manual-coord">
-        <span>Ou insira coordenadas (long,lat):</span>
-        <input type="text" id="manualCoords" placeholder="-48.12345,-21.98765" style="width:200px;">
-        <button type="button" onclick="setManualCoords()" style="width:auto; padding:8px 15px; background:#5d6d7e;">Usar</button>
-    </div>
-    <p id="geo">
-📍 Informe: longitude,latitude<br>
-<small>Ex: -39.0000000,-4.0000000</small>
-</p>
+<table>
+<thead>
+<tr>
+<th>Parâmetro</th>
+<th>Ruim<br><small>(1)</small></th>
+<th>Médio<br><small>(2)</small></th>
+<th>Bom<br><small>(3)</small></th>
+</tr>
+</thead>
+<tbody id="parametros-body"></tbody>
+</table>
 
-    <button class="btn-calc" onclick="calcular()">📊 Calcular Pontuação</button>
-    <p id="resultado"></p>
+<input type="text" id="manualCoords" placeholder="-39.0000000,-4.0000000">
+<button onclick="setManualCoords()">Usar coordenadas</button>
 
-    <button class="btn-kml" id="btnKml" onclick="gerarKML()">🗺️ Exportar KML</button>
-    <p style="font-size:0.9em; color:#666; margin-top:8px;">
-        ⚠️ Os ícones do KML são carregados de <code>aratuba.abc.br</code> (online).
-    </p>
+<p id="geo">📍 Informe: longitude,latitude</p>
+
+<button class="btn-calc" onclick="calcular()">Calcular</button>
+<p id="resultado"></p>
+
+<button class="btn-kml" onclick="gerarKML()">Exportar KML</button>
+
 </div>
 
 <script>
-    (function() {
-        // ========== DEFINIÇÃO DOS PARÂMETROS ==========
-        const parametros = [
-            {nome:"Cor da água", opcoes:["escura","clara","transparente"]},
-            {nome:"Odor da água", opcoes:["forte","com odor","ausente"]},
-            {nome:"Resíduo ao redor", opcoes:["muito","pouco","ausente"]},
-            {nome:"Materiais flutuantes", opcoes:["muito","pouco","ausente"]},
-            {nome:"Espumas", opcoes:["muito","pouco","ausente"]},
-            {nome:"Óleos", opcoes:["muito","pouco","ausente"]},
-            {nome:"Esgoto", opcoes:["visível","provável","ausente"]},
-            {nome:"Vegetação", opcoes:["degradada","alterada","bom estado"]},
-            {nome:"Regeneração", opcoes:["ausente","moderada","presente"]},
-            {nome:"Erosão", opcoes:["acentuada","moderada","ausente"]},
-            {nome:"Uso por animais", opcoes:["constante","esporádico","ausente"]},
-            {nome:"Uso por humanos", opcoes:["constante","esporádico","ausente"]},
-            {nome:"Proteção", opcoes:["sem proteção","com acesso","sem acesso"]},
-            {nome:"Acesso", opcoes:["fácil","difícil","sem acesso"]},
-            {nome:"Proximidade", opcoes:["< 50m","50–100m","> 100m"]},
-            {nome:"Área", opcoes:["sem info","privada","protegida"]}
-        ];
 
-        const tbody = document.getElementById("parametros-body");
-        parametros.forEach(p => {
-            let row = `<tr><td class="parametro" title="${p.nome}">${p.nome}</td>`;
-            p.opcoes.forEach((opcao, i) => {
-                row += `<td><label><input type="radio" name="${p.nome}" value="${i+1}"><br><small>${opcao}</small></label></td>`;
-            });
-            row += "</tr>";
-            tbody.innerHTML += row;
-        });
+const parametros = [
+{nome:"Cor da água", opcoes:["escura","clara","transparente"]},
+{nome:"Odor da água", opcoes:["forte","com odor","ausente"]},
+{nome:"Resíduo ao redor", opcoes:["muito","pouco","ausente"]},
+{nome:"Materiais flutuantes", opcoes:["muito","pouco","ausente"]},
+{nome:"Espumas", opcoes:["muito","pouco","ausente"]},
+{nome:"Óleos", opcoes:["muito","pouco","ausente"]},
+{nome:"Esgoto", opcoes:["visível","provável","ausente"]},
+{nome:"Vegetação", opcoes:["degradada","alterada","bom estado"]},
+{nome:"Regeneração", opcoes:["ausente","moderada","presente"]},
+{nome:"Erosão", opcoes:["acentuada","moderada","ausente"]},
+{nome:"Uso por animais", opcoes:["constante","esporádico","ausente"]},
+{nome:"Uso por humanos", opcoes:["constante","esporádico","ausente"]},
+{nome:"Proteção", opcoes:["sem proteção","com acesso","sem acesso"]},
+{nome:"Acesso", opcoes:["fácil","difícil","sem acesso"]},
+{nome:"Proximidade", opcoes:["< 50m","50–100m","> 100m"]},
+{nome:"Área", opcoes:["sem info","privada","protegida"]}
+];
 
-        // Atualiza progresso sempre que algo muda
-        function atualizarProgresso() {
-            const marcados = document.querySelectorAll('#parametros-body input:checked').length;
-            document.getElementById("progresso").innerHTML = `✅ Preenchido: ${marcados}/${parametros.length}`;
-        }
-        document.addEventListener("change", atualizarProgresso);
-        atualizarProgresso(); // inicial
+const tbody = document.getElementById("parametros-body");
 
-        // Variáveis globais do módulo
-        let latAtual = null, lonAtual = null;
-        let resultadoFinal = null;
+parametros.forEach(p => {
+let row = `<tr><td class="parametro">${p.nome}</td>`;
 
-        // ========== GEOLOCALIZAÇÃO ==========
-        window.getLocation = function() {
-            const geoElem = document.getElementById("geo");
-            const btnGeo = document.getElementById("btnGeo");
-            
-            if (!navigator.geolocation) {
-                alert("Geolocalização não é suportada pelo seu navegador.");
-                return;
-            }
+p.opcoes.forEach((opcao, i) => {
+row += `
+<td>
+<label>
+<input type="radio" name="${p.nome}" value="${i+1}">
+<br>
+<small>${opcao}</small>
+</label>
+</td>`;
+});
 
-            btnGeo.disabled = true;
-            btnGeo.textContent = "⏳ Obtendo localização...";
-            geoElem.innerHTML = "📍 Aguardando GPS...";
+row += "</tr>";
+tbody.innerHTML += row;
+});
 
-            navigator.geolocation.getCurrentPosition(
-                pos => {
-                    latAtual = pos.coords.latitude;
-                    lonAtual = pos.coords.longitude;
-                    geoElem.innerHTML = `📍 Coordenadas: ${latAtual.toFixed(6)}, ${lonAtual.toFixed(6)}`;
-                    btnGeo.disabled = false;
-                    btnGeo.textContent = "📍 Pegar localização automática";
-                },
-                err => {
-                    btnGeo.disabled = false;
-                    btnGeo.textContent = "📍 Pegar localização automática";
-                    let msg = "Erro ao obter localização: ";
-                    switch(err.code) {
-                        case err.PERMISSION_DENIED: msg += "Permissão negada."; break;
-                        case err.POSITION_UNAVAILABLE: msg += "Posição indisponível."; break;
-                        case err.TIMEOUT: msg += "Tempo esgotado."; break;
-                        default: msg += "Erro desconhecido.";
-                    }
-                    geoElem.innerHTML = `❌ ${msg} Use as coordenadas manuais.`;
-                    console.warn(err);
-                },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-        };
+let lat=null, lon=null, resultadoFinal=null;
 
-        window.setManualCoords = function() {
-            const input = document.getElementById("manualCoords").value.trim();
-            const geoElem = document.getElementById("geo");
-            if (!input) {
-                alert("Insira as coordenadas no formato: longitude,latitude");
-                return;
-            }
-            const partes = input.split(',').map(s => parseFloat(s.trim()));
-            if (partes.length !== 2 || isNaN(partes[0]) || isNaN(partes[1])) {
-                alert("Formato inválido. Use: -48.12345,-21.98765");
-                return;
-            }
-            lonAtual = partes[0];
-            latAtual = partes[1];
-            geoElem.innerHTML = `📍 Coordenadas manuais: ${latAtual.toFixed(6)}, ${lonAtual.toFixed(6)}`;
-        };
+function setManualCoords(){
+let v = document.getElementById("manualCoords").value.split(",");
+lon=parseFloat(v[0]);
+lat=parseFloat(v[1]);
+document.getElementById("geo").innerText=`📍 ${lat}, ${lon}`;
+}
 
-        // ========== CÁLCULO ==========
-        window.calcular = function() {
-            const radios = document.querySelectorAll('#parametros-body input:checked');
-            if (radios.length < parametros.length) {
-                alert(`Preencha todos os parâmetros! (${radios.length}/${parametros.length})`);
-                return;
-            }
-            let total = 0;
-            radios.forEach(r => total += parseInt(r.value));
-            
-            let classe = "", desc = "";
-            if (total >= 46) { classe = "A"; desc = "Ótimo"; }
-            else if (total >= 43) { classe = "B"; desc = "Bom"; }
-            else if (total >= 40) { classe = "C"; desc = "Razoável"; }
-            else if (total >= 37) { classe = "D"; desc = "Ruim"; }
-            else { classe = "E"; desc = "Péssimo"; }
+function calcular(){
+let radios=document.querySelectorAll('#parametros-body input:checked');
 
-            resultadoFinal = { total, classe, desc };
-            document.getElementById("resultado").innerHTML = 
-                `📈 Pontuação: ${total} | Classe ${classe} (${desc})`;
-        };
+if(radios.length < parametros.length){
+alert("Preencha todos os parâmetros!");
+return;
+}
 
-        // ========== HASH SHA-256 ==========
-        async function sha256(msg) {
-            const buf = new TextEncoder().encode(msg);
-            const hash = await crypto.subtle.digest("SHA-256", buf);
-            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
-        }
+let total=0;
+radios.forEach(r=> total+=parseInt(r.value));
 
-        // ========== GERAR KML ==========
-        window.gerarKML = async function() {
-            if (latAtual === null || lonAtual === null) {
-                alert("Informe as coordenadas manualmente (longitude,latitude).");
-                return;
-            }
-            if (!resultadoFinal) {
-                alert("Calcule a pontuação antes de exportar.");
-                return;
-            }
+resultadoFinal = total;
 
-            const localidade = document.getElementById("localidade").value.trim() || "Sem nome";
-            const coletor = document.getElementById("coletor").value.trim() || "Não identificado";
-            const obs = document.getElementById("obs").value.trim() || "Nenhuma";
+document.getElementById("resultado").innerText=`Pontuação: ${total}`;
+}
 
-            // Captura valores dos parâmetros
-            let dados = {};
-            document.querySelectorAll('#parametros-body input:checked').forEach(r => dados[r.name] = r.value);
+async function gerarKML(){
 
-            // Processa fotos (apenas URLs não vazias)
-            const fotosTexto = document.getElementById("fotos").value;
-            let imagensHTML = "";
-            fotosTexto.split("\n").forEach(link => {
-                link = link.trim();
-                if (link !== "") {
-                    imagensHTML += `<img src="${link}" width="300" style="margin:5px;" /><br>`;
-                }
-            });
+if(!lat || !lon){
+alert("Informe coordenadas!");
+return;
+}
 
-            const data = new Date().toISOString().split("T")[0];
-            const coordsStr = `${lonAtual},${latAtual},0`;
-            // Hash completo SHA-256 para o nome do arquivo
-            const hashCompleto = await sha256(`${lonAtual},${latAtual}`);
-            const nomePlacemark = `${hashCompleto.substring(0,8)} (${data})`; // nome dentro do KML opcional
+const potavelAntes = document.getElementById("potavelAntes").value || "Não informado";
+const potavelDepois = document.getElementById("potavelDepois").value || "Não informado";
 
-            // Define URLs dos ícones por classe (online)
-            const icones = {
-        'A': 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png',
-        'B': 'http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png',
-        'C': 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
-        'D': 'http://maps.google.com/mapfiles/kml/pushpin/purple-pushpin.png',
-        'E': 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png'
-    };
+const local = document.getElementById("localidade").value || "Sem nome";
+const obs = document.getElementById("obs").value || "Nenhuma";
 
-
-            const kml = `<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+const kml = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
 <Document>
-    <name>Avaliação de Nascente - ${localidade}</name>
-    <Style id="A">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['A']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="B">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['B']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="C">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['C']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="D">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['D']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="E">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['E']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Placemark>
-        <name>${nomePlacemark}</name>
-        <styleUrl>#${resultadoFinal.classe}</styleUrl>
-        <description><![CDATA[
-            <div style="font-family: Arial; max-width:400px;">
-                <h3>${localidade}</h3>
-                <p><b>Pontuação:</b> ${resultadoFinal.total} / 48</p>
-                <p><b>Classe:</b> ${resultadoFinal.classe} (${resultadoFinal.desc})</p>
-                <p><b>Data:</b> ${data}</p>
-                <p><b>Coletor:</b> ${coletor}</p>
-                <p><b>Observações:</b> ${obs}</p>
-                <hr>
-                ${imagensHTML || '<p>Sem fotos registradas.</p>'}
-            </div>
-        ]]></description>
-        <Point>
-            <coordinates>${coordsStr}</coordinates>
-        </Point>
-        <ExtendedData>
-            ${Object.entries(dados).map(([k,v]) => `<Data name="${k.replace(/"/g,'&quot;')}"><value>${v}</value></Data>`).join("")}
-            <Data name="localidade"><value>${localidade}</value></Data>
-            <Data name="coletor"><value>${coletor}</value></Data>
-            <Data name="observacoes"><value>${obs}</value></Data>
-            <Data name="classe_final"><value>${resultadoFinal.classe} - ${resultadoFinal.desc}</value></Data>
-        </ExtendedData>
-    </Placemark>
+<Placemark>
+<name>${local}</name>
+<description><![CDATA[
+<b>Potável antes:</b> ${potavelAntes}<br>
+<b>Potável depois:</b> ${potavelDepois}<br>
+<b>Pontuação:</b> ${resultadoFinal}<br>
+<b>Observações:</b> ${obs}
+]]></description>
+<Point><coordinates>${lon},${lat},0</coordinates></Point>
+</Placemark>
 </Document>
 </kml>`;
 
-            const blob = new Blob([kml], { type: "application/vnd.google-earth.kml+xml" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            // Nome do arquivo: hash (data).kml
-            a.download = `${hashCompleto} (${data}).kml`;
-            a.click();
-            URL.revokeObjectURL(a.href);
-        };
+const blob = new Blob([kml], {type:"application/vnd.google-earth.kml+xml"});
+const a = document.createElement("a");
+a.href = URL.createObjectURL(blob);
+a.download = "nascente.kml";
+a.click();
+}
 
-        // Atalho: Enter no campo manual
-        document.getElementById("manualCoords").addEventListener("keypress", (e) => {
-            if(e.key === "Enter") setManualCoords();
-        });
-    })();
 </script>
 </body>
 </html>
