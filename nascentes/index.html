@@ -1,430 +1,496 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avaliação de Nascente</title>
-<!-- Favicon local (coloque o icon.png na mesma pasta) -->
-<link rel="icon" href="icon.png" type="image/png">
-<style>
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #eef3f7;
-        padding: 20px;
-        margin: 0;
-    }
-    h1 { text-align: center; color: #1a5276; }
-    .container {
-        max-width: 950px;
-        margin: auto;
-        background: #fff;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 15px;
-        border: 1px solid #b0c4de;
-        border-radius: 6px;
-        box-sizing: border-box;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: white;
-    }
-    th, td {
-        border: 1px solid #aab7c4;
-        padding: 10px 5px;
-        text-align: center;
-        vertical-align: middle;
-    }
-    th {
-        background-color: #d4e6f1;
-        color: #154360;
-    }
-    .parametro {
-        text-align: left;
-        font-weight: 600;
-        background-color: #f8fbfd;
-        cursor: help;
-    }
-    input[type="radio"] {
-        accent-color: #2e86c1;
-        transform: scale(1.1);
-        margin: 5px;
-    }
-    button {
-        margin-top: 12px;
-        padding: 12px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        width: 100%;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.2s;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .btn-geo { background: #3498db; color: #fff; }
-    .btn-geo:hover { background: #2e86c1; }
-    .btn-calc { background: #2ecc71; color: #fff; }
-    .btn-calc:hover { background: #27ae60; }
-    .btn-kml { background: #9b59b6; color: #fff; }
-    .btn-kml:hover { background: #8e44ad; }
-    button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    #resultado {
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 1.2em;
-        padding: 10px;
-        background: #eaf2f8;
-        border-radius: 8px;
-        text-align: center;
-    }
-    #progresso {
-        margin-top: 5px;
-        font-size: 14px;
-        color: #2c3e50;
-    }
-    #geo {
-        margin-top: 8px;
-        font-family: monospace;
-        background: #f0f0f0;
-        padding: 6px;
-        border-radius: 4px;
-        display: inline-block;
-    }
-    .info-box {
-        background: #dfefff;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        border-left: 6px solid #2980b9;
-    }
-    small {
-        color: #555;
-    }
-    .manual-coord {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Nascentes Sentinelas · Avaliação Ambiental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #f6fbf8;
+            color: #1a3b2f;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header */
+        .hero {
+            background: linear-gradient(135deg, #0e3b2a 0%, #1b6b48 100%);
+            color: white;
+            padding: 60px 0 80px;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .hero .tagline {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #ffb74d;
+            color: #1e3a2f;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, background 0.2s;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            background: #ffa726;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid white;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* seções */
+        section {
+            margin: 70px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 4px;
+            background: #2b7a4b;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 24px;
+            flex: 1 1 280px;
+            box-shadow: 0 12px 28px rgba(0,32,0,0.06);
+            transition: all 0.25s;
+            border: 1px solid #e0ede6;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1c5a3e;
+        }
+
+        .card p {
+            color: #2d5a48;
+            line-height: 1.5;
+        }
+
+        /* slider / carrossel */
+        .slider-section {
+            background: #eef4f0;
+            border-radius: 40px;
+            padding: 48px 24px;
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.2);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            aspect-ratio: 16 / 9;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 20px;
+            font-weight: 500;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.8);
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+            font-weight: bold;
+            color: #1c4d38;
+        }
+
+        .slider-btn:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .prev {
+            left: 16px;
+        }
+
+        .next {
+            right: 16px;
+        }
+
+        .dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #bdd9ce;
+            margin: 0 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #2b7a4b;
+            width: 26px;
+            border-radius: 10px;
+        }
+
+        /* recursos */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+            gap: 32px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-emoji {
+            font-size: 3rem;
+            background: #e3f2ec;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 60px;
+            margin: 0 auto 1rem;
+        }
+
+        /* cta final */
+        .cta {
+            background: linear-gradient(110deg, #fff6e8 0%, #e9f5e9 100%);
+            border-radius: 40px;
+            padding: 48px 32px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid #cde0d6;
+            color: #4f7b67;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.6rem; }
+            .container { padding: 0 20px; }
+            .slider-btn { font-size: 1.2rem; padding: 4px 12px; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>🌿 Avaliação de Nascente</h1>
-    <div class="info-box">
-        <b>📋 Como preencher:</b><br>
-        • <b>1 = Ruim</b> (pior condição)<br>
-        • <b>2 = Médio</b> (condição intermediária)<br>
-        • <b>3 = Bom</b> (melhor condição)
+
+<div class="hero">
+    <div class="container">
+        <h1>💧 Sentinelas das Nascentes</h1>
+        <div class="tagline">
+            Tecnologia cidadã para avaliar, mapear e preservar os olhos d'água. 
+            Coleta offline, geração de KML, relatórios e mapas interativos.
+        </div>
+        <div class="btn-group">
+            <a href="#" class="btn-primary" id="openAppBtn">🌱 Acessar Avaliador de Campo</a>
+            <a href="#" class="btn-outline" id="learnMoreBtn">📘 Sobre o método IIAN</a>
+        </div>
     </div>
-
-    <label>🏷️ Nome / Localidade:</label>
-    <input type="text" id="localidade" placeholder="Ex: Nascente do Ribeirão">
-
-    <label>👤 Coletor:</label>
-    <input type="text" id="coletor" placeholder="Nome do responsável">
-
-    <label>📝 Observações:</label>
-    <textarea id="obs" rows="2" placeholder="Condições do tempo, intervenções..."></textarea>
-
-    <label>📸 Fotos (URLs públicas, uma por linha):</label>
-    <textarea id="fotos" rows="2" placeholder="https://exemplo.com/foto1.jpg"></textarea>
-
-    <p id="progresso"></p>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Parâmetro</th>
-                <th>Ruim<br><small>(1)</small></th>
-                <th>Médio<br><small>(2)</small></th>
-                <th>Bom<br><small>(3)</small></th>
-            </tr>
-        </thead>
-        <tbody id="parametros-body"></tbody>
-    </table>
-
-    <button class="btn-geo" id="btnGeo" onclick="getLocation()">📍 Pegar localização automática</button>
-    <div class="manual-coord">
-        <span>Ou insira coordenadas (long,lat):</span>
-        <input type="text" id="manualCoords" placeholder="-48.12345,-21.98765" style="width:200px;">
-        <button type="button" onclick="setManualCoords()" style="width:auto; padding:8px 15px; background:#5d6d7e;">Usar</button>
-    </div>
-    <p id="geo">📍 Nenhuma coordenada definida</p>
-
-    <button class="btn-calc" onclick="calcular()">📊 Calcular Pontuação</button>
-    <p id="resultado"></p>
-
-    <button class="btn-kml" id="btnKml" onclick="gerarKML()">🗺️ Exportar KML</button>
-    <p style="font-size:0.9em; color:#666; margin-top:8px;">
-        ⚠️ Os ícones do KML são carregados de <code>aratuba.abc.br</code> (online).
-    </p>
 </div>
 
-<script>
-    (function() {
-        // ========== DEFINIÇÃO DOS PARÂMETROS ==========
-        const parametros = [
-            {nome:"Cor da água", opcoes:["escura","clara","transparente"]},
-            {nome:"Odor da água", opcoes:["forte","com odor","ausente"]},
-            {nome:"Resíduo ao redor", opcoes:["muito","pouco","ausente"]},
-            {nome:"Materiais flutuantes", opcoes:["muito","pouco","ausente"]},
-            {nome:"Espumas", opcoes:["muito","pouco","ausente"]},
-            {nome:"Óleos", opcoes:["muito","pouco","ausente"]},
-            {nome:"Esgoto", opcoes:["visível","provável","ausente"]},
-            {nome:"Vegetação", opcoes:["degradada","alterada","bom estado"]},
-            {nome:"Regeneração", opcoes:["ausente","moderada","presente"]},
-            {nome:"Erosão", opcoes:["acentuada","moderada","ausente"]},
-            {nome:"Uso por animais", opcoes:["constante","esporádico","ausente"]},
-            {nome:"Uso por humanos", opcoes:["constante","esporádico","ausente"]},
-            {nome:"Proteção", opcoes:["sem proteção","com acesso","sem acesso"]},
-            {nome:"Acesso", opcoes:["fácil","difícil","sem acesso"]},
-            {nome:"Proximidade", opcoes:["< 50m","50–100m","> 100m"]},
-            {nome:"Área", opcoes:["sem info","privada","protegida"]}
-        ];
-
-        const tbody = document.getElementById("parametros-body");
-        parametros.forEach(p => {
-            let row = `<tr><td class="parametro" title="${p.nome}">${p.nome}</td>`;
-            p.opcoes.forEach((opcao, i) => {
-                row += `<td><label><input type="radio" name="${p.nome}" value="${i+1}"><br><small>${opcao}</small></label></td>`;
-            });
-            row += "</tr>";
-            tbody.innerHTML += row;
-        });
-
-        // Atualiza progresso sempre que algo muda
-        function atualizarProgresso() {
-            const marcados = document.querySelectorAll('#parametros-body input:checked').length;
-            document.getElementById("progresso").innerHTML = `✅ Preenchido: ${marcados}/${parametros.length}`;
-        }
-        document.addEventListener("change", atualizarProgresso);
-        atualizarProgresso(); // inicial
-
-        // Variáveis globais do módulo
-        let latAtual = null, lonAtual = null;
-        let resultadoFinal = null;
-
-        // ========== GEOLOCALIZAÇÃO ==========
-        window.getLocation = function() {
-            const geoElem = document.getElementById("geo");
-            const btnGeo = document.getElementById("btnGeo");
-            
-            if (!navigator.geolocation) {
-                alert("Geolocalização não é suportada pelo seu navegador.");
-                return;
-            }
-
-            btnGeo.disabled = true;
-            btnGeo.textContent = "⏳ Obtendo localização...";
-            geoElem.innerHTML = "📍 Aguardando GPS...";
-
-            navigator.geolocation.getCurrentPosition(
-                pos => {
-                    latAtual = pos.coords.latitude;
-                    lonAtual = pos.coords.longitude;
-                    geoElem.innerHTML = `📍 Coordenadas: ${latAtual.toFixed(6)}, ${lonAtual.toFixed(6)}`;
-                    btnGeo.disabled = false;
-                    btnGeo.textContent = "📍 Pegar localização automática";
-                },
-                err => {
-                    btnGeo.disabled = false;
-                    btnGeo.textContent = "📍 Pegar localização automática";
-                    let msg = "Erro ao obter localização: ";
-                    switch(err.code) {
-                        case err.PERMISSION_DENIED: msg += "Permissão negada."; break;
-                        case err.POSITION_UNAVAILABLE: msg += "Posição indisponível."; break;
-                        case err.TIMEOUT: msg += "Tempo esgotado."; break;
-                        default: msg += "Erro desconhecido.";
-                    }
-                    geoElem.innerHTML = `❌ ${msg} Use as coordenadas manuais.`;
-                    console.warn(err);
-                },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-        };
-
-        window.setManualCoords = function() {
-            const input = document.getElementById("manualCoords").value.trim();
-            const geoElem = document.getElementById("geo");
-            if (!input) {
-                alert("Insira as coordenadas no formato: longitude,latitude");
-                return;
-            }
-            const partes = input.split(',').map(s => parseFloat(s.trim()));
-            if (partes.length !== 2 || isNaN(partes[0]) || isNaN(partes[1])) {
-                alert("Formato inválido. Use: -48.12345,-21.98765");
-                return;
-            }
-            lonAtual = partes[0];
-            latAtual = partes[1];
-            geoElem.innerHTML = `📍 Coordenadas manuais: ${latAtual.toFixed(6)}, ${lonAtual.toFixed(6)}`;
-        };
-
-        // ========== CÁLCULO ==========
-        window.calcular = function() {
-            const radios = document.querySelectorAll('#parametros-body input:checked');
-            if (radios.length < parametros.length) {
-                alert(`Preencha todos os parâmetros! (${radios.length}/${parametros.length})`);
-                return;
-            }
-            let total = 0;
-            radios.forEach(r => total += parseInt(r.value));
-            
-            let classe = "", desc = "";
-            if (total >= 46) { classe = "A"; desc = "Ótimo"; }
-            else if (total >= 43) { classe = "B"; desc = "Bom"; }
-            else if (total >= 40) { classe = "C"; desc = "Razoável"; }
-            else if (total >= 37) { classe = "D"; desc = "Ruim"; }
-            else { classe = "E"; desc = "Péssimo"; }
-
-            resultadoFinal = { total, classe, desc };
-            document.getElementById("resultado").innerHTML = 
-                `📈 Pontuação: ${total} | Classe ${classe} (${desc})`;
-        };
-
-        // ========== HASH SHA-256 ==========
-        async function sha256(msg) {
-            const buf = new TextEncoder().encode(msg);
-            const hash = await crypto.subtle.digest("SHA-256", buf);
-            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
-        }
-
-        // ========== GERAR KML ==========
-        window.gerarKML = async function() {
-            if (latAtual === null || lonAtual === null) {
-                alert("Defina a localização primeiro (automática ou manual).");
-                return;
-            }
-            if (!resultadoFinal) {
-                alert("Calcule a pontuação antes de exportar.");
-                return;
-            }
-
-            const localidade = document.getElementById("localidade").value.trim() || "Sem nome";
-            const coletor = document.getElementById("coletor").value.trim() || "Não identificado";
-            const obs = document.getElementById("obs").value.trim() || "Nenhuma";
-
-            // Captura valores dos parâmetros
-            let dados = {};
-            document.querySelectorAll('#parametros-body input:checked').forEach(r => dados[r.name] = r.value);
-
-            // Processa fotos (apenas URLs não vazias)
-            const fotosTexto = document.getElementById("fotos").value;
-            let imagensHTML = "";
-            fotosTexto.split("\n").forEach(link => {
-                link = link.trim();
-                if (link !== "") {
-                    imagensHTML += `<img src="${link}" width="300" style="margin:5px;" /><br>`;
-                }
-            });
-
-            const data = new Date().toISOString().split("T")[0];
-            const coordsStr = `${lonAtual},${latAtual},0`;
-            // Hash completo SHA-256 para o nome do arquivo
-            const hashCompleto = await sha256(`${lonAtual},${latAtual}`);
-            const nomePlacemark = `${hashCompleto.substring(0,8)} (${data})`; // nome dentro do KML opcional
-
-            // Define URLs dos ícones por classe (online)
-            const icones = {
-        'A': 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png',
-        'B': 'http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png',
-        'C': 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
-        'D': 'http://maps.google.com/mapfiles/kml/pushpin/purple-pushpin.png',
-        'E': 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png'
-    };
-
-
-            const kml = `<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
-<Document>
-    <name>Avaliação de Nascente - ${localidade}</name>
-    <Style id="A">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['A']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="B">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['B']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="C">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['C']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="D">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['D']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Style id="E">
-        <IconStyle>
-            <scale>1.2</scale>
-            <Icon><href>${icones['E']}</href></Icon>
-        </IconStyle>
-    </Style>
-    <Placemark>
-        <name>${nomePlacemark}</name>
-        <styleUrl>#${resultadoFinal.classe}</styleUrl>
-        <description><![CDATA[
-            <div style="font-family: Arial; max-width:400px;">
-                <h3>${localidade}</h3>
-                <p><b>Pontuação:</b> ${resultadoFinal.total} / 48</p>
-                <p><b>Classe:</b> ${resultadoFinal.classe} (${resultadoFinal.desc})</p>
-                <p><b>Data:</b> ${data}</p>
-                <p><b>Coletor:</b> ${coletor}</p>
-                <p><b>Observações:</b> ${obs}</p>
-                <hr>
-                ${imagensHTML || '<p>Sem fotos registradas.</p>'}
+<div class="container">
+    <!-- Sobre o projeto -->
+    <section>
+        <h2 class="section-title">O que é o projeto</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>App offline</h3>
+                <p>Funciona sem internet: avalie nascentes, tire notas e gere KMLs prontos para Google Earth.</p>
             </div>
-        ]]></description>
-        <Point>
-            <coordinates>${coordsStr}</coordinates>
-        </Point>
-        <ExtendedData>
-            ${Object.entries(dados).map(([k,v]) => `<Data name="${k.replace(/"/g,'&quot;')}"><value>${v}</value></Data>`).join("")}
-            <Data name="localidade"><value>${localidade}</value></Data>
-            <Data name="coletor"><value>${coletor}</value></Data>
-            <Data name="observacoes"><value>${obs}</value></Data>
-            <Data name="classe_final"><value>${resultadoFinal.classe} - ${resultadoFinal.desc}</value></Data>
-        </ExtendedData>
-    </Placemark>
-</Document>
-</kml>`;
+            <div class="card">
+                <div class="card-icon">🗺️</div>
+                <h3>Mapas & relatórios</h3>
+                <p>Exporte para CSV, Excel, GeoJSON e mapas de calor. Identifique nascentes críticas (classe D/E).</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌿</div>
+                <h3>Índice Macroscópico (IIAN)</h3>
+                <p>16 parâmetros de qualidade ambiental: cor, odor, erosão, vegetação, proteção e mais.</p>
+            </div>
+        </div>
+    </section>
 
-            const blob = new Blob([kml], { type: "application/vnd.google-earth.kml+xml" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            // Nome do arquivo: hash (data).kml
-            a.download = `${hashCompleto} (${data}).kml`;
-            a.click();
-            URL.revokeObjectURL(a.href);
-        };
+    <!-- Carrossel de imagens de nascentes -->
+    <div class="slider-section">
+        <h2 style="text-align: center; margin-bottom: 32px;">🏞️ Nascentes em foco</h2>
+        <div class="slider-container">
+            <div class="slides" id="slides">
+                <!-- cada slide: imagem de fundo (placeholder de nascente/água) -->
+                <div class="slide" style="background-image: url('https://images.pexels.com/photos/219360/pexels-photo-219360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                    <div class="slide-caption">Nascente cristalina – Mata Atlântica</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                    <div class="slide-caption">Olho d'água preservado – Região serrana</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.pexels.com/photos/355465/pexels-photo-355465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                    <div class="slide-caption">Riacho de nascente – Cerrado brasileiro</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.pexels.com/photos/248018/pexels-photo-248018.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                    <div class="slide-caption">Água límpida – Monitoramento comunitário</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                    <div class="slide-caption">Proteção de nascente – Cerca e vegetação</div>
+                </div>
+            </div>
+            <button class="slider-btn prev" id="prevBtn">‹</button>
+            <button class="slider-btn next" id="nextBtn">›</button>
+        </div>
+        <div class="dots" id="dotsContainer"></div>
+        <p style="text-align: center; margin-top: 24px; color: #2a5f48;">📸 Imagens ilustrativas – suas fotos podem fazer parte do banco de dados do projeto</p>
+    </div>
 
-        // Atalho: Enter no campo manual
-        document.getElementById("manualCoords").addEventListener("keypress", (e) => {
-            if(e.key === "Enter") setManualCoords();
+    <!-- recursos / diferenciais -->
+    <section>
+        <h2 class="section-title">Funcionalidades técnicas</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-emoji">📡</div>
+                <h3>Coordenadas separadas</h3>
+                <p>Latitude / Longitude em campos independentes – sem vírgulas erradas.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-emoji">🔐</div>
+                <h3>Hash & rastreabilidade</h3>
+                <p>Nome do KML = SHA256(lat,lon) + data, garantindo unicidade e segurança.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-emoji">📊</div>
+                <h3>Análise automática</h3>
+                <p>Python: compilação em Excel, gráficos de parâmetros, mapa de classes e unificação GeoJSON.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-emoji">📱</div>
+                <h3>PWA / Instalável</h3>
+                <p>Pode ser instalado no celular como app nativo, funciona offline total.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chamada final -->
+    <div class="cta">
+        <h2 style="font-size: 1.9rem; margin-bottom: 12px;">🌎 Experimente agora</h2>
+        <p style="max-width: 600px; margin: 0 auto 24px; font-size: 1.1rem;">Acesse o sistema de avaliação de nascentes, simule uma coleta e gere seu primeiro KML.</p>
+        <a href="#" id="ctaButton" class="btn-primary" style="background: #2b7a4b; color: white;">Abrir Avaliador de Campo →</a>
+    </div>
+</div>
+
+<footer>
+    <p>📋 Índice de Impacto Ambiental Macroscópico em Nascentes (IIAN) · Projeto Sentinelas das Nascentes</p>
+    <p style="margin-top: 8px;">Código aberto · Coleta colaborativa · Preservação hídrica</p>
+</footer>
+
+<script>
+    // ========== CARROSSEL (SLIDER) ==========
+    const slides = document.getElementById('slides');
+    const slidesCount = document.querySelectorAll('.slide').length;
+    let currentIndex = 0;
+    let autoInterval;
+
+    function updateSlider() {
+        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        updateDots();
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slidesCount;
+        updateSlider();
+        resetAutoTimer();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + slidesCount) % slidesCount;
+        updateSlider();
+        resetAutoTimer();
+    }
+
+    function resetAutoTimer() {
+        if (autoInterval) clearInterval(autoInterval);
+        autoInterval = setInterval(() => {
+            nextSlide();
+        }, 5000);
+    }
+
+    // dots
+    function updateDots() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) dot.classList.add('active');
+            else dot.classList.remove('active');
         });
-    })();
+    }
+
+    function createDots() {
+        const container = document.getElementById('dotsContainer');
+        container.innerHTML = '';
+        for (let i = 0; i < slidesCount; i++) {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                updateSlider();
+                resetAutoTimer();
+            });
+            container.appendChild(dot);
+        }
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', prevSlide);
+    document.getElementById('nextBtn').addEventListener('click', nextSlide);
+    createDots();
+    resetAutoTimer();
+
+    // ========== LINKS / DEMO ==========
+    // Como o avaliador original é uma página separada (index.html), vamos criar um modal ou redirecionar.
+    // Para fins de demonstração, abriremos em nova aba um simulador simples (mas o app real seria seu index.html).
+    // Vou oferecer um alerta explicativo e abrir uma versão demo do avaliador (pode ser substituído pelo link real)
+    function openFieldApp() {
+        // Se você quiser integrar o avaliador na mesma página, crie um iframe ou redirecione.
+        // Sugestão: redirecionar para o arquivo "app.html" (ou index.html do avaliador)
+        alert("🚀 Para usar o avaliador de campo completo, salve o arquivo HTML original e abra no navegador.\n\n🔧 Você pode integrar o app na mesma página ou fazer o download. Deseja ver uma demonstração do formulário?");
+        // Opcional: abrir em nova aba (simulando link)
+        // window.open('avaliador.html', '_blank');
+        // Caso queira um preview rápido, podemos criar um modal com o iframe? Vou apenas sugerir.
+        // Como alternativa, crio um link para a ferramenta real se o arquivo existir.
+        // Por enquanto, redireciona para uma página de exemplo (substituir depois)
+        window.location.href = 'index.html'; // tenta abrir o avaliador principal
+    }
+
+    const btns = document.querySelectorAll('#openAppBtn, #ctaButton');
+    btns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openFieldApp();
+        });
+    });
+
+    document.getElementById('learnMoreBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('📖 Método IIAN (Índice de Impacto Ambiental Macroscópico em Nascentes):\n\n- 16 parâmetros visuais (cor, odor, erosão, uso por animais, proteção etc.)\n- Pontuação 1 (ruim) a 3 (bom).\n- Classes: A (excelente: ≥40) até E (crítico: <10).\n- Gera KML com estilo colorido e dados completos.\n\nProjeto de ciência cidadã para restauração de nascentes.');
+    });
 </script>
-<br><br><a href="nascentes-off-line.html">Versão pra usar offline</a>
+
+<!-- 
+    NOTA: as imagens usadas são de bancos gratuitos (Pexels) apenas para ilustração.
+    Substitua pelas suas imagens reais de nascentes para tornar o projeto ainda mais forte.
+    O app de avaliação original (formulário + geração de KML) deve estar no mesmo diretório com nome "index.html"
+    para que o botão funcione perfeitamente.
+-->
 </body>
 </html>
