@@ -1,0 +1,23 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+<meta charset="UTF-8"> 
+<title>Redirecionando...</title> 
+<script> 
+var segundos = 5; 
+function atualizar() { 
+document.getElementById("c").innerText = segundos; 
+if (segundos == 0) { 
+window.location.href = "https://duckduckgo.com/"; 
+} else { 
+segundos--; 
+setTimeout(atualizar,1000); 
+} 
+} 
+window.onload = atualizar; 
+</script> 
+</head> 
+<body> 
+Redirecionando em <span id="c">5</span> segundos... 
+</body> 
+</html> 
