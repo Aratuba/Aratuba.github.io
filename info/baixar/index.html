@@ -1,0 +1,29 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Redirecionando...</title> 
+<style> 
+body {font-family: Arial; text-align:center; padding:50px; background:#f4f4f4;} 
+.box {background:#fff; padding:30px; border-radius:10px; display:inline-block;} 
+.c {font-size:2em; color:#0066cc; font-weight:bold;} 
+</style> 
+<script> 
+var s=5; 
+function go(){ 
+document.getElementById("c").innerText=s; 
+if(s==0){window.location.href="https://drive.google.com/file/d/1GEUV5QLM5oaMIFf0CvzgYfR3px6yGYDz/view";} 
+else{s--;setTimeout(go,1000);} 
+} 
+window.onload=go; 
+</script> 
+</head> 
+<body> 
+<div class="box"> 
+Redirecionando em <span id="c" class="c">5</span> segundos... 
+<br> 
+<a href="https://drive.google.com/file/d/1GEUV5QLM5oaMIFf0CvzgYfR3px6yGYDz/view">Clique aqui se não redirecionar</a> 
+</div> 
+</body> 
+</html> 
