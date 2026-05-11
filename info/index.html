@@ -1,290 +1,140 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Atividade · Pesquisa | Navegação Rápida</title>
-  <meta name="description" content="Acesse a atividade principal ou participe da pesquisa — dois links diretos e elegantes.">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: system-ui, 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(145deg, #f0f4ff 0%, #e6edfa 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem;
-      position: relative;
-    }
-
-    /* efeito decorativo sutil */
-    body::before {
-      content: '';
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, rgba(99,102,241,0) 70%);
-      top: 10%;
-      left: -5%;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: '';
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, rgba(139,92,246,0) 70%);
-      bottom: 5%;
-      right: -8%;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .container {
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* cabeçalho */
-    .header-section {
-      margin-bottom: 3rem;
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(4px);
-      padding: 0.35rem 1rem;
-      border-radius: 100px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #2d3a6e;
-      letter-spacing: 0.3px;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(255,255,255,0.8);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    h1 {
-      font-size: 2.3rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1E2A5E, #3B4A8C);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.3px;
-      margin-bottom: 0.75rem;
-    }
-
-    .sub {
-      font-size: 1.1rem;
-      color: #4a5578;
-      font-weight: 450;
-      max-width: 550px;
-      margin: 0 auto;
-      line-height: 1.4;
-      border-bottom: 1px solid rgba(59,74,140,0.15);
-      display: inline-block;
-      padding-bottom: 6px;
-    }
-
-    /* container flex dos cards */
-    .links-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin: 2.5rem 0 2rem;
-    }
-
-    /* cada cartão é um link clicável (sem sublinhado) */
-    .card-link {
-      text-decoration: none;
-      display: block;
-      flex: 1 1 280px;
-      max-width: 340px;
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(0px);
-      border-radius: 2rem;
-      padding: 2rem 1.5rem 1.8rem;
-      text-align: center;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0,0,0,0.02);
-      border: 1px solid rgba(255,255,255,0.7);
-      transition: all 0.25s ease;
-      cursor: pointer;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* hover e foco para interação bonita */
-    .card-link:hover .card,
-    .card-link:focus-visible .card {
-      transform: translateY(-8px);
-      background: #ffffff;
-      box-shadow: 0 28px 40px -16px rgba(34, 48, 96, 0.25);
-      border-color: rgba(99, 102, 241, 0.4);
-    }
-
-    .card-link:focus-visible {
-      outline: 2px solid #4f46e5;
-      outline-offset: 4px;
-      border-radius: 2rem;
-    }
-
-    /* ícones grandes e expressivos */
-    .icon {
-      font-size: 3.5rem;
-      margin-bottom: 1.2rem;
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
-
-    .card-link:hover .icon {
-      transform: scale(1.02);
-    }
-
-    .card-title {
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: #121826;
-      margin-bottom: 0.65rem;
-      letter-spacing: -0.2px;
-    }
-
-    .card-desc {
-      font-size: 0.9rem;
-      line-height: 1.45;
-      color: #4a5568;
-      margin-top: 0.2rem;
-      font-weight: 450;
-    }
-
-    .meta-hint {
-      font-size: 0.75rem;
-      background: #eef2ff;
-      display: inline-block;
-      padding: 0.25rem 0.7rem;
-      border-radius: 40px;
-      margin-top: 1rem;
-      color: #334155;
-      font-weight: 500;
-      letter-spacing: 0.2px;
-    }
-
-    /* rodapé delicado */
-    .footer-note {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #5b6794;
-      opacity: 0.8;
-      border-top: 1px solid rgba(75, 85, 130, 0.15);
-      display: inline-block;
-      padding-top: 1rem;
-      width: auto;
-    }
-
-    /* responsividade impecável */
-    @media (max-width: 680px) {
-      body {
-        padding: 1.5rem;
-      }
-      h1 {
-        font-size: 1.8rem;
-      }
-      .sub {
-        font-size: 0.95rem;
-      }
-      .links-grid {
-        gap: 1.5rem;
-      }
-      .card {
-        padding: 1.5rem 1.2rem;
-      }
-      .card-title {
-        font-size: 1.4rem;
-      }
-      .icon {
-        font-size: 2.8rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .card-title {
-        font-size: 1.3rem;
-      }
-      .card-desc {
-        font-size: 0.8rem;
-      }
-    }
-
-    /* leve suporte para prefers reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .card-link:hover .card,
-      .card-link:focus-visible .card,
-      .icon {
-        transition: none;
-        transform: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando para Kahoot!</title>
+    
+    <!-- Redirecionamento via meta refresh (funciona mesmo com JavaScript desabilitado) -->
+    <meta http-equiv="refresh" content="5;url=https://kahoot.it">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #46178f, #6f2da8);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .delay {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ffd966;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #46178f;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Fallback para o contador via JavaScript */
+        .countdown {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <div class="header-section">
-    <span class="badge">✨ Acesso rápido</span>
-    <h1>Central de navegação</h1>
-    <div class="sub">dois caminhos, siga as oreintações</div>
-  </div>
-
-  <div class="links-grid">
-    <!-- PRIMEIRO LINK: /d.html - ATIVIDADE -->
-    <a href="/info/d.html" class="card-link" aria-label="Acessar atividade principal">
-      <div class="card">
-        <div class="icon">📝</div>
-        <div class="card-title">Atividade</div>
-        <div class="card-desc">
-          Pesquise apenas pelo DuckDuckGo
+    <div class="container">
+        <h1>Kahoot!</h1>
+        <p>Preparando tudo para você entrar no jogo...</p>
+        
+        <div class="loader"></div>
+        
+        <div class="delay">
+            <span id="seconds">5</span> segundos
         </div>
-        <div class="meta-hint"><img src="https://duckduckgo.com/static-assets/image/pages/app/DuckDuckGo-Podcast.svg" width="80" height="80"></div>
-      </div>
-    </a>
-
-    <!-- SEGUNDO LINK: /r.html - PESQUISA PARA RESPONDER -->
-    <a href="/info/r.html" class="card-link" aria-label="Participar da pesquisa">
-      <div class="card">
-        <div class="icon">📋</div>
-        <div class="card-title">Pesquisa para responder</div>
-        <div class="card-desc">
-          Responda às perguntas em poucos minutos, do projeto peteca.
-        </div>
-        <div class="meta-hint">📌 Pesquisa Rede Peteca- 2026</div>
-      </div>
-    </a>
-  </div>
-  
-  <div class="footer-note">
-    🔗 clique nos cards acima para acessar • atividade • pesquisa
-  </div>
-</div>
-
-<!-- observação: os links direcionam para /d.html e /r.html (páginas internas) -->
+        
+        <p class="countdown" id="countdownMessage">Redirecionando em instantes...</p>
+        
+        <a href="https://kahoot.it" class="button">Ir para Kahoot! agora</a>
+    </div>
+    
+    <script>
+        // Contador regressivo visual (opcional, apenas para melhor experiência)
+        let seconds = 5;
+        const secondsElement = document.getElementById('seconds');
+        const countdownMessage = document.getElementById('countdownMessage');
+        
+        const interval = setInterval(() => {
+            seconds--;
+            secondsElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(interval);
+                countdownMessage.textContent = 'Redirecionando agora!';
+            }
+        }, 1000);
+        
+        // O redirecionamento real já está garantido pela meta tag refresh
+        // Este script é apenas para o contador visual
+    </script>
 </body>
 </html>
