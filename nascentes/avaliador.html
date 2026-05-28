@@ -266,12 +266,7 @@
     <input id="coletor" placeholder="👤 Nome do coletor / avaliador" autocomplete="off">
     <textarea id="obs" placeholder="📝 Observações de campo (vegetação, acesso, entorno...)"></textarea>
 
-    <label>💧 Potável?</label>
-    <select id="potabilidade">
-        <option>Não informado</option>
-        <option>Sim</option>
-        <option>Não</option>
-    </select>
+   
 
     <label>🏷️ Nome da nascente (opcional)</label>
     <input id="nomeNascente" placeholder="Ex: Olho d'água do Sítio">
@@ -322,23 +317,21 @@
 <script>
     // ===================== PARÂMETROS =====================
     const parametros = [
-        {nome:"Cor da água", opcoes:["escura","clara","transparente"]},
-        {nome:"Odor da água", opcoes:["forte","com odor","ausente"]},
-        {nome:"Resíduo ao redor", opcoes:["muito","pouco","ausente"]},
-        {nome:"Materiais flutuantes", opcoes:["muito","pouco","ausente"]},
-        {nome:"Espumas", opcoes:["muito","pouco","ausente"]},
-        {nome:"Óleos", opcoes:["muito","pouco","ausente"]},
-        {nome:"Esgoto", opcoes:["visível","provável","ausente"]},
-        {nome:"Vegetação", opcoes:["degradada","alterada","bom estado"]},
-        {nome:"Regeneração", opcoes:["ausente","moderada","presente"]},
-        {nome:"Erosão", opcoes:["acentuada","moderada","ausente"]},
-        {nome:"Uso por animais", opcoes:["constante","esporádico","ausente"]},
-        {nome:"Uso por humanos", opcoes:["constante","esporádico","ausente"]},
-        {nome:"Proteção", opcoes:["sem proteção","com acesso","sem acesso"]},
-        {nome:"Acesso", opcoes:["fácil","difícil","sem acesso"]},
-        {nome:"Proximidade", opcoes:["< 50m","50–100m","> 100m"]},
-        {nome:"Área", opcoes:["sem info","privada","protegida"]}
-    ];
+    {nome: "Cor da água", opcoes: ["escura", "clara", "transparente"]},
+    {nome: "Odor da água", opcoes: ["forte", "com odor", "ausente"]},
+    {nome: "Resíduo ao redor da nascente", opcoes: ["muito", "pouco", "ausente"]},
+    {nome: "Materiais flutuantes (resíduo na água)", opcoes: ["muito", "pouco", "ausente"]},
+    {nome: "Espumas", opcoes: ["muito", "pouco", "ausente"]},
+    {nome: "Óleos", opcoes: ["muito", "pouco", "ausente"]},
+    {nome: "Esgoto na nascente", opcoes: ["visível", "provável", "ausente"]},
+    {nome: "Vegetação (degradação)", opcoes: ["alta degradação", "baixa degradação", "preservada"]},
+    {nome: "Uso por animais", opcoes: ["presença", "apenas marcas", "não detectado"]},
+    {nome: "Uso por humanos", opcoes: ["presença", "apenas marcas", "não detectado"]},
+    {nome: "Proteção do local", opcoes: ["sem proteção", "com proteção (com acesso)", "com proteção (sem acesso)"]},
+    {nome: "Proximidade com residências (metros)", opcoes: ["<50", "entre 50 e 100", ">mais 100"]},
+    {nome: "Tipo de área de inserção", opcoes: ["ausente (sem informação)", "propriedade privada", "parques ou áreas protegidas"]}
+];
+
 
     const tbody = document.getElementById("body");
     parametros.forEach(p => {
