@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Automático - Avaliador de Nascente</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            max-width: 650px;
+            margin: 3rem auto;
+            padding: 0 20px;
+            line-height: 1.5;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.8rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: #0f3b2c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status {
+            background: #f1f5f9;
+            border-left: 4px solid #3b82f6;
+            padding: 0.8rem 1rem;
+            border-radius: 0.5rem;
+            margin: 1.2rem 0;
+            font-size: 0.9rem;
+        }
+        button {
+            background: #0f3b2c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #1e5a44;
+            transform: scale(1.01);
+        }
+        .info {
+            background: #eef2ff;
+            border-radius: 0.5rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            color: #1e40af;
+        }
+        hr {
+            margin: 1rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+        .url {
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            word-break: break-all;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>📄 Download automático</h1>
+    <p>Arquivo de origem:<br> <span class="url">https://aratuba.abc.br/nascentes/avaliador.html</span></p>
+    <div id="statusArea" class="status">
+        ⏳ Preparando download automático...
+    </div>
+    <button id="manualDownloadBtn">⬇️ Baixar agora (manual)</button>
+    <div class="info">
+        💡 <strong>Como funciona:</strong> ao abrir esta página, o JavaScript baixa o HTML da URL acima<br>
+        e salva automaticamente como <strong>avaliador_nascente.html</strong> no seu computador.<br>
+        Caso o download automático seja bloqueado, use o botão manual.
+    </div>
+    <hr>
+    <details>
+        <summary style="cursor:pointer; font-size:0.8rem; color:#4b5563;">🔍 ver detalhes técnicos</summary>
+        <p style="font-size:0.75rem; margin-top:8px;">A página usa <code>fetch()</code> para obter o conteúdo HTML, depois cria um blob e dispara o download via <code>download</code> attribute. O processo é feito inteiramente no navegador, sem servidor intermediário.</p>
+    </details>
+</div>
+
+<script>
+    (function() {
+        // URL exata que você quer baixar
+        const TARGET_URL = "https://aratuba.abc.br/nascentes/avaliador.html";
+        const DEFAULT_FILENAME = "avaliador_nascente.html";
+
+        // Elementos do DOM
+        const statusDiv = document.getElementById("statusArea");
+        const manualBtn = document.getElementById("manualDownloadBtn");
+
+        // Função auxiliar para atualizar o status
+        function setStatus(message, isError = false) {
+            if (statusDiv) {
+                statusDiv.innerHTML = message;
+                if (isError) {
+                    statusDiv.style.borderLeftColor = "#dc2626";
+                    statusDiv.style.background = "#fef2f2";
+                } else {
+                    statusDiv.style.borderLeftColor = "#3b82f6";
+                    statusDiv.style.background = "#f1f5f9";
+                }
+            }
+        }
+
+        // Função principal: faz fetch do HTML e dispara o download
+        async function downloadHtmlFile(triggerSource = "auto") {
+            try {
+                setStatus(`🌐 Buscando conteúdo de ${TARGET_URL} ...`);
+
+                // Requisição para obter o HTML
+                const response = await fetch(TARGET_URL, {
+                    method: "GET",
+                    headers: {
+                        "Accept": "text/html,application/xhtml+xml"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                // Obtém o HTML como texto
+                const htmlContent = await response.text();
+
+                // Verifica se veio algo minimamente parecido com HTML
+                if (!htmlContent || htmlContent.trim().length < 50) {
+                    throw new Error("Conteúdo muito curto ou vazio — pode ter sido bloqueado pelo servidor.");
+                }
+
+                setStatus(`✅ HTML obtido (${(htmlContent.length / 1024).toFixed(1)} KB). Salvando arquivo...`);
+
+                // Cria um blob com tipo text/html e charset utf-8
+                const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+
+                // Cria uma URL temporária para o blob
+                const blobUrl = URL.createObjectURL(blob);
+
+                // Cria um elemento <a> invisível para forçar o download
+                const downloadLink = document.createElement("a");
+                downloadLink.href = blobUrl;
+                downloadLink.download = DEFAULT_FILENAME;   // nome sugerido para o arquivo
+                document.body.appendChild(downloadLink);
+
+                // Dispara o clique (inicia o download)
+                downloadLink.click();
+
+                // Pequeno delay antes de limpar para garantir o download
+                setTimeout(() => {
+                    document.body.removeChild(downloadLink);
+                    URL.revokeObjectURL(blobUrl);  // libera memória
+                    setStatus(`✔️ Download concluído: ${DEFAULT_FILENAME} (${triggerSource === "auto" ? "automático" : "manual"})`);
+                }, 150);
+            } catch (error) {
+                console.error("Erro no download:", error);
+                let errorMsg = `❌ Falha ao baixar: ${error.message}`;
+                // Caso clássico de CORS ou bloqueio por política do navegador
+                if (error.message.includes("Failed to fetch") || error.message.includes("NetworkError")) {
+                    errorMsg = `❌ Erro de rede/CORS. O servidor pode não permitir requisições de origens externas. <br> 🔧 Tente usar uma extensão CORS ou rodar um pequeno proxy local. Detalhe: ${error.message}`;
+                }
+                setStatus(errorMsg, true);
+                // Exibe sugestão extra no console
+                console.warn("Dica: Se o erro for CORS, você pode tentar usar o botão manual em modo de desenvolvimento ou abrir o HTML local com '--disable-web-security'. Para testes simples, considere fazer o download direto pelo navegador.");
+            }
+        }
+
+        // 1) Download automático assim que a página carregar
+        // (pequeno timeout para garantir que o DOM esteja pronto e dar visibilidade ao usuário)
+        window.addEventListener("DOMContentLoaded", () => {
+            // Delay mínimo de 100ms para evitar qualquer race condition em navegadores muito antigos
+            setTimeout(() => {
+                downloadHtmlFile("auto").catch(e => console.warn("Auto download não concluído:", e));
+            }, 100);
+        });
+
+        // 2) Botão manual: caso o automático falhe (CORS, bloqueio popup, etc), o usuário pode tentar novamente
+        if (manualBtn) {
+            manualBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                downloadHtmlFile("manual").catch(e => console.warn("Download manual falhou:", e));
+            });
+        }
+
+        // Observação: se o navegador bloquear popups/múltiplos downloads, o botão manual ainda funciona perfeitamente.
+    })();
+</script>
+</body>
+</html>
