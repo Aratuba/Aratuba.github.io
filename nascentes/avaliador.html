@@ -253,471 +253,301 @@ td small{
 
 <div class="container">
 
-<h2>Avaliação de Nascente</h2>
+    <h2>💧 Avaliação de Nascente — Protocolo Técnico</h2>
 
-<input id="localidade" placeholder="📍 Localidade / município" autocomplete="off">
+    <input id="localidade" placeholder="📍 Localidade / município" autocomplete="off">
+    <input id="coletor" placeholder="👤 Nome do coletor / avaliador" autocomplete="off">
+    <textarea id="obs" placeholder="📝 Observações de campo (vegetação, acesso, entorno...)" rows="2"></textarea>
 
-<input id="coletor" placeholder="👤 Nome do coletor / avaliador" autocomplete="off">
+    <label>🏷️ Nome da nascente (opcional)</label>
+    <input id="nomeNascente" placeholder="Ex: Olho d'água do Sítio">
 
-<textarea id="obs" placeholder="📝 Observações de campo (vegetação, acesso, entorno...)"></textarea>
+    <div class="table-wrapper">
+        <table id="tabelaParametros">
+            <thead>
+                <tr><th>Parâmetro</th><th>Ruim (1)</th><th>Médio (2)</th><th>Bom (3)</th></tr>
+            </thead>
+            <tbody id="body"></tbody>
+        </table>
+    </div>
 
-<label>🏷️ Nome da nascente (opcional)</label>
+    <div class="coord-panel">
+        <div style="font-weight:600;margin-bottom:12px;">🌍 Localização geográfica</div>
+        <div class="coord-row">
+            <div class="coord-field">
+                <label>📐 Latitude</label>
+                <input type="number" id="latitudeInput" step="any" placeholder="Ex: -4.1234">
+            </div>
+            <div class="coord-field">
+                <label>📏 Longitude</label>
+                <input type="number" id="longitudeInput" step="any" placeholder="Ex: -39.5678">
+            </div>
+        </div>
+        <div class="coord-buttons">
+            <button class="small-btn" id="definirCoordsBtn">✅ Definir</button>
+            <button class="small-btn" id="limparCoordsBtn">🗑️ Limpar</button>
+        </div>
+        <p id="geo">📍 Nenhuma coordenada definida</p>
+        <small style="color:#4e6b5e;">🔹 Formato decimal: negativo para S/W. Ex: -4.1234 , -39.5678</small>
+    </div>
 
-<input id="nomeNascente" placeholder="Ex: Olho d'água do Sítio">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:10px 0 6px;">
+        <button class="btn-calc" onclick="calcularPontuacao()">📊 Calcular pontuação</button>
+        <button class="btn-kml" onclick="gerarKML()">🗺️ Exportar KML</button>
+    </div>
 
-<div class="table-wrapper">
-<table id="tabelaParametros">
-
-<thead>
-<tr>
-<th>Parâmetro</th>
-<th>Ruim (1)</th>
-<th>Médio (2)</th>
-<th>Bom (3)</th>
-</tr>
-</thead>
-
-<tbody id="body"></tbody>
-
-</table>
-</div>
-
-<div class="coord-panel">
-
-<div style="font-weight:600;margin-bottom:12px;">
-🌍 Localização geográfica
-</div>
-
-<div class="coord-row">
-
-<div class="coord-field">
-<label>📐 Latitude</label>
-<input type="number" id="latitudeInput" step="any" placeholder="Ex: -4.1234">
-</div>
-
-<div class="coord-field">
-<label>📏 Longitude</label>
-<input type="number" id="longitudeInput" step="any" placeholder="Ex: -39.5678">
-</div>
-
-</div>
-
-<div class="coord-buttons">
-<button class="small-btn" id="definirCoordsBtn">✅ Definir</button>
-<button class="small-btn" id="limparCoordsBtn">🗑️ Limpar</button>
-</div>
-
-<p id="geo">📍 Nenhuma coordenada definida</p>
-
-<small style="color:#4e6b5e;">
-🔹 Formato decimal: negativo para S/W.
-Ex: -4.1234 , -39.5678
-</small>
-
-</div>
-
-<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:10px 0 6px;">
-<button class="btn-calc" onclick="calcularPontuacao()">📊 Calcular pontuação</button>
-<button class="btn-kml" onclick="gerarKML()">🗺️ Exportar KML</button>
-</div>
-
-<p id="resultado"></p>
-
+    <p id="resultado"></p>
+    <div class="legend-note">
+        ⚡ Baseado em Gomes et al. (2005); Schiavina (2019); Felippe & Magalhães Júnior (2012).<br>
+        Classes: A (Ótimo) 37-39 | B (Bom) 34-36 | C (Razoável) 31-33 | D (Ruim) 28-30 | E (Péssimo) &lt;28
+    </div>
 </div>
 
 <script>
+    // Parâmetros e opções conforme protocolo
+    const parametros = [
+        {nome:"Cor da água", opcoes:["escura","clara","transparente"]},
+        {nome:"Odor da água", opcoes:["forte","com odor","ausente"]},
+        {nome:"Resíduo ao redor da nascente", opcoes:["muito","pouco","ausente"]},
+        {nome:"Materiais flutuantes", opcoes:["muito","pouco","ausente"]},
+        {nome:"Espumas", opcoes:["muito","pouco","ausente"]},
+        {nome:"Óleos", opcoes:["muito","pouco","ausente"]},
+        {nome:"Esgoto na nascente", opcoes:["visível","provável","ausente"]},
+        {nome:"Vegetação", opcoes:["alta degradação","baixa degradação","preservada"]},
+        {nome:"Uso por animais", opcoes:["presença","apenas marcas","não detectado"]},
+        {nome:"Uso por humanos", opcoes:["presença","apenas marcas","não detectado"]},
+        {nome:"Proteção do local", opcoes:["sem proteção","com acesso","sem acesso"]},
+        {nome:"Proximidade com residências", opcoes:["<50m","50-100m",">100m"]},
+        {nome:"Área de inserção", opcoes:["sem info","privada","protegida"]}
+    ];
 
-const parametros = [
-{nome:"Cor da água",opcoes:["escura","clara","transparente"]},
-{nome:"Odor da água",opcoes:["forte","com odor","ausente"]},
-{nome:"Resíduo ao redor da nascente",opcoes:["muito","pouco","ausente"]},
-{nome:"Materiais flutuantes",opcoes:["muito","pouco","ausente"]},
-{nome:"Espumas",opcoes:["muito","pouco","ausente"]},
-{nome:"Óleos",opcoes:["muito","pouco","ausente"]},
-{nome:"Esgoto na nascente",opcoes:["visível","provável","ausente"]},
-{nome:"Vegetação",opcoes:["alta degradação","baixa degradação","preservada"]},
-{nome:"Uso por animais",opcoes:["presença","apenas marcas","não detectado"]},
-{nome:"Uso por humanos",opcoes:["presença","apenas marcas","não detectado"]},
-{nome:"Proteção do local",opcoes:["sem proteção","com acesso","sem acesso"]},
-{nome:"Proximidade com residências",opcoes:["<50m","50-100m",">100m"]},
-{nome:"Área de inserção",opcoes:["sem info","privada","protegida"]}
-];
-
-const tbody=document.getElementById("body");
-
-parametros.forEach(p=>{
-
-    let row=document.createElement("tr");
-
-    let tdParam=document.createElement("td");
-    tdParam.className="parametro";
-    tdParam.innerText=p.nome;
-
-    row.appendChild(tdParam);
-
-    p.opcoes.forEach((opcao,idx)=>{
-
-        let td=document.createElement("td");
-
-        let radio=document.createElement("input");
-        radio.type="radio";
-        radio.name=p.nome;
-        radio.value=idx+1;
-
-        let label=document.createElement("small");
-        label.innerText=opcao;
-
-        td.appendChild(radio);
-        td.appendChild(document.createElement("br"));
-        td.appendChild(label);
-
-        row.appendChild(td);
-
+    const tbody = document.getElementById("body");
+    // Preenche a tabela dinamicamente
+    parametros.forEach(p => {
+        let row = document.createElement("tr");
+        let tdParam = document.createElement("td");
+        tdParam.className = "parametro";
+        tdParam.innerText = p.nome;
+        row.appendChild(tdParam);
+        p.opcoes.forEach((opcao, idx) => {
+            let td = document.createElement("td");
+            let radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = p.nome;
+            radio.value = idx + 1;   // 1 = ruim, 2 = médio, 3 = bom
+            let label = document.createElement("small");
+            label.innerText = opcao;
+            td.appendChild(radio);
+            td.appendChild(document.createElement("br"));
+            td.appendChild(label);
+            row.appendChild(td);
+        });
+        tbody.appendChild(row);
     });
 
-    tbody.appendChild(row);
+    let latAtual = null;
+    let lonAtual = null;
+    let pontuacaoTotal = 0;
 
-});
+    const latInput = document.getElementById("latitudeInput");
+    const lonInput = document.getElementById("longitudeInput");
+    const geo = document.getElementById("geo");
 
-let latAtual=null;
-let lonAtual=null;
-let pontuacaoTotal=0;
-
-const latInput=document.getElementById("latitudeInput");
-const lonInput=document.getElementById("longitudeInput");
-const geo=document.getElementById("geo");
-
-function definirCoordenadas(){
-
-    let lat=parseFloat(latInput.value);
-    let lon=parseFloat(lonInput.value);
-
-    if(isNaN(lat)||lat<-90||lat>90){
-        alert("Latitude inválida");
-        return;
+    // Função auxiliar: retorna grau de preservação a partir da classe (A, B, C, D, E)
+    function obterGrauPreservacao(classe) {
+        switch(classe) {
+            case 'A': return "Ótimo";
+            case 'B': return "Bom";
+            case 'C': return "Razoável";
+            case 'D': return "Ruim";
+            case 'E': return "Péssimo";
+            default: return "Indefinido";
+        }
     }
 
-    if(isNaN(lon)||lon<-180||lon>180){
-        alert("Longitude inválida");
-        return;
+    // Classificação conforme tabela: A (37-39), B (34-36), C (31-33), D (28-30), E (<28)
+    function getClassByScore(score) {
+        if (score >= 37) return "A";
+        if (score >= 34) return "B";
+        if (score >= 31) return "C";
+        if (score >= 28) return "D";
+        return "E";
     }
 
-    latAtual=lat;
-    lonAtual=lon;
-
-    geo.innerHTML=`📍 Latitude: ${latAtual} | Longitude: ${lonAtual}`;
-
-}
-
-function limparCoordenadas(){
-
-    latInput.value="";
-    lonInput.value="";
-
-    latAtual=null;
-    lonAtual=null;
-
-    geo.innerHTML="📍 Nenhuma coordenada definida";
-
-}
-
-function calcularPontuacao(){
-
-    let soma=0;
-
-    document.querySelectorAll("input[type='radio']:checked")
-    .forEach(r=>soma+=parseInt(r.value));
-
-    pontuacaoTotal=soma;
-
-    const maximo=parametros.length*3;
-
-    document.getElementById("resultado").innerHTML=
-    `🏆 Pontuação: <strong>${pontuacaoTotal}</strong> / ${maximo}`;
-
-    return pontuacaoTotal;
-
-}
-
-async function sha256(message){
-
-    const msgBuffer=new TextEncoder().encode(message);
-
-    const hashBuffer=
-    await crypto.subtle.digest("SHA-256",msgBuffer);
-
-    const hashArray=
-    Array.from(new Uint8Array(hashBuffer));
-
-    return hashArray
-    .map(b=>b.toString(16).padStart(2,"0"))
-    .join("");
-
-}
-
-function getClassByScore(score){
-
-    if(score >= 37) return "A";
-    if(score >= 34) return "B";
-    if(score >= 31) return "C";
-    if(score >= 28) return "D";
-
-    return "E";
-
-}
-
-function escapeXml(str){
-
-    if(!str)return "";
-
-    return str
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
-
-}
-
-async function gerarKML(){
-
-    if(latAtual===null||lonAtual===null){
-        alert("Defina as coordenadas.");
-        return;
+    function definirCoordenadas() {
+        let lat = parseFloat(latInput.value);
+        let lon = parseFloat(lonInput.value);
+        if (isNaN(lat) || lat < -90 || lat > 90) {
+            alert("Latitude inválida. Use valores entre -90 e 90 (ex: -4.1234)");
+            return;
+        }
+        if (isNaN(lon) || lon < -180 || lon > 180) {
+            alert("Longitude inválida. Use valores entre -180 e 180 (ex: -39.5678)");
+            return;
+        }
+        latAtual = lat;
+        lonAtual = lon;
+        geo.innerHTML = `📍 Latitude: ${latAtual} | Longitude: ${lonAtual}`;
     }
 
-    calcularPontuacao();
+    function limparCoordenadas() {
+        latInput.value = "";
+        lonInput.value = "";
+        latAtual = null;
+        lonAtual = null;
+        geo.innerHTML = "📍 Nenhuma coordenada definida";
+    }
 
-    let dadosParametros={};
+    // Cálculo principal + exibição com NOTA CLASSE e GRAU DE PRESERVAÇÃO
+    function calcularPontuacao() {
+        let soma = 0;
+        document.querySelectorAll("input[type='radio']:checked").forEach(r => {
+            soma += parseInt(r.value);
+        });
+        pontuacaoTotal = soma;
+        const maximo = parametros.length * 3;  // 39 pontos máximos
 
-    document
-    .querySelectorAll("input[type='radio']:checked")
-    .forEach(radio=>{
+        // Determinar classe e grau
+        const classe = getClassByScore(pontuacaoTotal);
+        const grauPreservacao = obterGrauPreservacao(classe);
 
-        const paramNome=radio.name;
-        const valorNum=radio.value;
+        // Monta mensagem elegante conforme solicitado: "Nota classe: A (Ótimo)" + pontuação
+        const resultadoHTML = `
+            🏆 <strong>Pontuação total: ${pontuacaoTotal} / ${maximo}</strong><br>
+            📌 <strong>Nota classe: ${classe} (${grauPreservacao})</strong> — Grau de Preservação: ${grauPreservacao}
+        `;
+        document.getElementById("resultado").innerHTML = resultadoHTML;
+        return pontuacaoTotal;
+    }
 
-        const paramObj=
-        parametros.find(p=>p.nome===paramNome);
+    // Função de hash para nome único do KML
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
 
-        let textoOpcao=
-        paramObj
-        ? paramObj.opcoes[parseInt(valorNum)-1]
-        : "indefinido";
+    function escapeXml(str) {
+        if (!str) return "";
+        return str.replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;");
+    }
 
-        dadosParametros[paramNome]={
-            valor:valorNum,
-            texto:textoOpcao
-        };
-
-    });
-
-    const localidade=
-    document.getElementById("localidade")?.value.trim()
-    ||"Local não informado";
-
-    const coletor=
-    document.getElementById("coletor")?.value.trim()
-    ||"Não informado";
-
-    const observacoes=
-    document.getElementById("obs")?.value.trim()
-    ||"Sem observações";
-
-    const nomeNascente=
-    document.getElementById("nomeNascente")?.value.trim()
-    ||"Não informado";
-
-    const coordsString=`${lonAtual},${latAtual}`;
-
-    const hashHex=await sha256(coordsString);
-
-    const dataAtual=new Date();
-
-    const dataStr=
-    dataAtual.toISOString().slice(0,10);
-
-    const placemarkName=
-    `${hashHex} (${dataStr})`;
-
-    const classe=
-    getClassByScore(pontuacaoTotal);
-
-    const imagemClasse=
-    `https://aratuba.abc.br/${classe}.PNG`;
-
-    let listaParametrosHTML="";
-
-    for(let p of parametros){
-
-        const dado=dadosParametros[p.nome];
-
-        if(dado){
-
-            listaParametrosHTML+=
-            `▪ ${p.nome}: ${dado.texto} (${dado.valor})<br>`;
-
-        }else{
-
-            listaParametrosHTML+=
-            `▪ ${p.nome}: não avaliado<br>`;
-
+    // Exportar KML com todas as informações + classe + grau no description
+    async function gerarKML() {
+        if (latAtual === null || lonAtual === null) {
+            alert("⚠️ Defina as coordenadas geográficas (latitude / longitude) antes de exportar.");
+            return;
         }
 
-    }
+        calcularPontuacao();  // atualiza pontuaçãoTotal e garante consistência
+        const maximo = parametros.length * 3;
+        const classe = getClassByScore(pontuacaoTotal);
+        const grauPreservacao = obterGrauPreservacao(classe);
 
-    const descricaoHTML=`
-    <div style="font-family:sans-serif;padding:5px;">
+        // Coletar dados dos parâmetros para exibir na descrição
+        let dadosParametros = {};
+        document.querySelectorAll("input[type='radio']:checked").forEach(radio => {
+            const paramNome = radio.name;
+            const valorNum = radio.value;
+            const paramObj = parametros.find(p => p.nome === paramNome);
+            let textoOpcao = paramObj ? paramObj.opcoes[parseInt(valorNum) - 1] : "indefinido";
+            dadosParametros[paramNome] = { valor: valorNum, texto: textoOpcao };
+        });
 
-    <img src="${imagemClasse}" width="100"><br>
+        const localidade = document.getElementById("localidade")?.value.trim() || "Local não informado";
+        const coletor = document.getElementById("coletor")?.value.trim() || "Não informado";
+        const observacoes = document.getElementById("obs")?.value.trim() || "Sem observações";
+        const nomeNascente = document.getElementById("nomeNascente")?.value.trim() || "Não informado";
 
-    <b>🏞️ Nascente:</b> ${escapeXml(nomeNascente)}<br>
+        const coordsString = `${lonAtual},${latAtual}`;
+        const hashHex = await sha256(coordsString);
+        const dataAtual = new Date();
+        const dataStr = dataAtual.toISOString().slice(0, 10);
+        const placemarkName = `${hashHex} (${dataStr})`;
 
-    <b>📍 Localidade:</b> ${escapeXml(localidade)}<br>
+        const imagemClasse = `https://aratuba.abc.br/${classe}.PNG`;  // manter estilo original
 
-    <b>⭐ Pontuação:</b>
-    ${pontuacaoTotal}/${parametros.length*3}<br>
+        let listaParametrosHTML = "";
+        for (let p of parametros) {
+            const dado = dadosParametros[p.nome];
+            if (dado) {
+                listaParametrosHTML += `▪ ${p.nome}: ${dado.texto} (${dado.valor})<br>`;
+            } else {
+                listaParametrosHTML += `▪ ${p.nome}: não avaliado<br>`;
+            }
+        }
 
-    <b>👤 Coletor:</b> ${escapeXml(coletor)}<br>
+        // Descrição rica com NOTA CLASSE e GRAU DE PRESERVAÇÃO
+        const descricaoHTML = `
+            <div style="font-family:sans-serif;padding:5px;">
+                <img src="${imagemClasse}" width="100"><br>
+                <b>🏞️ Nascente:</b> ${escapeXml(nomeNascente)}<br>
+                <b>📍 Localidade:</b> ${escapeXml(localidade)}<br>
+                <b>⭐ Pontuação:</b> ${pontuacaoTotal}/${maximo}<br>
+                <b>🏷️ Nota classe / Grau:</b> ${classe} (${grauPreservacao})<br>
+                <b>👤 Coletor:</b> ${escapeXml(coletor)}<br>
+                <b>📝 Observações:</b> ${escapeXml(observacoes)}<br>
+                <hr>
+                <b>📋 Parâmetros avaliados:</b><br>
+                ${listaParametrosHTML}
+            </div>
+        `;
 
-    <b>📝 Observações:</b>
-    ${escapeXml(observacoes)}<br>
+        let extendedData = `
+            <Data name="localidade"><value>${escapeXml(localidade)}</value></Data>
+            <Data name="coletor"><value>${escapeXml(coletor)}</value></Data>
+            <Data name="observacoes"><value>${escapeXml(observacoes)}</value></Data>
+            <Data name="pontuacao"><value>${pontuacaoTotal}</value></Data>
+            <Data name="nome_nascente"><value>${escapeXml(nomeNascente)}</value></Data>
+            <Data name="classe_qualidade"><value>${classe}</value></Data>
+            <Data name="grau_preservacao"><value>${grauPreservacao}</value></Data>
+        `;
 
-    <hr>
-
-    <b>📋 Parâmetros:</b><br>
-
-    ${listaParametrosHTML}
-
-    </div>
-    `;
-
-    let extendedData=`
-
-    <Data name="localidade">
-    <value>${escapeXml(localidade)}</value>
-    </Data>
-
-    <Data name="coletor">
-    <value>${escapeXml(coletor)}</value>
-    </Data>
-
-    <Data name="observacoes">
-    <value>${escapeXml(observacoes)}</value>
-    </Data>
-
-    <Data name="pontuacao">
-    <value>${pontuacaoTotal}</value>
-    </Data>
-
-    <Data name="nome_nascente">
-    <value>${escapeXml(nomeNascente)}</value>
-    </Data>
-
-    `;
-
-    const kmlContent=`<?xml version="1.0" encoding="UTF-8"?>
-
+        const kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
-
 <Document>
-
-<Style id="A">
-<IconStyle>
-<scale>1.2</scale>
-<Icon>
-<href>http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png</href>
-</Icon>
-</IconStyle>
-</Style>
-
-<Style id="B">
-<IconStyle>
-<scale>1.2</scale>
-<Icon>
-<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
-</Icon>
-</IconStyle>
-</Style>
-
-<Style id="C">
-<IconStyle>
-<scale>1.2</scale>
-<Icon>
-<href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href>
-</Icon>
-</IconStyle>
-</Style>
-
-<Style id="D">
-<IconStyle>
-<scale>1.2</scale>
-<Icon>
-<href>http://maps.google.com/mapfiles/kml/pushpin/purple-pushpin.png</href>
-</Icon>
-</IconStyle>
-</Style>
-
-<Style id="E">
-<IconStyle>
-<scale>1.2</scale>
-<Icon>
-<href>http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png</href>
-</Icon>
-</IconStyle>
-</Style>
-
-<Placemark>
-
-<name>${escapeXml(placemarkName)}</name>
-
-<styleUrl>#${classe}</styleUrl>
-
-<description><![CDATA[
-${descricaoHTML}
-]]></description>
-
-<Point>
-<coordinates>${lonAtual},${latAtual},0</coordinates>
-</Point>
-
-<ExtendedData>
-${extendedData}
-</ExtendedData>
-
-</Placemark>
-
+    <Style id="A">
+        <IconStyle><scale>1.2</scale><Icon><href>http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png</href></Icon></IconStyle>
+    </Style>
+    <Style id="B">
+        <IconStyle><scale>1.2</scale><Icon><href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href></Icon></IconStyle>
+    </Style>
+    <Style id="C">
+        <IconStyle><scale>1.2</scale><Icon><href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href></Icon></IconStyle>
+    </Style>
+    <Style id="D">
+        <IconStyle><scale>1.2</scale><Icon><href>http://maps.google.com/mapfiles/kml/pushpin/purple-pushpin.png</href></Icon></IconStyle>
+    </Style>
+    <Style id="E">
+        <IconStyle><scale>1.2</scale><Icon><href>http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png</href></Icon></IconStyle>
+    </Style>
+    <Placemark>
+        <name>${escapeXml(placemarkName)}</name>
+        <styleUrl>#${classe}</styleUrl>
+        <description><![CDATA[${descricaoHTML}]]></description>
+        <Point>
+            <coordinates>${lonAtual},${latAtual},0</coordinates>
+        </Point>
+        <ExtendedData>${extendedData}</ExtendedData>
+    </Placemark>
 </Document>
 </kml>`;
 
-    const blob=new Blob(
-        [kmlContent],
-        {type:"application/vnd.google-earth.kml+xml"}
-    );
+        const blob = new Blob([kmlContent], { type: "application/vnd.google-earth.kml+xml" });
+        const link = document.createElement("a");
+        link.download = `nascente_${hashHex.substring(0, 12)}_${dataStr}.kml`;
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        alert(`✅ KML gerado com sucesso!\nClasse: ${classe} (${grauPreservacao}) | Pontuação: ${pontuacaoTotal}/${maximo}`);
+    }
 
-    const link=document.createElement("a");
-
-    link.download=
-    `nascente_${hashHex.substring(0,12)}_${dataStr}.kml`;
-
-    link.href=URL.createObjectURL(blob);
-
-    link.click();
-
-    URL.revokeObjectURL(link.href);
-
-    alert(
-        `✅ KML gerado!\nClasse: ${classe}\nPontuação: ${pontuacaoTotal}`
-    );
-
-}
-
-document
-.getElementById("definirCoordsBtn")
-.addEventListener("click",definirCoordenadas);
-
-document
-.getElementById("limparCoordsBtn")
-.addEventListener("click",limparCoordenadas);
-
+    // Eventos dos botões
+    document.getElementById("definirCoordsBtn").addEventListener("click", definirCoordenadas);
+    document.getElementById("limparCoordsBtn").addEventListener("click", limparCoordenadas);
 </script>
 
 </body>
