@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Wordwall | Atividades de Inglês</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Glassmorphism container */
+        .container {
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Header / título elegante */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #1a2a6c, #b21f1f, #fdbb4d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 550px;
+            margin: 0 auto;
+            font-weight: 400;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        /* grade responsiva */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Card principal */
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(3px);
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 35px 45px -18px rgba(0, 0, 0, 0.25);
+            background: white;
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Área do ícone principal (imagem ou ícone decorativo) */
+        .card-icon {
+            background: linear-gradient(150deg, #f8fafc, #f1f5f9);
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+            font-size: 5rem;
+            transition: 0.2s;
+        }
+
+        /* conteúdo textual */
+        .card-content {
+            padding: 1.5rem 1.8rem 1.8rem;
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            color: #2d3748;
+            background: #e9ecef;
+        }
+
+        .description {
+            color: #2d3e5f;
+            line-height: 1.45;
+            margin: 0.8rem 0 1.2rem 0;
+            font-weight: 400;
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.6rem;
+            font-size: 0.85rem;
+            color: #4b5563;
+            font-weight: 500;
+            border-top: 1px solid #e9edf2;
+            padding-top: 1rem;
+        }
+
+        .stats i {
+            margin-right: 6px;
+            width: 18px;
+            color: #3b82f6;
+        }
+
+        /* Link estilizado (botão moderno) */
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #1f2937;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.9rem 1.2rem;
+            border-radius: 50px;
+            width: 100%;
+            transition: all 0.25s ease;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .btn-link i {
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-link:hover {
+            background: #111827;
+            transform: scale(0.98);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* temas individuais para diferenciação visual */
+        .card.family .card-icon i {
+            color: #4f46e5;
+            text-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+        .card.clothes .card-icon i {
+            color: #db2777;
+        }
+        .card.food .card-icon i {
+            color: #eab308;
+        }
+
+        .card.family .btn-link {
+            background: #4f46e5;
+            box-shadow: 0 5px 12px rgba(79, 70, 229, 0.25);
+        }
+        .card.family .btn-link:hover {
+            background: #4338ca;
+        }
+
+        .card.clothes .btn-link {
+            background: #db2777;
+            box-shadow: 0 5px 12px rgba(219, 39, 119, 0.25);
+        }
+        .card.clothes .btn-link:hover {
+            background: #be185d;
+        }
+
+        .card.food .btn-link {
+            background: #eab308;
+            color: #1e293b;
+            box-shadow: 0 5px 12px rgba(234, 179, 8, 0.25);
+        }
+        .card.food .btn-link:hover {
+            background: #ca8a04;
+            color: white;
+        }
+
+        /* rodapé minimalista */
+        .footer-note {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 2rem;
+            font-weight: 400;
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .card-title {
+                font-size: 1.6rem;
+            }
+            .cards-grid {
+                gap: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>✨ wordwall activities</h1>
+        <p>inglês interativo • practice & learn</p>
+    </div>
+
+    <div class="cards-grid">
+        <!-- CARD 1: FAMILY MEMBERS -->
+        <div class="card family">
+            <div class="card-icon">
+                <i class="fas fa-users fa-3x"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-title">
+                    Family Members
+                    <span class="badge">vocabulário</span>
+                </div>
+                <div class="description">
+                    Aprenda os nomes dos membros da família em inglês com jogos interativos, quizzes e desafios dinâmicos para todos os níveis.
+                </div>
+                <div class="stats">
+                    <span><i class="fas fa-puzzle-piece"></i> 10.000+ atividades</span>
+                    <span><i class="fas fa-language"></i> iniciante ao avançado</span>
+                </div>
+                <a href="https://wordwall.net/pt-br/community/ingl%C3%AAs/family-members" class="btn-link" target="_blank" rel="noopener noreferrer">
+                    Explorar Family <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- CARD 2: ROUPAS / CLOTHES -->
+        <div class="card clothes">
+            <div class="card-icon">
+                <i class="fas fa-tshirt fa-3x"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-title">
+                    Roupas & Acessórios
+                    <span class="badge">clothes</span>
+                </div>
+                <div class="description">
+                    Vocabulário completo de roupas e acessórios em inglês: flashcards interativos, jogos de memória e exercícios para fixar o conteúdo.
+                </div>
+                <div class="stats">
+                    <span><i class="fas fa-chart-line"></i> milhares de quizzes</span>
+                    <span><i class="fas fa-mobile-alt"></i> mobile friendly</span>
+                </div>
+                <a href="https://wordwall.net/pt-br/community/ingl%C3%AAs/roupas" class="btn-link" target="_blank" rel="noopener noreferrer">
+                    Explorar Roupas <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- CARD 3: FOOD / COMIDAS -->
+        <div class="card food">
+            <div class="card-icon">
+                <i class="fas fa-utensils fa-3x"></i>
+            </div>
+            <div class="card-content">
+                <div class="card-title">
+                    Food & Drinks
+                    <span class="badge">comidas</span>
+                </div>
+                <div class="description">
+                    Domine o vocabulário de alimentos, bebidas e refeições em inglês. Atividades gamificadas, caça-palavras e quizzes para praticar.
+                </div>
+                <div class="stats">
+                    <span><i class="fas fa-gamepad"></i> jogos interativos</span>
+                    <span><i class="fas fa-infinity"></i> atualizado sempre</span>
+                </div>
+                <a href="https://wordwall.net/pt-br/community/ingl%C3%AAs/food" class="btn-link" target="_blank" rel="noopener noreferrer">
+                    Explorar Food <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">
+        <i class="fas fa-external-link-alt"></i> Os links abrem em nova aba — aproveite os recursos do Wordwall!
+    </div>
+</div>
+</body>
+</html>
