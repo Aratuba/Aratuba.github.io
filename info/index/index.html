@@ -1,30 +1,295 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>Redirecionando...</title> 
-<style> 
-body {font-family: Arial; text-align:center; padding:50px; background:#f4f4f4;} 
-.box {background:#fff; padding:30px; border-radius:10px; display:inline-block;} 
-.c {font-size:2em; color:#0066cc; font-weight:bold;} 
-</style> 
-<script> 
-var s=5; 
-function go(){ 
-document.getElementById("c").innerText=s; 
-if(s==0){window.location.href="https://lite.duckduckgo.com/lite";} 
-else{s--;setTimeout(go,1000);} 
-} 
-window.onload=go; 
-</script> 
-</head> 
-<body> 
-<div class="box"> 
-Redirecionando em <span id="c" class="c">5</span> segundos... 
-<br> 
-<a href="https://lite.duckduckgo.com/lite">Clique aqui se não redirecionar</a> 
-</div> 
-</body> 
-</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa sem IA | Buscadores seguros para estudantes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            background: #f1f5f9;
+            font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #0c1b33;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(145deg, #0f2b3d, #1a4a6f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .sub {
+            color: #2c3e50;
+            margin-top: 0.5rem;
+            border-top: 1px solid #cbd5e1;
+            display: inline-block;
+            padding-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            background: #e6f0fa;
+            color: #155799;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 0.7rem;
+            font-weight: 500;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2edf7;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            padding: 1.2rem 1.5rem 0.3rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid #ecf3fa;
+        }
+
+        .logo {
+            font-size: 2rem;
+            width: 48px;
+            height: 48px;
+            background: #f8fafc;
+            border-radius: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0f2b3d;
+        }
+
+        .card-body {
+            padding: 1.2rem 1.5rem 1.8rem;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .input-group {
+            display: flex;
+            border: 1px solid #cbd5e6;
+            border-radius: 48px;
+            background: white;
+            transition: 0.15s;
+        }
+
+        .input-group:focus-within {
+            border-color: #2c6e9e;
+            box-shadow: 0 0 0 3px rgba(44, 110, 158, 0.2);
+        }
+
+        .input-group input {
+            flex: 1;
+            border: none;
+            padding: 0.7rem 1rem;
+            font-size: 0.9rem;
+            outline: none;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .input-group button {
+            background: #eef3fc;
+            border: none;
+            padding: 0 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-left: 1px solid #dce5f0;
+            border-radius: 0 48px 48px 0;
+            color: #1e4a76;
+            transition: 0.1s;
+        }
+
+        .input-group button:hover {
+            background: #e2eaf5;
+        }
+
+        .info {
+            font-size: 0.7rem;
+            color: #3a5a7a;
+            background: #f9fbfe;
+            padding: 0.3rem 0.7rem;
+            border-radius: 26px;
+            width: fit-content;
+            margin-top: 0.3rem;
+        }
+
+        .direct-link {
+            margin-top: 1rem;
+            text-align: right;
+        }
+
+        .direct-link a {
+            font-size: 0.75rem;
+            color: #3a6b92;
+            text-decoration: none;
+            border-bottom: 1px dotted #bdd4ec;
+        }
+
+        .direct-link a:hover {
+            color: #0e4b77;
+        }
+
+        .footer-note {
+            background: #eef3fa;
+            margin-top: 2.8rem;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #1f3e5c;
+            border: 1px solid #d7e3f0;
+        }
+
+        .footer-note strong {
+            color: #0b3f5e;
+        }
+
+        hr {
+            margin: 0.8rem 0;
+            border: 0;
+            height: 1px;
+            background: #e0eaf3;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .card-header h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🔎 Buscadores sem inteligência artificial</h1>
+        <div class="sub">Pesquisa clássica • Sem respostas automáticas • Sem assistentes • Sem risco de “cola” por IA</div>
+        <div class="badge">✅ Indicado para provas, trabalhos e estudos com integridade acadêmica</div>
+    </div>
+
+    <div class="grid">
+        <!-- 1. noai.duckduckgo.com → versão oficial sem IA -->
+        <div class="card">
+            <div class="card-header">
+                <div class="logo">🦆</div>
+                <h2>DuckDuckGo<br><span style="font-size: 0.75rem; font-weight: normal;">(noAI)</span></h2>
+            </div>
+            <div class="card-body">
+                <form class="search-form" action="https://noai.duckduckgo.com/" method="GET" target="_blank">
+                    <div class="input-group">
+                        <input type="text" name="q" placeholder="Pesquisar sem IA..." required>
+                        <button type="submit">Buscar</button>
+                    </div>
+                    <div class="info">
+                        ✨ Modo oficial "noai" — todas as funções de IA desativadas, imagens geradas por IA são filtradas.
+                    </div>
+                </form>
+                <div class="direct-link">
+                    <a href="https://noai.duckduckgo.com/" target="_blank">🔗 Acessar diretamente →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. lite.duckduckgo.com/lite → versão ultra leve, apenas HTML puro -->
+        <div class="card">
+            <div class="card-header">
+                <div class="logo">📄</div>
+                <h2>DuckDuckGo Lite</h2>
+            </div>
+            <div class="card-body">
+                <form class="search-form" action="https://lite.duckduckgo.com/lite/" method="GET" target="_blank">
+                    <div class="input-group">
+                        <input type="text" name="q" placeholder="Pesquisar no modo Lite..." required>
+                        <button type="submit">Buscar</button>
+                    </div>
+                    <div class="info">
+                        ⚡ Interface mínima (texto puro) — sem scripts, sem imagens, sem qualquer traço de IA.
+                    </div>
+                </form>
+                <div class="direct-link">
+                    <a href="https://lite.duckduckgo.com/lite" target="_blank">🔗 Versão Lite direta →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Mojeek → buscador independente, sem IA ativada por padrão -->
+        <div class="card">
+            <div class="card-header">
+                <div class="logo">🌱</div>
+                <h2>Mojeek</h2>
+            </div>
+            <div class="card-body">
+                <form class="search-form" action="https://www.mojeek.com/search" method="GET" target="_blank">
+                    <div class="input-group">
+                        <input type="text" name="q" placeholder="Pesquisar no Mojeek..." required>
+                        <button type="submit">Buscar</button>
+                    </div>
+                    <div class="info">
+                        🌍 Índice próprio — sem resumos de IA por padrão, foco em resultados da web tradicional.
+                    </div>
+                </form>
+                <div class="direct-link">
+                    <a href="https://www.mojeek.com/" target="_blank">🔗 Acessar Mojeek →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+       
+    </div>
+</div>
+</body>
+</html>
