@@ -3,293 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisa sem IA | Buscadores seguros para estudantes</title>
+    <title>Atividades de Matemática - 9° e 7° Ano</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: #f1f5f9;
-            font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
-            padding: 2rem 1.5rem;
-            color: #0c1b33;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 2.5rem;
+        .container:hover {
+            transform: scale(1.01);
         }
 
         h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            background: linear-gradient(145deg, #0f2b3d, #1a4a6f);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
-        .sub {
-            color: #2c3e50;
-            margin-top: 0.5rem;
-            border-top: 1px solid #cbd5e1;
-            display: inline-block;
-            padding-top: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .badge {
-            background: #e6f0fa;
-            color: #155799;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            display: inline-block;
-            margin-top: 0.7rem;
-            font-weight: 500;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 1rem;
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #e0e7f0;
+            padding-bottom: 16px;
         }
 
         .card {
-            background: white;
-            border-radius: 1.5rem;
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            border-left: 6px solid #2a5298;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2edf7;
-            overflow: hidden;
-            transition: 0.2s;
+            transition: all 0.25s ease;
         }
 
         .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
         }
 
-        .card-header {
-            padding: 1.2rem 1.5rem 0.3rem 1.5rem;
+        .card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 6px;
+        }
+
+        .card .ano {
+            display: inline-block;
+            background: #2a5298;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .card p {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card .link-wrapper {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            border-bottom: 1px solid #ecf3fa;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .logo {
-            font-size: 2rem;
-            width: 48px;
-            height: 48px;
-            background: #f8fafc;
-            border-radius: 1rem;
+        .card .link-wrapper a {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+            background: #2a5298;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 1rem;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 4px 10px rgba(42, 82, 152, 0.3);
+        }
+
+        .card .link-wrapper a:hover {
+            background: #1e3c72;
+            transform: scale(1.03);
+        }
+
+        .card .link-wrapper a:active {
+            transform: scale(0.97);
+        }
+
+        .card .link-wrapper .badge {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 2px 12px;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+
+        .card .link-wrapper .url-text {
+            font-size: 0.85rem;
+            color: #666;
+            word-break: break-all;
+            background: #eef2f7;
+            padding: 6px 14px;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px solid #e0e7f0;
+            padding-top: 18px;
+        }
+
+        .footer a {
+            color: #2a5298;
+            text-decoration: none;
             font-weight: 500;
         }
 
-        .card-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #0f2b3d;
+        .footer a:hover {
+            text-decoration: underline;
         }
 
-        .card-body {
-            padding: 1.2rem 1.5rem 1.8rem;
-        }
-
-        .search-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .input-group {
-            display: flex;
-            border: 1px solid #cbd5e6;
-            border-radius: 48px;
-            background: white;
-            transition: 0.15s;
-        }
-
-        .input-group:focus-within {
-            border-color: #2c6e9e;
-            box-shadow: 0 0 0 3px rgba(44, 110, 158, 0.2);
-        }
-
-        .input-group input {
-            flex: 1;
-            border: none;
-            padding: 0.7rem 1rem;
-            font-size: 0.9rem;
-            outline: none;
-            background: transparent;
-            font-family: inherit;
-        }
-
-        .input-group button {
-            background: #eef3fc;
-            border: none;
-            padding: 0 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-left: 1px solid #dce5f0;
-            border-radius: 0 48px 48px 0;
-            color: #1e4a76;
-            transition: 0.1s;
-        }
-
-        .input-group button:hover {
-            background: #e2eaf5;
-        }
-
-        .info {
-            font-size: 0.7rem;
-            color: #3a5a7a;
-            background: #f9fbfe;
-            padding: 0.3rem 0.7rem;
-            border-radius: 26px;
-            width: fit-content;
-            margin-top: 0.3rem;
-        }
-
-        .direct-link {
-            margin-top: 1rem;
-            text-align: right;
-        }
-
-        .direct-link a {
-            font-size: 0.75rem;
-            color: #3a6b92;
-            text-decoration: none;
-            border-bottom: 1px dotted #bdd4ec;
-        }
-
-        .direct-link a:hover {
-            color: #0e4b77;
-        }
-
-        .footer-note {
-            background: #eef3fa;
-            margin-top: 2.8rem;
-            border-radius: 1.2rem;
-            padding: 1.2rem 1.5rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #1f3e5c;
-            border: 1px solid #d7e3f0;
-        }
-
-        .footer-note strong {
-            color: #0b3f5e;
-        }
-
-        hr {
-            margin: 0.8rem 0;
-            border: 0;
-            height: 1px;
-            background: #e0eaf3;
-        }
-
-        @media (max-width: 700px) {
-            body {
-                padding: 1rem;
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px;
             }
-            .card-header h2 {
-                font-size: 1.3rem;
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                padding: 18px 16px;
+            }
+            .card h2 {
+                font-size: 1.4rem;
+            }
+            .card .link-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .card .link-wrapper a {
+                justify-content: center;
+            }
+            .card .link-wrapper .url-text {
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>🔎 Buscadores sem inteligência artificial</h1>
-        <div class="sub">Pesquisa clássica • Sem respostas automáticas • Sem assistentes • Sem risco de “cola” por IA</div>
-        <div class="badge">✅ Indicado para provas, trabalhos e estudos com integridade acadêmica</div>
-    </div>
+    <div class="container">
+        <h1>🧮 Desafios de Matemática</h1>
+        <p class="subtitle">Atividades interativas no Kahoot – 9° e 7° Ano</p>
 
-    <div class="grid">
-        <!-- 1. noai.duckduckgo.com → versão oficial sem IA -->
+        <!-- Card 9° Ano -->
         <div class="card">
-            <div class="card-header">
-                <div class="logo">🦆</div>
-                <h2>DuckDuckGo<br><span style="font-size: 0.75rem; font-weight: normal;">(noAI)</span></h2>
-            </div>
-            <div class="card-body">
-                <form class="search-form" action="https://noai.duckduckgo.com/" method="GET" target="_blank">
-                    <div class="input-group">
-                        <input type="text" name="q" placeholder="Pesquisar sem IA..." required>
-                        <button type="submit">Buscar</button>
-                    </div>
-                    <div class="info">
-                        ✨ Modo oficial "noai" — todas as funções de IA desativadas, imagens geradas por IA são filtradas.
-                    </div>
-                </form>
-                <div class="direct-link">
-                    <a href="https://noai.duckduckgo.com/" target="_blank">🔗 Acessar diretamente →</a>
-                </div>
+            <span class="ano">9° Ano</span>
+            <h2>📐 Matemática</h2>
+            <p>Revise os conteúdos do 9° ano com este desafio no Kahoot. Responda às perguntas e veja seu desempenho!</p>
+            <div class="link-wrapper">
+                <a href="https://kahoot.it/challenge/07483961?challenge-id=9ea7e23c-14c9-40d6-90c7-0221f3096d6d_1781654168845" target="_blank" rel="noopener noreferrer">
+                    🚀 Entrar no Desafio
+                    <span class="badge">9°</span>
+                </a>
+                <span class="url-text">kahoot.it/challenge/07483961</span>
             </div>
         </div>
 
-        <!-- 2. lite.duckduckgo.com/lite → versão ultra leve, apenas HTML puro -->
+        <!-- Card 7° Ano -->
         <div class="card">
-            <div class="card-header">
-                <div class="logo">📄</div>
-                <h2>DuckDuckGo Lite</h2>
-            </div>
-            <div class="card-body">
-                <form class="search-form" action="https://lite.duckduckgo.com/lite/" method="GET" target="_blank">
-                    <div class="input-group">
-                        <input type="text" name="q" placeholder="Pesquisar no modo Lite..." required>
-                        <button type="submit">Buscar</button>
-                    </div>
-                    <div class="info">
-                        ⚡ Interface mínima (texto puro) — sem scripts, sem imagens, sem qualquer traço de IA.
-                    </div>
-                </form>
-                <div class="direct-link">
-                    <a href="https://lite.duckduckgo.com/lite" target="_blank">🔗 Versão Lite direta →</a>
-                </div>
+            <span class="ano">7° Ano</span>
+            <h2>📏 Matemática</h2>
+            <p>Teste seus conhecimentos matemáticos do 7° ano de forma divertida. Clique no botão e participe!</p>
+            <div class="link-wrapper">
+                <a href="https://kahoot.it/challenge/02528607?challenge-id=9ea7e23c-14c9-40d6-90c7-0221f3096d6d_1781643625259" target="_blank" rel="noopener noreferrer">
+                    🚀 Entrar no Desafio
+                    
+                    <span class="badge">7°</span>
+                </a>
+                <span class="url-text">kahoot.it/challenge/02528607</span>
             </div>
         </div>
 
-        <!-- 3. Mojeek → buscador independente, sem IA ativada por padrão -->
-        <div class="card">
-            <div class="card-header">
-                <div class="logo">🌱</div>
-                <h2>Mojeek</h2>
-            </div>
-            <div class="card-body">
-                <form class="search-form" action="https://www.mojeek.com/search" method="GET" target="_blank">
-                    <div class="input-group">
-                        <input type="text" name="q" placeholder="Pesquisar no Mojeek..." required>
-                        <button type="submit">Buscar</button>
-                    </div>
-                    <div class="info">
-                        🌍 Índice próprio — sem resumos de IA por padrão, foco em resultados da web tradicional.
-                    </div>
-                </form>
-                <div class="direct-link">
-                    <a href="https://www.mojeek.com/" target="_blank">🔗 Acessar Mojeek →</a>
-                </div>
-            </div>
+        <div class="footer">
+            <p>📌 Desafios disponíveis por tempo limitado.<br>
+            Qualquer dúvida, procure o professor de Matemática.</p>
         </div>
     </div>
-
-    <div class="footer-note">
-       
-    </div>
-</div>
 </body>
 </html>
