@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividades de Matemática - 9° e 7° Ano</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.01);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #e0e7f0;
+            padding-bottom: 16px;
+        }
+
+        .card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            border-left: 6px solid #2a5298;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 6px;
+        }
+
+        .card .ano {
+            display: inline-block;
+            background: #2a5298;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .card p {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .card .link-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .card .link-wrapper a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2a5298;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 1rem;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 4px 10px rgba(42, 82, 152, 0.3);
+        }
+
+        .card .link-wrapper a:hover {
+            background: #1e3c72;
+            transform: scale(1.03);
+        }
+
+        .card .link-wrapper a:active {
+            transform: scale(0.97);
+        }
+
+        .card .link-wrapper .badge {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 2px 12px;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+
+        .card .link-wrapper .url-text {
+            font-size: 0.85rem;
+            color: #666;
+            word-break: break-all;
+            background: #eef2f7;
+            padding: 6px 14px;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px solid #e0e7f0;
+            padding-top: 18px;
+        }
+
+        .footer a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                padding: 18px 16px;
+            }
+            .card h2 {
+                font-size: 1.4rem;
+            }
+            .card .link-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .card .link-wrapper a {
+                justify-content: center;
+            }
+            .card .link-wrapper .url-text {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Desafios de Matemática</h1>
+        <p class="subtitle">Atividades interativas no Kahoot – 9° e 7° Ano</p>
+
+        <!-- Card 9° Ano -->
+        <div class="card">
+            <span class="ano">9° Ano</span>
+            <h2>📐 Matemática</h2>
+            <p>Revise os conteúdos do 9° ano com este desafio no Kahoot. Responda às perguntas e veja seu desempenho!</p>
+            <div class="link-wrapper">
+                <a href="https://kahoot.it/challenge/07483961?challenge-id=9ea7e23c-14c9-40d6-90c7-0221f3096d6d_1781654168845" target="_blank" rel="noopener noreferrer">
+                    🚀 Entrar no Desafio
+                    <span class="badge">9°</span>
+                </a>
+                <span class="url-text">kahoot.it/challenge/07483961</span>
+            </div>
+        </div>
+
+        <!-- Card 7° Ano -->
+        <div class="card">
+            <span class="ano">7° Ano</span>
+            <h2>📏 Matemática</h2>
+            <p>Teste seus conhecimentos matemáticos do 7° ano de forma divertida. Clique no botão e participe!</p>
+            <div class="link-wrapper">
+                <a href="https://kahoot.it/challenge/02528607?challenge-id=9ea7e23c-14c9-40d6-90c7-0221f3096d6d_1781643625259" target="_blank" rel="noopener noreferrer">
+                    🚀 Entrar no Desafio
+                    
+                    <span class="badge">7°</span>
+                </a>
+                <span class="url-text">kahoot.it/challenge/02528607</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📌 Desafios disponíveis por tempo limitado.<br>
+            Qualquer dúvida, procure o professor de Matemática.</p>
+        </div>
+    </div>
+</body>
+</html>
