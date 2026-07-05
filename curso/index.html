@@ -363,33 +363,7 @@
             }
         }
     </style>
-<link rel="icon" id="dynamicFavicon" href="data:," />
-<script>
-    (function setQRCodeFavicon() {
-        // 1. Pega o endereço completo da página onde o HTML está rodando
-        const paginaUrl = window.location.href;
-
-        // 2. Codifica a URL para ser usada como parâmetro
-        const urlEncoded = encodeURIComponent(paginaUrl);
-
-        // 3. Monta a URL da API que gera a imagem PNG do QR Code
-        //    size=64x64 (tamanho ideal para favicon) | margin=6 (borda branca)
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${urlEncoded}&format=png&margin=6`;
-
-        // 4. Cria dinamicamente a tag <link> do favicon
-        const link = document.createElement('link');
-        link.rel = 'icon';
-        link.type = 'image/png';
-        link.href = qrCodeUrl;
-
-        // 5. Substitui o link placeholder (caso exista) e insere no <head>
-        const oldLink = document.getElementById('dynamicFavicon');
-        if (oldLink) {
-            oldLink.remove();
-        }
-        document.head.appendChild(link);
-    })();
-</script>
+<link rel="icon" type="image/png" href="/qr.png">
 </head>
 <body>
 
