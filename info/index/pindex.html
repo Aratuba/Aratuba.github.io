@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Portal interativo com atividades educativas e jogos para aprendizado. Acesse recursos modernos e dinâmicos.">
+    <title>EduPlay | Atividades & Jogos</title>
+    
+    <!-- Favicon conforme especificado -->
+    <link rel="icon" type="image/png" href="/img/icon.png">
+    <link rel="shortcut icon" type="image/png" href="/img/icon.png">
+    
+    <!-- Google Fonts para tipografia moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 (ícones modernos e leves) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(145deg, #f5f0ff 0%, #e9eefc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Elementos decorativos de fundo (bolhas modernas) */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(128, 90, 255, 0.08) 0%, rgba(128, 90, 255, 0) 70%);
+            top: -100px;
+            left: -100px;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 200, 200, 0.05) 0%, rgba(0, 200, 200, 0) 70%);
+            bottom: -150px;
+            right: -120px;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Container principal com efeito glass suave */
+        .main-container {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(2px);
+            border-radius: 3rem;
+            padding: 2rem 2rem 3rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        /* Cabeçalho com efeito elegante */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #4a3f7c;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .badge i {
+            font-size: 0.9rem;
+            color: #6c5ce7;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e1a3a, #4a3f7c, #2c3e66);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #2c3a5e;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.5;
+            font-weight: 400;
+            opacity: 0.85;
+        }
+
+        /* Grade dos cards - moderna e responsiva */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0 1rem;
+        }
+
+        /* Cartão moderno com vidro e animações */
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 2rem 1.8rem 2rem 1.8rem;
+            transition: transform 0.25s ease, box-shadow 0.35s ease;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 48px -16px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(255,255,255,0.9);
+        }
+
+        /* Ícones grandes e expressivos */
+        .card-icon {
+            font-size: 3.2rem;
+            background: linear-gradient(145deg, #f0eefc, #ffffff);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border-radius: 30px;
+            box-shadow: 0 12px 18px -8px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.02);
+        }
+
+        .card-icon i {
+            font-size: 2.6rem;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.3px;
+            background: linear-gradient(120deg, #2b2b4f, #4a3f7c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .card p {
+            color: #3a4668;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            font-weight: 400;
+            padding: 0 0.2rem;
+        }
+
+        /* Botão / link principal — exatamente com os textos solicitados */
+        .link-modern {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(100deg, #6c5ce7, #a363d9);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.9rem 1.6rem;
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            margin-top: auto;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px -6px rgba(108, 92, 231, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        .link-modern i {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .link-modern:hover {
+            background: linear-gradient(100deg, #5a4ac7, #9652ca);
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px -8px rgba(108, 92, 231, 0.45);
+        }
+
+        .link-modern:hover i {
+            transform: translateX(4px);
+        }
+
+        /* estilo específico para o segundo card (diferencial harmônico) */
+        .card:last-child .link-modern {
+            background: linear-gradient(100deg, #2e7d64, #49b393);
+            box-shadow: 0 8px 20px -6px rgba(46, 125, 100, 0.3);
+        }
+
+        .card:last-child .link-modern:hover {
+            background: linear-gradient(100deg, #226854, #3d9c7a);
+        }
+
+        .card:last-child .card-icon {
+            background: linear-gradient(145deg, #e0f4ef, #ffffff);
+        }
+
+        /* rodapé minimalista */
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #53627b;
+            font-weight: 400;
+            border-top: 1px solid rgba(255,255,255,0.5);
+            padding-top: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-note i {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* responsividade completa para mobile e tablets */
+        @media (max-width: 780px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .main-container {
+                padding: 1.5rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .link-modern {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+            }
+            .card h3 {
+                font-size: 1.5rem;
+            }
+            .hero {
+                margin-bottom: 2rem;
+            }
+            .badge {
+                padding: 0.3rem 1rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .main-container {
+                padding: 1.2rem;
+            }
+            .card-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 2.5rem;
+            }
+            .card-icon i {
+                font-size: 2rem;
+            }
+        }
+
+        /* foco acessível */
+        .link-modern:focus-visible {
+            outline: 3px solid #1e1a3a;
+            outline-offset: 3px;
+            border-radius: 60px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="hero">
+        <div class="badge">
+            <i class="fas fa-graduation-cap"></i>
+            <span><!-- Ambiente interativo | Aprendizagem viva --></span>
+        </div>
+       <!-- <h1>explore, aprenda,<br>cresça</h1> -->
+        <div class="subhead">
+            <!-- Conteúdos educacionais dinâmicos que transformam o estudo em uma jornada envolvente. -->
+        </div>
+    </div>
+
+    <div class="cards-grid">
+        <!-- CARD 1: ATIVIDADE (/info/index/) -->
+        <div class="card">
+            <div class="card-icon">
+                <i class="fas fa-pen-fancy"></i>
+            </div>
+            <!--<h3>Atividades</h3>
+            <p>Atividade planejada para a aula.</p>
+                <a href="/info/index/" class="link-modern">
+                Atividade <i class="fas fa-arrow-right"></i>
+            </a>-->
+<h3>Escuta Estadual das Adolescências 2026</h3>
+            <p>Atividade planejada para a aula.</p>
+            <a href="/info/index/" class="link-modern">
+                Escuta Estadual das Adolescências 2026 <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- CARD 2: JOGOS EDUCATIVOS (/info/f/) -->
+        <div class="card">
+            <div class="card-icon">
+                <i class="fas fa-gamepad"></i>
+            </div>
+           <!-- <h3>Jogos Educativos</h3>
+            <p>Jogos educativos</p>
+            <a href="/info/f/" class="link-modern">
+                Jogos educativos <i class="fas fa-rocket"></i>
+            </a>-->
+
+<h3>Atividade Irineu</h3>
+            <p>Jogos educativos</p>
+            <!-- link exato conforme especificação: /info/f/ com texto "Jogos educativos" -->
+            <a href="/info/f/" class="link-modern">
+                Revisão de Matemática<i class="fas fa-rocket"></i>
+            </a>
+
+        </div>
+
+
+
+
+
+        <!-- CARD 2: JOGOS EDUCATIVOS (/info/f/) -->
+        <div class="card">
+            <div class="card-icon">
+                <i class="fas fa-gamepad"></i>
+            </div>
+          
+<h3>Jogos Educativos</h3>
+            <p>Jogos educativos</p>
+            <a href="/info/f/1.html" class="link-modern">
+                Jogos educativos <i class="fas fa-rocket"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-bolt"></i>
+        <span><!-- clique nos cards e comece sua experiência — Aprendizado ativo e envolvente --></span>
+        <i class="fas fa-heart" style="opacity: 0.5;"></i>
+    </div>
+</div>
+
+</body>
+</html>
