@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title> </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            display: block;
+            border-radius: 0.5rem;
+            /* leve sombra apenas para destacar se a imagem for clara, sem texto */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            background: #ffffff;
+        }
+
+        /* Ajuste fino para telas muito pequenas */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+
+            .container img {
+                border-radius: 0.25rem;
+            }
+        }
+
+        /* Para telas muito largas, mantém proporção */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="/curso/qr.png" alt="ok?" loading="lazy" />
+    </div>
+
+</body>
+</html>

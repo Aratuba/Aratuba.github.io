@@ -24,6 +24,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem 1.5rem;
+            gap: 2rem;
         }
 
         .course-card {
@@ -306,6 +307,105 @@
             transform: scale(1.02);
         }
 
+        /* ========== NOVA SEÇÃO QR CODE ========== */
+        .qr-section {
+            max-width: 1100px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .qr-card {
+            background: #ffffff;
+            border-radius: 2.5rem;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.08);
+            text-align: center;
+            border: 1px solid #e9eef5;
+            width: 100%;
+            max-width: 480px;
+            transition: all 0.25s ease;
+        }
+
+        .qr-card:hover {
+            border-color: #b9c8ff;
+            box-shadow: 0 20px 60px rgba(37, 99, 235, 0.10);
+        }
+
+        .qr-icon-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #2563eb, #1d4ed8);
+            width: 72px;
+            height: 72px;
+            border-radius: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+        }
+
+        .qr-icon-wrapper i {
+            font-size: 2.4rem;
+            color: #fff;
+        }
+
+        .qr-card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0a1a2f;
+            margin-bottom: 0.3rem;
+        }
+
+        .qr-card p {
+            color: #4b5a6f;
+            font-size: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .qr-image {
+            background: #f8faff;
+            padding: 1.2rem;
+            border-radius: 1.5rem;
+            display: inline-block;
+            border: 1px solid #e9eef5;
+            margin-bottom: 1.8rem;
+        }
+
+        .qr-image img {
+            display: block;
+            width: 200px;
+            height: 200px;
+            border-radius: 0.8rem;
+            background: #fff;
+        }
+
+        .btn-qr {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #0a1a2f;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.6rem 2rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            border: none;
+        }
+
+        .btn-qr i {
+            color: #a5b4fc;
+            transition: 0.2s;
+        }
+
+        .btn-qr:hover {
+            background: #1d2b3f;
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(0, 20, 40, 0.15);
+        }
+
         @media (max-width: 700px) {
             .course-card {
                 padding: 2rem 1.2rem;
@@ -348,6 +448,14 @@
                 font-size: 0.7rem;
                 padding: 0.35rem 0.8rem;
             }
+
+            .qr-card {
+                padding: 2rem 1.2rem;
+            }
+            .qr-image img {
+                width: 160px;
+                height: 160px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -361,35 +469,14 @@
             .header h1 {
                 font-size: 1.7rem;
             }
+
+            .qr-image img {
+                width: 140px;
+                height: 140px;
+            }
         }
     </style>
-<link rel="icon" id="dynamicFavicon" href="data:," />
-<script>
-    (function setQRCodeFavicon() {
-        // 1. Pega o endereço completo da página onde o HTML está rodando
-        const paginaUrl = window.location.href;
-
-        // 2. Codifica a URL para ser usada como parâmetro
-        const urlEncoded = encodeURIComponent(paginaUrl);
-
-        // 3. Monta a URL da API que gera a imagem PNG do QR Code
-        //    size=64x64 (tamanho ideal para favicon) | margin=6 (borda branca)
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${urlEncoded}&format=png&margin=6`;
-
-        // 4. Cria dinamicamente a tag <link> do favicon
-        const link = document.createElement('link');
-        link.rel = 'icon';
-        link.type = 'image/png';
-        link.href = qrCodeUrl;
-
-        // 5. Substitui o link placeholder (caso exista) e insere no <head>
-        const oldLink = document.getElementById('dynamicFavicon');
-        if (oldLink) {
-            oldLink.remove();
-        }
-        document.head.appendChild(link);
-    })();
-</script>
+    <link rel="icon" type="image/png" href="/curso/qr.png" />
 </head>
 <body>
 
@@ -496,6 +583,27 @@
             </div>
         </div>
 
+        <!-- Link antigo removido – agora temos a seção exclusiva abaixo -->
+
+    </div>
+    <!-- FIM DO COURSE-CARD -->
+
+    <!-- ====== NOVA SEÇÃO QR CODE ====== -->
+    <div class="qr-section">
+        <div class="qr-card">
+            <div class="qr-icon-wrapper">
+                <i class="fas fa-qrcode"></i>
+            </div>
+            <h2>QR Code do Curso</h2>
+            <p>Aponte a câmera do celular para acessar rapidamente</p>
+            <div class="qr-image">
+                <!-- Geração dinâmica do QR code com a URL atual (substitua 'data' pelo seu link)-->
+                <img src="/curso/qr.png" alt="QR Code do Curso Básico de Informática" />
+            </div>
+            <a href="/curso/qr/" class="btn-qr">
+                <i class="fas fa-arrow-right"></i> Página do QR Code
+            </a>
+        </div>
     </div>
 
 </body>
