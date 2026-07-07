@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f7fa;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:min(700px,90%);
+            background:#fff;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 10px 25px rgba(0,0,0,.12);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:25px;
+            color:#1f4fa3;
+        }
+
+        .links{
+            display:grid;
+            gap:15px;
+        }
+
+        a{
+            display:block;
+            text-decoration:none;
+            background:#1f4fa3;
+            color:white;
+            padding:16px;
+            border-radius:8px;
+            font-size:18px;
+            transition:.2s;
+        }
+
+        a:hover{
+            background:#163c7d;
+            transform:translateY(-2px);
+        }
+
+        .descricao{
+            font-size:14px;
+            opacity:.85;
+            margin-top:5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Projetos HTML</h1>
+
+    <div class="links">
+
+        <a href="digitação1.html">
+            ⌨️ Digitação 1
+            <div class="descricao">
+                Primeiro exercício de digitação.
+            </div>
+        </a>
+
+        <a href="digitação2.html">
+            ⌨️ Digitação 2
+            <div class="descricao">
+                Segundo exercício de digitação.
+            </div>
+        </a>
+
+        <a href="campo-minado.html">
+            💣 Campo Minado
+            <div class="descricao">
+                Jogo Campo Minado.
+            </div>
+        </a>
+
+        <a href="/curso/">
+            📚 Matérias
+            <div class="descricao">
+                O material de apoio do seu curso.
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
