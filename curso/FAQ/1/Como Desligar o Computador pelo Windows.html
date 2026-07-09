@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Como Desligar o Computador pelo Windows</title>
+    <!-- Google Fonts para um visual mais clean -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f6f9fc;
+            color: #1e293b;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem 2.8rem;
+            transition: 0.3s ease;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.8rem 1.2rem;
+                border-radius: 1.5rem;
+            }
+        }
+
+        /* cabeçalho */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .header i {
+            font-size: 2.2rem;
+            color: #0078d4;
+            background: #e8f0fe;
+            padding: 0.6rem;
+            border-radius: 1rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0b2b4a;
+        }
+
+        .badge {
+            background: #0078d4;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.9rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0 1.8rem 0;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px solid #eef3f8;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .meta i {
+            margin-right: 0.3rem;
+            color: #0078d4;
+        }
+
+        .meta span {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .objetivo {
+            background: #f0f7fe;
+            border-left: 6px solid #0078d4;
+            padding: 1.2rem 1.8rem;
+            border-radius: 1rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .objetivo strong {
+            color: #0b2b4a;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2.2rem;
+            margin-bottom: 0.8rem;
+            color: #0b2b4a;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        h2 i {
+            color: #0078d4;
+            font-size: 1.4rem;
+            width: 2rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.6rem 0 0.6rem 0;
+            color: #1e3a5f;
+        }
+
+        p, li {
+            color: #1e293b;
+        }
+
+        .destaque {
+            background: #f8fafc;
+            padding: 1.2rem 1.8rem;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            margin: 1.2rem 0;
+        }
+
+        .destaque.warning {
+            background: #fef9e7;
+            border-left: 6px solid #f1b44c;
+        }
+
+        .destaque.danger {
+            background: #fef2f2;
+            border-left: 6px solid #e53e3e;
+        }
+
+        .destaque.success {
+            background: #ecfdf5;
+            border-left: 6px solid #38a169;
+        }
+
+        .passo {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            background: #fafdff;
+            padding: 0.9rem 1.2rem;
+            border-radius: 0.8rem;
+            margin: 0.8rem 0;
+            border: 1px solid #eef3f8;
+            transition: 0.1s;
+        }
+
+        .passo:hover {
+            background: #f0f7fe;
+            border-color: #cbddee;
+        }
+
+        .passo-num {
+            background: #0078d4;
+            color: #fff;
+            font-weight: 700;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .passo-conteudo {
+            flex: 1;
+        }
+
+        .passo-conteudo strong {
+            color: #0b2b4a;
+        }
+
+        ul, ol {
+            padding-left: 1.8rem;
+            margin: 0.6rem 0;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card-opcao {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #e2e8f0;
+            transition: 0.15s;
+        }
+
+        .card-opcao:hover {
+            background: #ffffff;
+            border-color: #0078d4;
+            box-shadow: 0 4px 10px rgba(0, 120, 212, 0.08);
+        }
+
+        .card-opcao h4 {
+            font-weight: 700;
+            color: #0b2b4a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .card-opcao h4 i {
+            color: #0078d4;
+            width: 1.6rem;
+        }
+
+        .card-opcao p {
+            margin-top: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .resumo-tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .resumo-tabela th {
+            background: #0b2b4a;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.8rem 1rem;
+            text-align: left;
+        }
+
+        .resumo-tabela td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .resumo-tabela tr:nth-child(even) td {
+            background: #f9fcff;
+        }
+
+        .resumo-tabela tr:hover td {
+            background: #f0f7fe;
+        }
+
+        .btn-exercicio {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #0078d4;
+            color: #fff;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            border: none;
+            cursor: default;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            padding-top: 1.8rem;
+            border-top: 2px solid #eef3f8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .footer-note i {
+            color: #0078d4;
+            margin-right: 0.3rem;
+        }
+
+        .footer-note .lembrete {
+            background: #e8f0fe;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #0b2b4a;
+        }
+
+        /* ícones inline */
+        .icon-text i {
+            margin-right: 0.4rem;
+            color: #0078d4;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed #dce5ed;
+            margin: 2rem 0 1rem 0;
+        }
+
+        /* Ajustes mobile */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header i {
+                font-size: 1.8rem;
+                padding: 0.4rem;
+            }
+            .passo {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.4rem;
+            }
+            .passo-num {
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <i class="fas fa-power-off"></i>
+        <h1>Como Desligar o Computador pelo Windows</h1>
+        <span class="badge">Tutorial</span>
+    </div>
+    <div class="meta">
+        <span><i class="fas fa-bullseye"></i> Nível: Iniciante</span>
+        <span><i class="fas fa-clock"></i> Duração: 5 min</span>
+        <span><i class="fas fa-windows"></i> Windows 10 / 11</span>
+    </div>
+
+    <!-- Objetivo -->
+    <div class="objetivo">
+        <strong><i class="fas fa-flag-checkered" style="margin-right: 8px;"></i>Objetivo:</strong>
+        Ao final desta aula, o aluno será capaz de desligar corretamente o computador utilizando o menu do Windows, evitando perda de arquivos e possíveis problemas no sistema.
+    </div>
+
+    <!-- Por que desligar corretamente? -->
+    <h2><i class="fas fa-question-circle"></i> Por que desligar corretamente?</h2>
+    <p>O computador deve ser desligado pelo Windows para que todos os programas sejam encerrados de forma segura e o sistema operacional finalize suas atividades corretamente.</p>
+    <div class="destaque danger">
+        <p><strong><i class="fas fa-exclamation-triangle"></i> Desligar da tomada ou pressionar o botão de energia sem necessidade pode causar:</strong></p>
+        <ul>
+            <li>perda de arquivos não salvos;</li>
+            <li>danos em documentos em edição;</li>
+            <li>erros no sistema operacional;</li>
+            <li>demora na inicialização do computador.</li>
+        </ul>
+    </div>
+
+    <!-- Antes de desligar -->
+    <h2><i class="fas fa-check-double"></i> Antes de desligar</h2>
+    <div class="destaque success">
+        <p><strong>Antes de desligar o computador:</strong></p>
+        <ul>
+            <li>Salve todos os documentos que estiver editando.</li>
+            <li>Feche os programas que não serão mais utilizados.</li>
+            <li>Verifique se não há arquivos sendo copiados ou baixados.</li>
+        </ul>
+        <p style="margin-top: 0.5rem;"><strong>Somente depois disso desligue o computador.</strong></p>
+    </div>
+
+    <!-- Como desligar -->
+    <h2><i class="fas fa-step-forward"></i> Como desligar o computador</h2>
+
+    <div class="passo">
+        <div class="passo-num">1</div>
+        <div class="passo-conteudo">
+            <strong>Clique no botão Iniciar</strong>, localizado normalmente no canto inferior esquerdo da tela.
+        </div>
+    </div>
+    <div class="passo">
+        <div class="passo-num">2</div>
+        <div class="passo-conteudo">
+            <strong>No menu que será aberto, clique no botão Energia.</strong><br />
+            O ícone normalmente é representado por um círculo com uma pequena linha na parte superior.
+        </div>
+    </div>
+    <div class="passo">
+        <div class="passo-num">3</div>
+        <div class="passo-conteudo">
+            <strong>Serão exibidas algumas opções. Escolha <em>Desligar</em>.</strong><br />
+            O Windows encerrará os programas, fechará a sessão do usuário e desligará o computador automaticamente.
+        </div>
+    </div>
+
+    <!-- Outras opções -->
+    <h2><i class="fas fa-list-ul"></i> Outras opções do menu Energia</h2>
+    <p>Além da opção Desligar, o Windows oferece outras funções importantes.</p>
+
+    <div class="grid-2">
+        <div class="card-opcao">
+            <h4><i class="fas fa-moon"></i> Suspender</h4>
+            <p>Coloca o computador em modo de baixo consumo de energia.</p>
+            <ul style="margin-top: 0.3rem; padding-left: 1.2rem;">
+                <li>O computador permanece ligado.</li>
+                <li>Os programas continuam abertos.</li>
+                <li>O retorno é muito rápido.</li>
+            </ul>
+            <p style="margin-top: 0.3rem; font-style: italic;">É indicado quando o computador será utilizado novamente em pouco tempo.</p>
+        </div>
+        <div class="card-opcao">
+            <h4><i class="fas fa-sync-alt"></i> Reiniciar</h4>
+            <p>Desliga e liga o computador automaticamente.</p>
+            <p>É utilizado quando:</p>
+            <ul style="margin-top: 0.3rem; padding-left: 1.2rem;">
+                <li>uma atualização do Windows precisa ser concluída;</li>
+                <li>um programa solicita reinicialização;</li>
+                <li>o computador apresenta lentidão ou pequenos erros.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Atalho pelo teclado -->
+    <h2><i class="fas fa-keyboard"></i> Atalho pelo teclado</h2>
+    <div class="destaque" style="background: #eef6ff;">
+        <p>Também é possível desligar utilizando o teclado.</p>
+        <ol>
+            <li>Feche ou minimize todos os programas.</li>
+            <li>Na Área de Trabalho, pressione <strong>Alt + F4</strong>.</li>
+            <li>Na janela exibida, escolha <strong>Desligar</strong>.</li>
+            <li>Pressione <strong>Enter</strong> ou clique em <strong>OK</strong>.</li>
+        </ol>
+    </div>
+
+    <!-- Quando usar o botão de energia? -->
+    <h2><i class="fas fa-plug"></i> Quando usar o botão de energia?</h2>
+    <p>O botão físico do computador deve ser utilizado apenas quando:</p>
+    <ul>
+        <li>o computador estiver travado e não responder aos comandos;</li>
+        <li>houver uma emergência que impeça o desligamento pelo Windows.</li>
+    </ul>
+    <div class="destaque warning">
+        <p><i class="fas fa-info-circle"></i> Nessas situações, mantenha o botão de energia pressionado por alguns segundos até que o computador desligue completamente.</p>
+    </div>
+
+    <!-- O que nunca fazer -->
+    <h2><i class="fas fa-ban"></i> O que nunca fazer</h2>
+    <div class="destaque danger">
+        <p><strong>Evite as seguintes práticas:</strong></p>
+        <ul>
+            <li>Retirar o cabo de energia enquanto o computador está ligado.</li>
+            <li>Desligar o estabilizador ou filtro de linha antes que o Windows seja encerrado.</li>
+            <li>Pressionar repetidamente o botão de energia sem necessidade.</li>
+            <li>Forçar o desligamento durante uma atualização do Windows.</li>
+        </ul>
+        <p style="margin-top: 0.8rem;"><i class="fas fa-exclamation-circle"></i> Essas ações podem causar perda de dados e danos ao sistema operacional.</p>
+    </div>
+
+    <!-- Exercício -->
+    <h2><i class="fas fa-pencil-alt"></i> Exercício</h2>
+    <div class="destaque" style="background: #f4f9ff;">
+        <p><strong>Pratique os seguintes passos:</strong></p>
+        <ol>
+            <li>Clique no botão Iniciar.</li>
+            <li>Localize o botão Energia.</li>
+            <li>Identifique as opções Suspender, Reiniciar e Desligar.</li>
+            <li>Escolha <strong>Cancelar</strong> caso não deseje desligar o computador durante a prática.</li>
+        </ol>
+        <div class="btn-exercicio"><i class="fas fa-hand-pointer"></i> Pratique com segurança</div>
+    </div>
+
+    <!-- Resumo da aula -->
+    <h2><i class="fas fa-table"></i> Resumo da aula</h2>
+    <table class="resumo-tabela">
+        <thead>
+            <tr>
+                <th>Opção</th>
+                <th>Função</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Desligar</strong></td><td>Encerra o Windows e desliga o computador.</td></tr>
+            <tr><td><strong>Reiniciar</strong></td><td>Desliga e liga o computador novamente.</td></tr>
+            <tr><td><strong>Suspender</strong></td><td>Economiza energia mantendo os programas abertos.</td></tr>
+            <tr><td><strong>Alt + F4</strong></td><td>Abre a janela para desligar quando estiver na Área de Trabalho.</td></tr>
+            <tr><td><strong>Botão de energia</strong></td><td>Deve ser usado apenas em casos de travamento ou emergência.</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Lembrete final -->
+    <div class="footer-note">
+        <div class="lembrete"><i class="fas fa-lightbulb"></i> Lembre-se: sempre desligue o computador pelo Windows.</div>
+        <div><i class="fas fa-shield-alt"></i> Esse procedimento ajuda a proteger seus arquivos e aumenta a segurança e a estabilidade do sistema.</div>
+    </div>
+
+    <hr />
+    <p style="text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 0.5rem;">
+        <i class="fas fa-code"></i> Tutorial elaborado para aprendizado — mantenha seu sistema sempre atualizado.
+    </p>
+</div>
+</body>
+</html>
