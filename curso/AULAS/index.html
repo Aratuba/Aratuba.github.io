@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página inicial · Meu Curso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f3f7fd 0%, #e5edf8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            margin: 0;
+        }
+
+        .main-card {
+            max-width: 960px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 3rem;
+            padding: 2.8rem 2.5rem 2.5rem;
+            box-shadow: 0 30px 60px -20px rgba(20, 40, 80, 0.25),
+                        0 10px 30px -10px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: transform 0.2s ease;
+        }
+
+        .main-card:hover {
+            transform: scale(1.003);
+        }
+
+        /* cabeçalho */
+        .header-curso {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .badge-curso {
+            display: inline-block;
+            background: #1f3349;
+            color: #edf4ff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.25rem 1.2rem;
+            border-radius: 2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .header-curso h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #0b1f30;
+        }
+
+        .header-curso h1 span {
+            background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-curso .sub {
+            font-size: 1.05rem;
+            color: #435974;
+            margin-top: 0.3rem;
+            border-top: 2px solid rgba(29, 78, 216, 0.12);
+            border-bottom: 2px solid rgba(29, 78, 216, 0.12);
+            display: inline-block;
+            padding: 0.3rem 2rem;
+            border-radius: 3rem;
+        }
+
+        /* seção aulas */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a2f44;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-title::before {
+            content: "📚";
+            font-size: 1.5rem;
+        }
+
+        .grid-aulas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .aula-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #ffffff;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1.2rem;
+            text-decoration: none;
+            color: #0b1f30;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid #e2eaf5;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+            transition: all 0.2s ease;
+        }
+
+        .aula-link:hover {
+            background: #f0f6ff;
+            border-color: #8ab0ff;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 24px -10px rgba(29, 78, 216, 0.18);
+        }
+
+        .aula-link .numero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef4ff;
+            color: #1d4ed8;
+            font-weight: 700;
+            font-size: 0.75rem;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .aula-link:hover .numero {
+            background: #1d4ed8;
+            color: #fff;
+        }
+
+        .aula-link .nome {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .aula-link .seta-pequena {
+            color: #9aafc9;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .aula-link:hover .seta-pequena {
+            transform: translateX(4px);
+            color: #1d4ed8;
+        }
+
+        /* links para FAQ e Apostilas */
+        .outros-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 2rem;
+            margin-top: 0.2rem;
+        }
+
+        .btn-secundario {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #ffffff;
+            padding: 0.8rem 2rem;
+            border-radius: 3rem;
+            text-decoration: none;
+            color: #1a2f44;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid #dce5f0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+        }
+
+        .btn-secundario:hover {
+            background: #f8fbff;
+            border-color: #aac0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -10px rgba(29, 78, 216, 0.15);
+        }
+
+        .btn-secundario .icone {
+            font-size: 1.4rem;
+        }
+
+        .btn-secundario.faq:hover {
+            border-color: #7c3aed;
+        }
+
+        .btn-secundario.apostilas:hover {
+            border-color: #0d9e6a;
+        }
+
+        /* rodapé */
+        .footer-curso {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #7a8fa8;
+            letter-spacing: 0.01em;
+        }
+
+        /* responsivo */
+        @media (max-width: 700px) {
+            .main-card {
+                padding: 1.8rem 1.2rem;
+                border-radius: 2rem;
+            }
+
+            .header-curso h1 {
+                font-size: 2rem;
+            }
+
+            .header-curso .sub {
+                font-size: 0.9rem;
+                padding: 0.2rem 1.2rem;
+            }
+
+            .grid-aulas {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .aula-link {
+                font-size: 0.85rem;
+                padding: 0.7rem 0.9rem;
+            }
+
+            .aula-link .numero {
+                width: 22px;
+                height: 22px;
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-aulas {
+                grid-template-columns: 1fr;
+            }
+
+            .outros-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-secundario {
+                justify-content: center;
+                padding: 0.7rem 1.2rem;
+            }
+
+            .header-curso h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <!-- cabeçalho -->
+        <div class="header-curso">
+            <span class="badge-curso">🎯 Acesso direto</span>
+            <h1>Bem-vindo ao <span>seu curso</span></h1>
+            <div class="sub">Escolha uma aula e comece agora</div>
+        </div>
+
+        <!-- grade com as 6 aulas -->
+        <div class="section-title">Aulas disponíveis</div>
+        <div class="grid-aulas">
+            <a href="/curso/AULAS/AULA1" class="aula-link">
+                <span class="numero">1</span>
+                <span class="nome">AULA 1</span>
+                <span class="seta-pequena">→</span>
+            </a>
+            <a href="/curso/AULAS/AULA2" class="aula-link">
+                <span class="numero">2</span>
+                <span class="nome">AULA 2</span>
+                <span class="seta-pequena">→</span>
+            </a>
+            <a href="/curso/AULAS/AULA3" class="aula-link">
+                <span class="numero">3</span>
+                <span class="nome">AULA 3</span>
+                <span class="seta-pequena">→</span>
+            </a>
+            <a href="/curso/AULAS/AULA4" class="aula-link">
+                <span class="numero">4</span>
+                <span class="nome">AULA 4</span>
+                <span class="seta-pequena">→</span>
+            </a>
+            <a href="/curso/AULAS/AULA5" class="aula-link">
+                <span class="numero">5</span>
+                <span class="nome">AULA 5</span>
+                <span class="seta-pequena">→</span>
+            </a>
+            <a href="/curso/AULAS/AULA6" class="aula-link">
+                <span class="numero">6</span>
+                <span class="nome">AULA 6</span>
+                <span class="seta-pequena">→</span>
+            </a>
+        </div>
+
+        <!-- FAQ e Apostilas -->
+        <div class="outros-links">
+            <a href="/curso/FAQ/" class="btn-secundario faq">
+                <span class="icone">❓</span>
+                FAQ – Dúvidas frequentes
+            </a>
+            <a href="/curso/APOSTILAS/" class="btn-secundario apostilas">
+                <span class="icone">📄</span>
+                Apostilas e materiais
+            </a>
+        </div>
+
+        <div class="footer-curso">
+            🔍 Tudo organizado para você estudar sem complicação.
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Treino de Digitação com Dica</title>
+    <style>
+        /* Reset & Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 40px 50px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            font-weight: 300;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 15px;
+        }
+
+        /* Área do caractere alvo */
+        .target-area {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 30px;
+            padding: 30px 20px 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+        }
+
+        .target-area.correct {
+            border-color: #4caf50;
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.25);
+        }
+
+        .target-area.wrong {
+            border-color: #f44336;
+            box-shadow: 0 0 25px rgba(244, 67, 54, 0.25);
+        }
+
+        .char-display {
+            font-size: 9rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.2;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 4px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            font-family: 'Courier New', monospace;
+            user-select: none;
+        }
+
+        .char-display .placeholder {
+            font-size: 1.8rem;
+            color: #777;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Dica de caso (maiúscula/minúscula/número/símbolo) */
+        .case-hint {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 0px;
+            min-height: 28px;
+            color: #bbb;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .case-hint .uppercase {
+            color: #ffb74d;
+        }
+        .case-hint .lowercase {
+            color: #81c784;
+        }
+        .case-hint .number {
+            color: #64b5f6;
+        }
+        .case-hint .symbol {
+            color: #ce93d8;
+        }
+        .case-hint .empty {
+            color: #666;
+        }
+
+        .feedback-hint {
+            margin-top: 5px;
+            font-size: 1rem;
+            min-height: 30px;
+            color: #bbb;
+            font-weight: 300;
+        }
+
+        .feedback-hint .correct-text {
+            color: #4caf50;
+        }
+
+        .feedback-hint .wrong-text {
+            color: #f44336;
+        }
+
+        /* Estatísticas */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 25px 0 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 18px;
+            padding: 14px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .stat-value.acertos {
+            color: #4caf50;
+        }
+        .stat-value.erros {
+            color: #f44336;
+        }
+        .stat-value.total {
+            color: #ffb74d;
+        }
+        .stat-value.taxa {
+            color: #64b5f6;
+        }
+        .stat-value.tempo {
+            color: #ce93d8;
+        }
+
+        /* Controles */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px 30px;
+            margin: 20px 0 10px;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 18px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px 18px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ddd;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .checkbox-group label:hover {
+            color: #fff;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: #64b5f6;
+            cursor: pointer;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.02);
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-restart {
+            background: rgba(255, 193, 7, 0.15);
+            border-color: rgba(255, 193, 7, 0.25);
+            color: #ffd54f;
+        }
+
+        .btn-restart:hover {
+            background: rgba(255, 193, 7, 0.25);
+        }
+
+        .btn-primary {
+            background: rgba(100, 181, 246, 0.15);
+            border-color: rgba(100, 181, 246, 0.25);
+            color: #64b5f6;
+        }
+
+        .btn-primary:hover {
+            background: rgba(100, 181, 246, 0.25);
+        }
+
+        .empty-message {
+            color: #f44336;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            min-height: 22px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+
+            .char-display {
+                font-size: 6rem;
+                min-height: 110px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .stat-value {
+                font-size: 1.4rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .checkbox-group {
+                gap: 8px 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .char-display {
+                font-size: 4.5rem;
+                min-height: 90px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>⌨️ Treino de Digitação</h1>
+        <div class="subtitle">Pressione a tecla correspondente ao caractere exibido</div>
+
+        <!-- Área do caractere -->
+        <div class="target-area" id="targetArea">
+            <div class="char-display" id="charDisplay">
+                <span class="placeholder">Clique para começar</span>
+            </div>
+            <!-- DICA: Maiúscula / Minúscula / Número / Símbolo -->
+            <div class="case-hint" id="caseHint">
+                <span class="empty">—</span>
+            </div>
+            <div class="feedback-hint" id="feedbackHint">Aguardando primeira tecla...</div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-label">Acertos</div>
+                <div class="stat-value acertos" id="acertos">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Erros</div>
+                <div class="stat-value erros" id="erros">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total</div>
+                <div class="stat-value total" id="total">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Taxa</div>
+                <div class="stat-value taxa" id="taxa">0%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tempo</div>
+                <div class="stat-value tempo" id="tempo">0s</div>
+            </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="chkMinusculas" checked /> a–z</label>
+                <label><input type="checkbox" id="chkMaiusculas" checked /> A–Z</label>
+                <label><input type="checkbox" id="chkNumeros" checked /> 0–9</label>
+                <label><input type="checkbox" id="chkSimbolos" checked /> !@#$...</label>
+            </div>
+            <div>
+                <button class="btn btn-restart" id="btnRestart">↻ Reiniciar</button>
+            </div>
+        </div>
+        <div class="empty-message" id="emptyMessage"></div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  CONFIGURAÇÕES
+        // ============================================================
+        const CONJUNTOS = {
+            minusculas: 'abcdefghijklmnopqrstuvwxyz',
+            maiusculas: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            numeros: '0123456789',
+            simbolos: '!@#$%^&*()_+-=[]{};:\'",.<>/?\\|~`'
+        };
+
+        // ============================================================
+        //  ESTADO
+        // ============================================================
+        let caracteresDisponiveis = [];
+        let alvo = '';
+        let acertos = 0;
+        let erros = 0;
+        let totalTentativas = 0;
+        let tempoInicio = null;
+        let tempoDecorrido = 0;
+        let cronometroId = null;
+        let primeiraTecla = true;
+        let estaAtivo = false; // se há pelo menos um conjunto selecionado
+
+        // ============================================================
+        //  DOM
+        // ============================================================
+        const charDisplay = document.getElementById('charDisplay');
+        const targetArea = document.getElementById('targetArea');
+        const caseHint = document.getElementById('caseHint');
+        const feedbackHint = document.getElementById('feedbackHint');
+
+        const acertosEl = document.getElementById('acertos');
+        const errosEl = document.getElementById('erros');
+        const totalEl = document.getElementById('total');
+        const taxaEl = document.getElementById('taxa');
+        const tempoEl = document.getElementById('tempo');
+
+        const chkMinusculas = document.getElementById('chkMinusculas');
+        const chkMaiusculas = document.getElementById('chkMaiusculas');
+        const chkNumeros = document.getElementById('chkNumeros');
+        const chkSimbolos = document.getElementById('chkSimbolos');
+        const btnRestart = document.getElementById('btnRestart');
+        const emptyMessage = document.getElementById('emptyMessage');
+
+        // ============================================================
+        //  FUNÇÕES AUXILIARES
+        // ============================================================
+        function getConjuntosSelecionados() {
+            let texto = '';
+            if (chkMinusculas.checked) texto += CONJUNTOS.minusculas;
+            if (chkMaiusculas.checked) texto += CONJUNTOS.maiusculas;
+            if (chkNumeros.checked) texto += CONJUNTOS.numeros;
+            if (chkSimbolos.checked) texto += CONJUNTOS.simbolos;
+            return texto;
+        }
+
+        function atualizarCaracteresDisponiveis() {
+            const texto = getConjuntosSelecionados();
+            if (texto.length === 0) {
+                caracteresDisponiveis = [];
+                estaAtivo = false;
+                emptyMessage.textContent = '⚠️ Selecione pelo menos um conjunto de caracteres!';
+                return;
+            }
+            // Remove duplicatas (caso haja interseção – não há, mas por segurança)
+            caracteresDisponiveis = [...new Set(texto.split(''))];
+            estaAtivo = true;
+            emptyMessage.textContent = '';
+        }
+
+        // Atualiza a dica de caso (maiúscula/minúscula/número/símbolo)
+        function atualizarDica(caractere) {
+            if (!caractere || caractere.length !== 1) {
+                caseHint.innerHTML = '<span class="empty">—</span>';
+                return;
+            }
+            const code = caractere.charCodeAt(0);
+            let classe = '';
+            let texto = '';
+
+            if (caractere >= 'a' && caractere <= 'z') {
+                classe = 'lowercase';
+                texto = 'minúscula';
+            } else if (caractere >= 'A' && caractere <= 'Z') {
+                classe = 'uppercase';
+                texto = 'MAIÚSCULA';
+            } else if (caractere >= '0' && caractere <= '9') {
+                classe = 'number';
+                texto = 'número';
+            } else {
+                classe = 'symbol';
+                texto = 'símbolo';
+            }
+            caseHint.innerHTML = `<span class="${classe}">${texto}</span>`;
+        }
+
+        function gerarAlvo() {
+            if (!estaAtivo || caracteresDisponiveis.length === 0) {
+                alvo = '';
+                charDisplay.innerHTML = '<span class="placeholder">⛔ Sem caracteres</span>';
+                atualizarDica('');
+                return;
+            }
+            const idx = Math.floor(Math.random() * caracteresDisponiveis.length);
+            alvo = caracteresDisponiveis[idx];
+            charDisplay.textContent = alvo;
+            // Atualiza a dica com base no novo alvo
+            atualizarDica(alvo);
+            // Resetar feedback visual
+            targetArea.classList.remove('correct', 'wrong');
+            // Se for a primeira tecla, não mostrar mensagem de erro/acerto
+            if (primeiraTecla) {
+                feedbackHint.textContent = 'Digite a tecla correspondente...';
+                feedbackHint.className = 'feedback-hint';
+            }
+        }
+
+        function iniciarCronometro() {
+            if (cronometroId) return;
+            tempoInicio = Date.now() - tempoDecorrido * 1000;
+            cronometroId = setInterval(() => {
+                const agora = Date.now();
+                tempoDecorrido = (agora - tempoInicio) / 1000;
+                tempoEl.textContent = Math.floor(tempoDecorrido) + 's';
+            }, 200);
+        }
+
+        function pararCronometro() {
+            if (cronometroId) {
+                clearInterval(cronometroId);
+                cronometroId = null;
+            }
+        }
+
+        function reiniciarJogo() {
+            pararCronometro();
+            acertos = 0;
+            erros = 0;
+            totalTentativas = 0;
+            tempoDecorrido = 0;
+            primeiraTecla = true;
+            tempoInicio = null;
+            tempoEl.textContent = '0s';
+            atualizarEstatisticas();
+            targetArea.classList.remove('correct', 'wrong');
+            feedbackHint.textContent = 'Aguardando primeira tecla...';
+            feedbackHint.className = 'feedback-hint';
+            // Atualiza conjuntos e gera alvo
+            atualizarCaracteresDisponiveis();
+            if (estaAtivo) {
+                gerarAlvo();
+            } else {
+                charDisplay.innerHTML = '<span class="placeholder">Selecione caracteres</span>';
+                atualizarDica('');
+            }
+        }
+
+        function atualizarEstatisticas() {
+            acertosEl.textContent = acertos;
+            errosEl.textContent = erros;
+            totalTentativas = acertos + erros;
+            totalEl.textContent = totalTentativas;
+            const taxa = totalTentativas === 0 ? 0 : Math.round((acertos / totalTentativas) * 100);
+            taxaEl.textContent = taxa + '%';
+        }
+
+        // ============================================================
+        //  LÓGICA PRINCIPAL - EVENTO DE TECLADO
+        // ============================================================
+        function handleKeydown(event) {
+            const key = event.key;
+
+            // Ignorar se não for uma tecla imprimível (um caractere)
+            if (key.length !== 1) return;
+
+            // Se não houver alvo ou não estiver ativo, não processa
+            if (!estaAtivo || !alvo) {
+                // Ainda assim, previne comportamento padrão para não digitar na página
+                event.preventDefault();
+                return;
+            }
+
+            // Previne que a tecla cause ações padrão (como rolagem, atalhos)
+            event.preventDefault();
+
+            // Se for a primeira tecla, inicia o cronômetro
+            if (primeiraTecla) {
+                primeiraTecla = false;
+                iniciarCronometro();
+                feedbackHint.textContent = '';
+            }
+
+            // Compara a tecla pressionada com o alvo
+            const isCorrect = (key === alvo);
+
+            // Feedback visual
+            targetArea.classList.remove('correct', 'wrong');
+            if (isCorrect) {
+                targetArea.classList.add('correct');
+                acertos++;
+                feedbackHint.textContent = '✅ Correto!';
+                feedbackHint.className = 'feedback-hint correct-text';
+            } else {
+                targetArea.classList.add('wrong');
+                erros++;
+                feedbackHint.textContent = `❌ Errado! Era "${alvo}" e você pressionou "${key}"`;
+                feedbackHint.className = 'feedback-hint wrong-text';
+            }
+
+            // Atualiza estatísticas
+            atualizarEstatisticas();
+
+            // Gera novo alvo (se houver caracteres)
+            if (estaAtivo && caracteresDisponiveis.length > 0) {
+                gerarAlvo();
+            } else {
+                // Caso não haja caracteres (ex: desmarcaram todos durante o jogo)
+                charDisplay.innerHTML = '<span class="placeholder">⛔ Sem caracteres</span>';
+                alvo = '';
+                atualizarDica('');
+            }
+        }
+
+        // ============================================================
+        //  EVENTOS DOS CONTROLES
+        // ============================================================
+        function onCheckboxChange() {
+            // Se o jogo já começou (não é primeira tecla), reiniciar para evitar inconsistências
+            if (!primeiraTecla) {
+                reiniciarJogo();
+            } else {
+                // Apenas atualiza disponíveis e gera novo alvo
+                atualizarCaracteresDisponiveis();
+                if (estaAtivo) {
+                    gerarAlvo();
+                } else {
+                    charDisplay.innerHTML = '<span class="placeholder">Selecione caracteres</span>';
+                    alvo = '';
+                    atualizarDica('');
+                    targetArea.classList.remove('correct', 'wrong');
+                    feedbackHint.textContent = 'Selecione pelo menos um conjunto';
+                    feedbackHint.className = 'feedback-hint';
+                }
+            }
+        }
+
+        chkMinusculas.addEventListener('change', onCheckboxChange);
+        chkMaiusculas.addEventListener('change', onCheckboxChange);
+        chkNumeros.addEventListener('change', onCheckboxChange);
+        chkSimbolos.addEventListener('change', onCheckboxChange);
+
+        btnRestart.addEventListener('click', reiniciarJogo);
+
+        // ============================================================
+        //  INICIALIZAÇÃO
+        // ============================================================
+        function init() {
+            // Configura estado inicial
+            atualizarCaracteresDisponiveis();
+            if (estaAtivo) {
+                gerarAlvo();
+                feedbackHint.textContent = 'Aguardando primeira tecla...';
+                feedbackHint.className = 'feedback-hint';
+            } else {
+                charDisplay.innerHTML = '<span class="placeholder">Selecione caracteres</span>';
+                atualizarDica('');
+                feedbackHint.textContent = 'Selecione pelo menos um conjunto';
+                feedbackHint.className = 'feedback-hint';
+            }
+            atualizarEstatisticas();
+            tempoEl.textContent = '0s';
+
+            // Escuta eventos de teclado
+            document.addEventListener('keydown', handleKeydown);
+        }
+
+        init();
+    </script>
+
+</body>
+</html>

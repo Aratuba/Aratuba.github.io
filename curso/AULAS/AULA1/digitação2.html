@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula · Conhecendo o Teclado ABNT2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== reset + base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f5f9ff 0%, #e7eefa 100%);
+            padding: 2.5rem 1.5rem;
+            color: #0b1f30;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2.8rem;
+            padding: 2.8rem 2.8rem 2.5rem;
+            box-shadow: 0 30px 60px -20px rgba(20, 40, 80, 0.25), 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== cabeçalho ===== */
+        .header-aula {
+            text-align: center;
+            margin-bottom: 2.8rem;
+            border-bottom: 2px solid rgba(29, 78, 216, 0.08);
+            padding-bottom: 2rem;
+        }
+
+        .badge-aula {
+            display: inline-block;
+            background: #1f3349;
+            color: #edf4ff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.2rem 1.2rem;
+            border-radius: 2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .header-aula h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+
+        .header-aula h1 span {
+            background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-aula .subtitulo {
+            font-size: 1.1rem;
+            color: #3d5670;
+            margin-top: 0.2rem;
+        }
+
+        .objetivo-box {
+            margin-top: 1.2rem;
+            background: rgba(29, 78, 216, 0.06);
+            border-left: 5px solid #1d4ed8;
+            padding: 1rem 1.6rem;
+            border-radius: 0 1.2rem 1.2rem 0;
+            text-align: left;
+            font-weight: 500;
+            color: #1a3349;
+        }
+
+        .objetivo-box strong {
+            color: #1d4ed8;
+        }
+
+        /* ===== títulos de seção ===== */
+        h2 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 2.2rem 0 1rem 0;
+            color: #0b1f30;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        h2 .emoji {
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.8rem 0 0.6rem 0;
+            color: #1a3349;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 .tecla-icon {
+            font-size: 0.9rem;
+            background: #eef2f7;
+            padding: 0.1rem 0.8rem;
+            border-radius: 0.5rem;
+            border: 1px solid #d0dbe8;
+            font-weight: 600;
+            color: #1d2f44;
+        }
+
+        p {
+            margin-bottom: 0.8rem;
+            color: #1d344b;
+        }
+
+        ul, ol {
+            margin: 0.5rem 0 1.2rem 1.8rem;
+            color: #1d344b;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* ===== teclas estilizadas ===== */
+        .tecla {
+            display: inline-block;
+            background: #f0f4fc;
+            border: 1px solid #cbd8e8;
+            border-radius: 0.5rem;
+            padding: 0.1rem 0.7rem;
+            font-family: 'Inter', monospace;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #0b1f30;
+            box-shadow: 0 2px 0 #b0c0d4;
+            margin: 0 0.1rem;
+            min-width: 2.2rem;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        .tecla-grande {
+            display: inline-block;
+            background: #edf2fa;
+            border: 1px solid #c0d0e4;
+            border-radius: 0.6rem;
+            padding: 0.3rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 0 #a8baca;
+            margin: 0.1rem 0;
+            font-family: 'Inter', monospace;
+        }
+
+        .tecla-larga {
+            display: inline-block;
+            background: #edf2fa;
+            border: 1px solid #c0d0e4;
+            border-radius: 0.6rem;
+            padding: 0.3rem 2.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 0 #a8baca;
+            font-family: 'Inter', monospace;
+        }
+
+        .exemplo-texto {
+            background: #f4f8ff;
+            border-radius: 0.8rem;
+            padding: 0.6rem 1.2rem;
+            border: 1px dashed #b0c8e8;
+            display: inline-block;
+            font-weight: 500;
+            margin: 0.2rem 0;
+        }
+
+        .bloco-exemplo {
+            background: #f8fafd;
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid #7c3aed;
+            margin: 0.8rem 0 1.2rem 0;
+        }
+
+        /* ===== tabelas bonitas ===== */
+        .tabela-wrapper {
+            overflow-x: auto;
+            margin: 1.2rem 0 1.8rem 0;
+            border-radius: 1.2rem;
+            border: 1px solid #e3ecf6;
+            background: #ffffff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #eef4fc;
+            color: #132b44;
+            font-weight: 600;
+            padding: 0.8rem 1rem;
+            text-align: left;
+            border-bottom: 2px solid #d2dfef;
+        }
+
+        td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #e8eff8;
+            color: #1a3349;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #f5f9ff;
+        }
+
+        .table-tecla {
+            font-weight: 600;
+            color: #0b1f30;
+        }
+
+        /* ===== cards de tecla individual ===== */
+        .card-tecla {
+            background: #ffffff;
+            border-radius: 1.4rem;
+            padding: 1.2rem 1.6rem;
+            margin: 1.2rem 0;
+            border: 1px solid #e6eefa;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.15s;
+        }
+
+        .card-tecla:hover {
+            box-shadow: 0 8px 24px rgba(29, 78, 216, 0.06);
+        }
+
+        .card-tecla .cabecalho-tecla {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-tecla .cabecalho-tecla .nome-tecla {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* ===== sumário rápido ===== */
+        .sumario {
+            background: #f4f9ff;
+            border-radius: 1.6rem;
+            padding: 1.2rem 1.8rem;
+            margin: 1.8rem 0 2rem 0;
+            border: 1px solid #dce8f8;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            justify-content: center;
+        }
+
+        .sumario a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.15s;
+        }
+
+        .sumario a:hover {
+            border-bottom-color: #1d4ed8;
+        }
+
+        /* ===== exercício ===== */
+        .exercicio-box {
+            background: #f0f7fe;
+            border-radius: 1.6rem;
+            padding: 1.6rem 2rem;
+            border: 2px solid #cadeff;
+            margin: 2rem 0 1.5rem 0;
+        }
+
+        .exercicio-box h3 {
+            margin-top: 0;
+        }
+
+        .exercicio-box textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 1px solid #c0d5ef;
+            font-family: 'Inter', monospace;
+            font-size: 1rem;
+            background: #ffffff;
+            resize: vertical;
+            min-height: 120px;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== resumo final ===== */
+        .resumo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.6rem 1rem;
+            background: #f8fbfe;
+            border-radius: 1.4rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #e3ecf6;
+            margin: 1.5rem 0;
+        }
+
+        .resumo-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #dae3f0;
+            font-size: 0.95rem;
+        }
+
+        .resumo-item .tecla-resumo {
+            font-weight: 600;
+            color: #1d4ed8;
+        }
+
+        .resumo-item .funcao-resumo {
+            color: #2d4b6e;
+        }
+
+        /* ===== rodapé ===== */
+        .footer-aula {
+            margin-top: 2.8rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7a8fa8;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            padding-top: 1.8rem;
+        }
+
+        .footer-aula a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-aula a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== responsivo ===== */
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.8rem 1.2rem;
+                border-radius: 2rem;
+            }
+            .header-aula h1 {
+                font-size: 2rem;
+            }
+            .header-aula .subtitulo {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            h3 {
+                font-size: 1.1rem;
+            }
+            .card-tecla {
+                padding: 1rem 1.2rem;
+            }
+            .resumo-grid {
+                grid-template-columns: 1fr;
+            }
+            .sumario {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3rem;
+            }
+            .tecla-larga {
+                padding: 0.2rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-aula h1 {
+                font-size: 1.6rem;
+            }
+            .objetivo-box {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== Cabeçalho ===== -->
+    <div class="header-aula">
+        <span class="badge-aula">📘 Aula 1</span>
+        <h1>Conhecendo o <span>Teclado ABNT2</span></h1>
+        <p class="subtitulo">O guia completo para você dominar todas as teclas do seu computador</p>
+        <div class="objetivo-box">
+            <strong>🎯 Objetivo:</strong> Ao final desta aula, você será capaz de identificar as principais teclas do teclado ABNT2 e compreender suas funções básicas.
+        </div>
+    </div>
+
+    <!-- ===== Sumário rápido ===== -->
+    <div class="sumario">
+        <a href="#o-que-e">🔹 O que é um teclado?</a>
+        <a href="#partes">🔹 Partes do teclado</a>
+        <a href="#teclas">🔹 Teclas principais</a>
+        <a href="#simbolos">🔹 Símbolos</a>
+        <a href="#acentuacao">🔹 Acentuação</a>
+        <a href="#exercicio">🔹 Exercício</a>
+        <a href="#resumo">🔹 Resumo</a>
+    </div>
+
+    <!-- ===== 1. O que é um teclado? ===== -->
+    <h2 id="o-que-e"><span class="emoji">⌨️</span> O que é um teclado?</h2>
+    <p>O teclado é um dispositivo de entrada utilizado para digitar textos, números e comandos no computador.</p>
+    <p>O modelo mais utilizado no Brasil é o <strong>ABNT2</strong>, criado conforme as normas da Associação Brasileira de Normas Técnicas (ABNT).</p>
+    <p><strong>Sua principal característica é possuir:</strong></p>
+    <ul>
+        <li>tecla <span class="tecla">Ç</span></li>
+        <li>tecla <span class="tecla">Alt Gr</span></li>
+        <li>teclas para acentuação em português</li>
+    </ul>
+
+    <!-- ===== 2. Principais partes ===== -->
+    <h2 id="partes"><span class="emoji">🧩</span> Principais partes do teclado</h2>
+    <p>O teclado é dividido em cinco áreas:</p>
+    <ul>
+        <li><strong>Teclas de digitação</strong> – letras, números e símbolos</li>
+        <li><strong>Teclas de função</strong> – <span class="tecla">F1</span> a <span class="tecla">F12</span></li>
+        <li><strong>Teclado numérico</strong> – números e operadores</li>
+        <li><strong>Teclas de navegação</strong> – setas, <span class="tecla">Home</span>, <span class="tecla">End</span>, etc.</li>
+        <li><strong>Teclas de controle</strong> – <span class="tecla">Ctrl</span>, <span class="tecla">Alt</span>, <span class="tecla">Shift</span>, etc.</li>
+    </ul>
+
+    <!-- ===== 3. Teclas principais ===== -->
+    <h2 id="teclas"><span class="emoji">🔑</span> Teclas principais</h2>
+
+    <!-- 1. Digitação -->
+    <h3>1. Teclas de Digitação</h3>
+    <p>São utilizadas para escrever textos. Exemplos: <span class="tecla">A</span> <span class="tecla">B</span> <span class="tecla">C</span> <span class="tecla">D</span> <span class="tecla">E</span> · <span class="tecla">1</span> <span class="tecla">2</span> <span class="tecla">3</span> <span class="tecla">4</span> <span class="tecla">5</span> · <span class="tecla">Ç</span></p>
+    <p>Servem para digitar letras, números, símbolos e pontuação.</p>
+
+    <!-- 2. Enter -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">2. Enter</span>
+            <span class="tecla-grande">Enter</span>
+        </div>
+        <p><strong>Funções:</strong></p>
+        <ul>
+            <li>confirma uma ação</li>
+            <li>cria uma nova linha em um texto</li>
+            <li>executa comandos</li>
+        </ul>
+        <div class="bloco-exemplo">
+            <strong>Exemplo:</strong> Ao terminar de escrever um parágrafo, pressione <span class="tecla">Enter</span> para ir para a próxima linha.
+        </div>
+    </div>
+
+    <!-- 3. Espaço -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">3. Espaço (Space)</span>
+            <span class="tecla-larga">Espaço</span>
+        </div>
+        <p>É a maior tecla do teclado. Serve para separar palavras.</p>
+        <div class="bloco-exemplo">
+            <strong>Exemplo:</strong> <span class="exemplo-texto">Bom dia</span> (com espaço) vs <span class="exemplo-texto">Bomdia</span> (sem espaço).
+        </div>
+    </div>
+
+    <!-- 4. Backspace -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">4. Backspace</span>
+            <span class="tecla">← Backspace</span>
+        </div>
+        <p>Apaga o caractere localizado à <strong>esquerda</strong> do cursor.</p>
+        <div class="bloco-exemplo">
+            <strong>Exemplo:</strong> <span class="exemplo-texto">Casaa|</span> → pressionando <span class="tecla">Backspace</span> → <span class="exemplo-texto">Casa|</span>
+        </div>
+    </div>
+
+    <!-- 5. Delete -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">5. Delete (Del)</span>
+            <span class="tecla">Delete</span>
+        </div>
+        <p>Apaga o caractere localizado à <strong>direita</strong> do cursor. Também pode excluir arquivos quando selecionados.</p>
+    </div>
+
+    <!-- 6. Shift -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">6. Shift</span>
+            <span class="tecla-grande">Shift</span>
+        </div>
+        <p>Serve para:</p>
+        <ul>
+            <li>escrever letras maiúsculas</li>
+            <li>acessar o símbolo superior das teclas</li>
+        </ul>
+        <div class="bloco-exemplo">
+            <strong>Exemplos:</strong> <span class="tecla">1</span> → <span class="tecla">!</span>  ·  <span class="tecla">2</span> → <span class="tecla">@</span>  ·  <span class="tecla">a</span> → <span class="tecla">A</span>
+        </div>
+    </div>
+
+    <!-- 7. Caps Lock -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">7. Caps Lock</span>
+            <span class="tecla-grande">Caps Lock</span>
+        </div>
+        <p>Mantém todas as letras em maiúsculo.</p>
+        <div class="bloco-exemplo">
+            <strong>Exemplo:</strong> <span class="exemplo-texto">bom dia</span> → com <span class="tecla">Caps Lock</span> ativado → <span class="exemplo-texto">BOM DIA</span>
+        </div>
+    </div>
+
+    <!-- 8. Tab -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">8. Tab</span>
+            <span class="tecla">Tab ↹</span>
+        </div>
+        <p>Serve para:</p>
+        <ul>
+            <li>criar recuos</li>
+            <li>mudar de campo em formulários</li>
+            <li>organizar tabelas</li>
+        </ul>
+    </div>
+
+    <!-- 9. Esc -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">9. Esc (Escape)</span>
+            <span class="tecla">Esc</span>
+        </div>
+        <p>Cancela ou fecha algumas operações. Exemplos: fechar menus, sair da tela cheia, cancelar uma ação.</p>
+    </div>
+
+    <!-- 10. Ctrl -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">10. Ctrl (Control)</span>
+            <span class="tecla-grande">Ctrl</span>
+        </div>
+        <p>É utilizada junto com outras teclas. Atalhos mais usados:</p>
+        <div class="tabela-wrapper">
+            <table>
+                <thead><tr><th>Atalho</th><th>Função</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="tecla">Ctrl + C</span></td><td>Copiar</td></tr>
+                    <tr><td><span class="tecla">Ctrl + V</span></td><td>Colar</td></tr>
+                    <tr><td><span class="tecla">Ctrl + X</span></td><td>Recortar</td></tr>
+                    <tr><td><span class="tecla">Ctrl + Z</span></td><td>Desfazer</td></tr>
+                    <tr><td><span class="tecla">Ctrl + A</span></td><td>Selecionar tudo</td></tr>
+                    <tr><td><span class="tecla">Ctrl + S</span></td><td>Salvar</td></tr>
+                    <tr><td><span class="tecla">Ctrl + P</span></td><td>Imprimir</td></tr>
+                    <tr><td><span class="tecla">Ctrl + F</span></td><td>Localizar</td></tr>
+                    <tr><td><span class="tecla">Ctrl + N</span></td><td>Novo documento</td></tr>
+                    <tr><td><span class="tecla">Ctrl + O</span></td><td>Abrir arquivo</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 11. Alt -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">11. Alt</span>
+            <span class="tecla-grande">Alt</span>
+        </div>
+        <p>Também funciona em conjunto com outras teclas.</p>
+        <div class="bloco-exemplo">
+            <strong>Exemplo:</strong> <span class="tecla">Alt + Tab</span> alterna entre programas abertos.
+        </div>
+    </div>
+
+    <!-- 12. Alt Gr -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">12. Alt Gr</span>
+            <span class="tecla-grande">Alt Gr</span>
+        </div>
+        <p>Exclusivo do teclado brasileiro. Permite digitar símbolos especiais.</p>
+        <div class="bloco-exemplo">
+            <strong>Exemplos:</strong> <span class="tecla">@</span> <span class="tecla">£</span> <span class="tecla">¢</span> <span class="tecla">€</span> <span class="tecla">²</span> <span class="tecla">³</span>
+        </div>
+    </div>
+
+    <!-- 13. Tecla Windows -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">13. Tecla Windows</span>
+            <span class="tecla">⊞ Windows</span>
+        </div>
+        <p>Abre o Menu Iniciar.</p>
+        <p><strong>Atalhos úteis:</strong></p>
+        <ul>
+            <li><span class="tecla">Windows + E</span> – Abre o Explorador de Arquivos</li>
+            <li><span class="tecla">Windows + L</span> – Bloqueia o computador</li>
+            <li><span class="tecla">Windows + D</span> – Mostra a Área de Trabalho</li>
+            <li><span class="tecla">Windows + R</span> – Executar</li>
+        </ul>
+    </div>
+
+    <!-- 14. Teclas de Função -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">14. Teclas de Função</span>
+            <span><span class="tecla">F1</span> <span class="tecla">F2</span> <span class="tecla">F3</span> <span class="tecla">F4</span> <span class="tecla">F5</span> <span class="tecla">F6</span> <span class="tecla">F7</span> <span class="tecla">F8</span> <span class="tecla">F9</span> <span class="tecla">F10</span> <span class="tecla">F11</span> <span class="tecla">F12</span></span>
+        </div>
+        <div class="tabela-wrapper">
+            <table>
+                <thead><tr><th>Tecla</th><th>Função</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="tecla">F1</span></td><td>Ajuda</td></tr>
+                    <tr><td><span class="tecla">F2</span></td><td>Renomear arquivo</td></tr>
+                    <tr><td><span class="tecla">F3</span></td><td>Pesquisar</td></tr>
+                    <tr><td><span class="tecla">F5</span></td><td>Atualizar página</td></tr>
+                    <tr><td><span class="tecla">F11</span></td><td>Tela cheia</td></tr>
+                    <tr><td><span class="tecla">F12</span></td><td>Ferramentas do navegador (em muitos navegadores)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 15. Setas -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">15. Setas</span>
+            <span><span class="tecla">↑</span> <span class="tecla">↓</span> <span class="tecla">←</span> <span class="tecla">→</span></span>
+        </div>
+        <p>Servem para mover o cursor. Também navegam entre menus e documentos.</p>
+    </div>
+
+    <!-- 16. Home -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">16. Home</span>
+            <span class="tecla">Home</span>
+        </div>
+        <p>Move o cursor para o <strong>início</strong> da linha.</p>
+    </div>
+
+    <!-- 17. End -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">17. End</span>
+            <span class="tecla">End</span>
+        </div>
+        <p>Move o cursor para o <strong>final</strong> da linha.</p>
+    </div>
+
+    <!-- 18. Page Up -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">18. Page Up</span>
+            <span class="tecla">Page Up</span>
+        </div>
+        <p>Sobe uma página.</p>
+    </div>
+
+    <!-- 19. Page Down -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">19. Page Down</span>
+            <span class="tecla">Page Down</span>
+        </div>
+        <p>Desce uma página.</p>
+    </div>
+
+    <!-- 20. Insert -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">20. Insert</span>
+            <span class="tecla">Insert</span>
+        </div>
+        <p>Alterna entre <strong>inserir</strong> texto e <strong>sobrescrever</strong> texto. Hoje é pouco utilizada.</p>
+    </div>
+
+    <!-- 21. Print Screen -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">21. Print Screen (PrtSc)</span>
+            <span class="tecla">PrtSc</span>
+        </div>
+        <p>Captura a tela. No Windows, também pode ser usada com <span class="tecla">Windows + Shift + S</span> para selecionar apenas uma parte da tela.</p>
+    </div>
+
+    <!-- 22. Num Lock -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">22. Num Lock</span>
+            <span class="tecla">Num Lock</span>
+        </div>
+        <p>Liga ou desliga o teclado numérico. Quando ativado, as teclas <span class="tecla">7</span> <span class="tecla">8</span> <span class="tecla">9</span> / <span class="tecla">4</span> <span class="tecla">5</span> <span class="tecla">6</span> / <span class="tecla">1</span> <span class="tecla">2</span> <span class="tecla">3</span> / <span class="tecla">0</span> funcionam como números.</p>
+    </div>
+
+    <!-- 23. Scroll Lock -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">23. Scroll Lock</span>
+            <span class="tecla">Scroll Lock</span>
+        </div>
+        <p>Pouco utilizada atualmente. Em alguns programas altera a forma de navegação.</p>
+    </div>
+
+    <!-- 24. Pause/Break -->
+    <div class="card-tecla">
+        <div class="cabecalho-tecla">
+            <span class="nome-tecla">24. Pause/Break</span>
+            <span class="tecla">Pause</span>
+        </div>
+        <p>Quase não é utilizada atualmente. Antigamente interrompia alguns processos.</p>
+    </div>
+
+    <!-- ===== 4. Símbolos importantes ===== -->
+    <h2 id="simbolos"><span class="emoji">🔣</span> Símbolos importantes do ABNT2</h2>
+    <div class="tabela-wrapper">
+        <table>
+            <thead><tr><th>Tecla</th><th>Símbolo</th></tr></thead>
+            <tbody>
+                <tr><td><span class="tecla">;</span></td><td>Ponto e vírgula</td></tr>
+                <tr><td><span class="tecla">:</span></td><td>Dois-pontos</td></tr>
+                <tr><td><span class="tecla">,</span></td><td>Vírgula</td></tr>
+                <tr><td><span class="tecla">.</span></td><td>Ponto</td></tr>
+                <tr><td><span class="tecla">?</span></td><td>Interrogação</td></tr>
+                <tr><td><span class="tecla">!</span></td><td>Exclamação</td></tr>
+                <tr><td><span class="tecla">/</span></td><td>Barra</td></tr>
+                <tr><td><span class="tecla">\</span></td><td>Barra invertida</td></tr>
+                <tr><td><span class="tecla">( )</span></td><td>Parênteses</td></tr>
+                <tr><td><span class="tecla">[ ]</span></td><td>Colchetes</td></tr>
+                <tr><td><span class="tecla">{ }</span></td><td>Chaves</td></tr>
+                <tr><td><span class="tecla">"</span></td><td>Aspas</td></tr>
+                <tr><td><span class="tecla">'</span></td><td>Apóstrofo</td></tr>
+                <tr><td><span class="tecla">@</span></td><td>Arroba</td></tr>
+                <tr><td><span class="tecla">#</span></td><td>Cerquilha</td></tr>
+                <tr><td><span class="tecla">%</span></td><td>Porcentagem</td></tr>
+                <tr><td><span class="tecla">&</span></td><td>E comercial</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== 5. Acentuação ===== -->
+    <h2 id="acentuacao"><span class="emoji">´</span> Acentuação no teclado ABNT2</h2>
+    <p>O teclado brasileiro usa <strong>teclas mortas</strong> para os acentos. Primeiro pressiona-se o acento e depois a letra.</p>
+    <div class="tabela-wrapper">
+        <table>
+            <thead><tr><th>Teclas</th><th>Resultado</th></tr></thead>
+            <tbody>
+                <tr><td><span class="tecla">'</span> + <span class="tecla">a</span></td><td>á</td></tr>
+                <tr><td><span class="tecla">`</span> + <span class="tecla">a</span></td><td>à</td></tr>
+                <tr><td><span class="tecla">^</span> + <span class="tecla">a</span></td><td>â</td></tr>
+                <tr><td><span class="tecla">~</span> + <span class="tecla">a</span></td><td>ã</td></tr>
+                <tr><td><span class="tecla">"</span> + <span class="tecla">u</span></td><td>ü (pouco usado)</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ===== 6. Exercício ===== -->
+    <h2 id="exercicio"><span class="emoji">✍️</span> Exercício</h2>
+    <div class="exercicio-box">
+        <h3>Digite o seguinte texto:</h3>
+        <div style="background:#fff; border-radius:1rem; padding:1rem 1.5rem; border:1px solid #d4e2f8; font-family:monospace; margin-bottom:1rem;">
+            Meu nome é João.<br />
+            Hoje estou aprendendo a usar o teclado ABNT2.<br />
+            Aprendi a usar:<br />
+            • Enter<br />
+            • Espaço<br />
+            • Shift<br />
+            • Caps Lock<br />
+            • Backspace<br />
+            • Delete<br />
+            • Ctrl<br />
+            • Alt
+        </div>
+        <p><strong>Use o campo abaixo para praticar:</strong></p>
+        <textarea placeholder="Digite aqui o texto do exercício..."></textarea>
+    </div>
+
+    <!-- ===== 7. Resumo ===== -->
+    <h2 id="resumo"><span class="emoji">📋</span> Resumo da aula</h2>
+    <div class="resumo-grid">
+        <div class="resumo-item"><span class="tecla-resumo">Enter</span><span class="funcao-resumo">Confirmar e nova linha</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Espaço</span><span class="funcao-resumo">Separar palavras</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Backspace</span><span class="funcao-resumo">Apagar à esquerda</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Delete</span><span class="funcao-resumo">Apagar à direita</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Shift</span><span class="funcao-resumo">Maiúsculas e símbolos superiores</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Caps Lock</span><span class="funcao-resumo">Letras maiúsculas contínuas</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Tab</span><span class="funcao-resumo">Recuo e navegação</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Ctrl</span><span class="funcao-resumo">Atalhos</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Alt</span><span class="funcao-resumo">Atalhos</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Alt Gr</span><span class="funcao-resumo">Símbolos especiais</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Windows</span><span class="funcao-resumo">Abrir o Menu Iniciar</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Setas</span><span class="funcao-resumo">Navegação</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Home</span><span class="funcao-resumo">Início da linha</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">End</span><span class="funcao-resumo">Final da linha</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Page Up</span><span class="funcao-resumo">Página acima</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Page Down</span><span class="funcao-resumo">Página abaixo</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">F1–F12</span><span class="funcao-resumo">Funções especiais</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Num Lock</span><span class="funcao-resumo">Ativar teclado numérico</span></div>
+        <div class="resumo-item"><span class="tecla-resumo">Print Screen</span><span class="funcao-resumo">Capturar a tela</span></div>
+    </div>
+
+    <!-- ===== Rodapé ===== -->
+    <div class="footer-aula">
+        📘 Aula completa sobre o teclado ABNT2 · <a href="#">Voltar ao início</a>
+    </div>
+
+</div>
+
+</body>
+</html>
