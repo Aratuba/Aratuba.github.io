@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📐 Tutorial de Alinhamento no Word</title>
+    <style>
+        /* ── Reset & Base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+            padding: 2rem 1rem;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2.5rem 2.8rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.07);
+        }
+
+        /* ── Títulos ── */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.3rem;
+        }
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #64748b;
+            margin-left: auto;
+        }
+
+        .subhead {
+            font-size: 1.15rem;
+            color: #475569;
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem 0;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2 .badge {
+            background: #e2e8f0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #334155;
+            padding: 0.15rem 0.7rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.6rem 0 0.6rem 0;
+            color: #1e293b;
+        }
+
+        /* ── Parágrafos ── */
+        p {
+            margin-bottom: 1rem;
+            color: #334155;
+        }
+
+        /* ── Cards / Exemplos visuais ── */
+        .demo-box {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 1.8rem 2rem;
+            margin: 1.5rem 0 2rem 0;
+            border: 1px solid #e9edf2;
+            transition: box-shadow 0.2s;
+        }
+        .demo-box:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .demo-box .label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .demo-box .label span {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 0 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+
+        .demo-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* ── Imagem de exemplo ── */
+        .sample-img {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #3b82f6, #2563eb);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+        .sample-img.green {
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+        }
+        .sample-img.purple {
+            background: linear-gradient(145deg, #a855f7, #7c3aed);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+        }
+        .sample-img.orange {
+            background: linear-gradient(145deg, #f97316, #ea580c);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+        }
+        .sample-img.rose {
+            background: linear-gradient(145deg, #f43f5e, #e11d48);
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
+        }
+
+        .sample-img.sm {
+            width: 70px;
+            height: 70px;
+            font-size: 1.4rem;
+        }
+        .sample-img.lg {
+            width: 140px;
+            height: 140px;
+            font-size: 2.6rem;
+        }
+
+        /* ── Alinhamentos específicos ── */
+        .align-left {
+            justify-content: flex-start;
+        }
+        .align-center {
+            justify-content: center;
+        }
+        .align-right {
+            justify-content: flex-end;
+        }
+        .align-space-between {
+            justify-content: space-between;
+        }
+
+        .demo-content .text-block {
+            max-width: 500px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .demo-content .text-block p {
+            margin-bottom: 0.4rem;
+        }
+        .demo-content .text-block small {
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+
+        /* ── Tabela de opções ── */
+        .option-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin: 1.2rem 0 0.5rem 0;
+        }
+        .option-table th {
+            background: #f1f5f9;
+            text-align: left;
+            padding: 0.7rem 1rem;
+            font-weight: 600;
+            color: #0f172a;
+            border-bottom: 2px solid #d1d9e6;
+        }
+        .option-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #e9edf2;
+            vertical-align: top;
+        }
+        .option-table tr:last-child td {
+            border-bottom: none;
+        }
+        .option-table .icon-cell {
+            font-size: 1.2rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        /* ── Caixas de texto (simulação Word) ── */
+        .word-textbox {
+            background: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin: 0.8rem 0;
+            position: relative;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+        }
+        .word-textbox .tb-label {
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            background: #fff;
+            padding: 0 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .word-textbox .tb-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .word-textbox.align-tb-left .tb-content {
+            justify-content: flex-start;
+        }
+        .word-textbox.align-tb-center .tb-content {
+            justify-content: center;
+        }
+        .word-textbox.align-tb-right .tb-content {
+            justify-content: flex-end;
+        }
+        .word-textbox.align-tb-distribute .tb-content {
+            justify-content: space-between;
+        }
+
+        .tb-handle {
+            background: #cbd5e1;
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            opacity: 0.4;
+            cursor: grab;
+        }
+
+        /* ── Figura com legenda ── */
+        .figure-container {
+            display: inline-block;
+            text-align: center;
+            margin: 0.5rem 1rem 0.5rem 0;
+            padding: 0.6rem 0.8rem 0.3rem 0.8rem;
+            background: #fafcff;
+            border-radius: 12px;
+            border: 1px solid #e9edf2;
+        }
+        .figure-container .fig-caption {
+            font-size: 0.8rem;
+            color: #475569;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        .fig-left {
+            float: left;
+            margin-right: 1.2rem;
+        }
+        .fig-right {
+            float: right;
+            margin-left: 1.2rem;
+        }
+        .fig-center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── Wrapping (simulação) ── */
+        .wrap-demo {
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .wrap-demo .float-left {
+            float: left;
+            margin: 0 1rem 0.5rem 0;
+        }
+        .wrap-demo .float-right {
+            float: right;
+            margin: 0 0 0.5rem 1rem;
+        }
+        .wrap-demo .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* ── Dicas / Caixas de destaque ── */
+        .tip-box {
+            background: #eff6ff;
+            border-left: 5px solid #3b82f6;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+        .tip-box strong {
+            color: #1d4ed8;
+        }
+        .tip-box.warn {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+        .tip-box.warn strong {
+            color: #b45309;
+        }
+
+        /* ── Grid de comparação ── */
+        .comp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        .comp-item {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            border: 1px solid #e9edf2;
+        }
+        .comp-item .emoji {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .comp-item .title {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .comp-item .desc {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        /* ── Responsivo ── */
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+                flex-wrap: wrap;
+            }
+            h1 small {
+                margin-left: 0;
+                font-size: 0.85rem;
+            }
+            .demo-box {
+                padding: 1.2rem;
+            }
+            .demo-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .demo-content .text-block {
+                max-width: 100%;
+            }
+            .sample-img {
+                align-self: center;
+            }
+            .option-table {
+                font-size: 0.8rem;
+            }
+            .option-table th,
+            .option-table td {
+                padding: 0.4rem 0.6rem;
+            }
+            .comp-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .comp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── Scroll suave ── */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ── Separador ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d1d9e6, transparent);
+            margin: 2.8rem 0;
+        }
+
+        /* ── Ícones de alinhamento ── */
+        .align-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #f1f5f9;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        /* ── Animações sutis ── */
+        .demo-box {
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+        }
+        .demo-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ── Lista de passos ── */
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+            margin: 1.2rem 0;
+        }
+        .step-list li {
+            counter-increment: step;
+            padding: 0.6rem 0 0.6rem 2.8rem;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 700;
+            font-size: 0.8rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-list li:last-child {
+            border-bottom: none;
+        }
+        .step-list li strong {
+            color: #0f172a;
+        }
+
+        /* ── Badge "Word" ── */
+        .word-badge {
+            background: #1e293b;
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.7rem;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ── Tabela de resumo ── */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 1.2rem 0;
+            background: #fafcff;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .summary-table th {
+            background: #0f172a;
+            color: #fff;
+            padding: 0.7rem 1rem;
+            text-align: left;
+            font-weight: 500;
+        }
+        .summary-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+        .summary-table tr:hover td {
+            background: #f8fafc;
+        }
+        .summary-table .highlight {
+            background: #dbeafe;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ════════════════════════ CABEÇALHO ════════════════════════ -->
+        <h1>
+            📐 Alinhamento no Word
+            <small>Imagens · Figuras · Caixas de Texto</small>
+        </h1>
+        <div class="subhead">
+            Tutorial completo com exemplos visuais — tudo o que você precisa saber para posicionar elementos
+            perfeitamente nos seus documentos.
+        </div>
+
+        <!-- ════════════════════════ INTRODUÇÃO ════════════════════════ -->
+        <p>
+            No Microsoft Word, o alinhamento é uma ferramenta essencial para criar documentos
+            organizados e profissionais. Este tutorial cobre as três principais categorias de
+            elementos que você vai alinhar no dia a dia:
+            <strong>imagens</strong>, <strong>figuras (com legendas)</strong> e
+            <strong>caixas de texto</strong>.
+        </p>
+        <p>
+            Use a navegação abaixo para ir direto ao tópico que te interessa:
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.2rem 0 2rem 0;">
+            <a href="#imagens" style="background:#e2e8f0;padding:0.4rem 1.2rem;border-radius:30px;text-decoration:none;color:#0f172a;font-weight:500;font-size:0.9rem;">🖼️ Imagens</a>
+            <a href="#figuras" style="background:#e2e8f0;padding:0.4rem 1.2rem;border-radius:30px;text-decoration:none;color:#0f172a;font-weight:500;font-size:0.9rem;">🏷️ Figuras</a>
+            <a href="#caixas" style="background:#e2e8f0;padding:0.4rem 1.2rem;border-radius:30px;text-decoration:none;color:#0f172a;font-weight:500;font-size:0.9rem;">📦 Caixas de texto</a>
+            <a href="#comparacao" style="background:#e2e8f0;padding:0.4rem 1.2rem;border-radius:30px;text-decoration:none;color:#0f172a;font-weight:500;font-size:0.9rem;">📊 Comparativo</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ════════════════════════ SEÇÃO 1 — IMAGENS ════════════════════════ -->
+        <h2 id="imagens">
+            🖼️ Alinhamento de Imagens
+            <span class="badge">3 opções principais</span>
+        </h2>
+
+        <p>
+            No Word, você pode alinhar imagens de duas formas: <strong>em linha com o texto</strong>
+            (como se fosse um caractere) ou <strong>com quebra de texto</strong> (flutuante).
+            Aqui focamos nos alinhamentos mais usados: <strong>esquerda</strong>,
+            <strong>centralizado</strong> e <strong>direita</strong>.
+        </p>
+
+        <!-- ── Exemplo 1: Esquerda ── -->
+        <div class="demo-box">
+            <div class="label">
+                ⬅️ Alinhamento à esquerda
+                <span>wrap: Quadrado</span>
+            </div>
+            <div class="demo-content align-left">
+                <div class="sample-img sm">A</div>
+                <div class="text-block">
+                    <p><strong>Imagem alinhada à esquerda</strong></p>
+                    <p>O texto flui ao redor da imagem pelo lado direito. Ideal para
+                    documentos com muitas imagens e texto descritivo.</p>
+                    <small>🔹 Use para: relatórios, artigos, posts.</small>
+                </div>
+            </div>
+            <div style="margin-top:0.8rem;font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Imagem → Formatar → Alinhar à Esquerda</code>
+            </div>
+        </div>
+
+        <!-- ── Exemplo 2: Centralizado ── -->
+        <div class="demo-box">
+            <div class="label">
+                ⬆️ Alinhamento centralizado
+                <span>wrap: Superior e inferior</span>
+            </div>
+            <div class="demo-content align-center">
+                <div class="sample-img green sm">B</div>
+                <div class="text-block" style="text-align:center;">
+                    <p><strong>Imagem centralizada</strong></p>
+                    <p>A imagem fica no centro da linha ou da página. O texto pode
+                    ficar acima e abaixo (wrap Superior/Inferior) ou ao redor.</p>
+                    <small>🔹 Use para: títulos, destaques, capas.</small>
+                </div>
+            </div>
+            <div style="margin-top:0.8rem;font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Imagem → Formatar → Centralizar</code>
+            </div>
+        </div>
+
+        <!-- ── Exemplo 3: Direita ── -->
+        <div class="demo-box">
+            <div class="label">
+                ➡️ Alinhamento à direita
+                <span>wrap: Quadrado</span>
+            </div>
+            <div class="demo-content align-right">
+                <div class="text-block" style="text-align:right;">
+                    <p><strong>Imagem alinhada à direita</strong></p>
+                    <p>O texto flui ao redor da imagem pelo lado esquerdo. Muito usado
+                    para notas, sidebars e elementos decorativos.</p>
+                    <small>🔹 Use para: chamadas laterais, assinaturas.</small>
+                </div>
+                <div class="sample-img purple sm">C</div>
+            </div>
+            <div style="margin-top:0.8rem;font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Imagem → Formatar → Alinhar à Direita</code>
+            </div>
+        </div>
+
+        <!-- ── Tabela de opções de wrap ── -->
+        <h3>📌 Opções de quebra de texto (wrap)</h3>
+        <p>
+            No Word, além do alinhamento, você pode definir <strong>como o texto se comporta</strong>
+            em relação à imagem. Estas são as principais:
+        </p>
+
+        <table class="option-table">
+            <thead>
+                <tr>
+                    <th style="width:40px;">#</th>
+                    <th>Opção</th>
+                    <th>Descrição</th>
+                    <th style="width:80px;">Quando usar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="icon-cell">🔲</td>
+                    <td><strong>Em linha</strong></td>
+                    <td>A imagem se comporta como um caractere grande. Alinha com o texto.</td>
+                    <td>Documentos simples, formulários.</td>
+                </tr>
+                <tr>
+                    <td class="icon-cell">▢</td>
+                    <td><strong>Quadrado</strong></td>
+                    <td>O texto contorna a imagem em formato retangular.</td>
+                    <td>Maioria dos casos, boa legibilidade.</td>
+                </tr>
+                <tr>
+                    <td class="icon-cell">⊡</td>
+                    <td><strong>Compacto</strong></td>
+                    <td>O texto contorna bem próximo à imagem, seguindo o contorno.</td>
+                    <td>Imagens com formas irregulares.</td>
+                </tr>
+                <tr>
+                    <td class="icon-cell">⊹</td>
+                    <td><strong>Atravessar</strong></td>
+                    <td>O texto preenche o espaço ao redor, inclusive vazios da imagem.</td>
+                    <td>Efeitos visuais criativos.</td>
+                </tr>
+                <tr>
+                    <td class="icon-cell">⬆⬇</td>
+                    <td><strong>Superior e inferior</strong></td>
+                    <td>O texto fica apenas acima e abaixo da imagem (não nas laterais).</td>
+                    <td>Destaques, imagens grandes.</td>
+                </tr>
+                <tr>
+                    <td class="icon-cell">🔙</td>
+                    <td><strong>Por trás do texto</strong></td>
+                    <td>A imagem fica como marca d'água, o texto passa por cima.</td>
+                    <td>Planos de fundo, marcas d'água.</td>
+                </tr>
+                <tr>
+                    <td class="icon-cell">🔜</td>
+                    <td><strong>À frente do texto</strong></td>
+                    <td>A imagem sobrepõe o texto.</td>
+                    <td>Stickers, anotações, rótulos.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip-box">
+            <strong>💡 Dica:</strong> Para acessar as opções de wrap, clique com o botão direito
+            sobre a imagem → <strong>Quebra de Texto</strong> → escolha a opção desejada.
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ════════════════════════ SEÇÃO 2 — FIGURAS ════════════════════════ -->
+        <h2 id="figuras">
+            🏷️ Alinhamento de Figuras (com legenda)
+            <span class="badge">Figura + legenda</span>
+        </h2>
+
+        <p>
+            Uma <strong>figura</strong> no Word é uma imagem (foto, gráfico, diagrama) que possui uma
+            <strong>legenda</strong> descritiva. O alinhamento da figura pode ser feito
+            <strong>flutuante</strong> (com wrap) ou <strong>inline</strong>.
+        </p>
+
+        <!-- ── Exemplo Figura à esquerda ── -->
+        <div class="demo-box">
+            <div class="label">
+                🖼️ Figura à esquerda com legenda
+                <span>wrap: Quadrado</span>
+            </div>
+            <div class="demo-content align-left" style="align-items:flex-start;">
+                <div class="figure-container">
+                    <div class="sample-img orange sm" style="margin:0 auto;">📊</div>
+                    <div class="fig-caption">Figura 1 – Gráfico de vendas</div>
+                </div>
+                <div class="text-block">
+                    <p><strong>Figura com legenda alinhada à esquerda</strong></p>
+                    <p>A legenda acompanha a figura e pode ser formatada junto com ela.
+                    O texto flui ao redor do conjunto.</p>
+                    <small>🔹 Use para: relatórios técnicos, artigos científicos.</small>
+                </div>
+            </div>
+            <div style="margin-top:0.8rem;font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Figura → Inserir Legenda → Alinhar</code>
+            </div>
+        </div>
+
+        <!-- ── Exemplo Figura centralizada ── -->
+        <div class="demo-box">
+            <div class="label">
+                🖼️ Figura centralizada com legenda
+                <span>wrap: Superior/inferior</span>
+            </div>
+            <div style="text-align:center;">
+                <div class="figure-container" style="display:inline-block;">
+                    <div class="sample-img rose sm" style="margin:0 auto;">📈</div>
+                    <div class="fig-caption">Figura 2 – Evolução anual</div>
+                </div>
+                <div style="max-width:500px;margin:0.6rem auto 0 auto;">
+                    <p><strong>Figura centralizada</strong> — a legenda fica abaixo, centralizada
+                    com a imagem. Ideal para destacar um gráfico ou diagrama importante.</p>
+                    <small>🔹 Use para: apresentações, capítulos, resumos.</small>
+                </div>
+            </div>
+            <div style="margin-top:0.8rem;font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Centralizar o grupo (figura + legenda) ou usar wrap Superior/inferior</code>
+            </div>
+        </div>
+
+        <!-- ── Exemplo Figura à direita ── -->
+        <div class="demo-box">
+            <div class="label">
+                🖼️ Figura à direita com legenda
+                <span>wrap: Quadrado</span>
+            </div>
+            <div class="demo-content align-right" style="align-items:flex-start;">
+                <div class="text-block" style="text-align:right;">
+                    <p><strong>Figura com legenda à direita</strong></p>
+                    <p>A figura flutua à direita, com o texto à esquerda. Ótima para
+                    notas laterais ou elementos de suporte.</p>
+                    <small>🔹 Use para: glossários, notas de rodapé visual.</small>
+                </div>
+                <div class="figure-container">
+                    <div class="sample-img purple sm" style="margin:0 auto;">📋</div>
+                    <div class="fig-caption">Figura 3 – Checklist</div>
+                </div>
+            </div>
+            <div style="margin-top:0.8rem;font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Figura → Formatar → Alinhar à Direita</code>
+            </div>
+        </div>
+
+        <div class="tip-box warn">
+            <strong>⚠️ Atenção:</strong> Ao usar figuras com legendas, lembre-se de <strong>agrupar</strong>
+            a imagem e a legenda (selecionar ambas → <kbd>Ctrl + G</kbd>) para que se movam juntas.
+            Isso evita que a legenda se descole da imagem!
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ════════════════════════ SEÇÃO 3 — CAIXAS DE TEXTO ════════════════════════ -->
+        <h2 id="caixas">
+            📦 Alinhamento de Caixas de Texto
+            <span class="badge">Posicionamento livre</span>
+        </h2>
+
+        <p>
+            As <strong>caixas de texto</strong> no Word são contêineres que podem ser
+            posicionados livremente na página. Você pode alinhá-las <strong>em relação à
+            página</strong> (margens) ou <strong>em relação ao texto</strong>.
+        </p>
+
+        <!-- ── Caixa à esquerda ── -->
+        <div class="demo-box">
+            <div class="label">
+                📦 Caixa de texto alinhada à esquerda
+                <span>flutuante</span>
+            </div>
+            <div class="word-textbox align-tb-left">
+                <span class="tb-label">Caixa de texto</span>
+                <div class="tb-content">
+                    <div class="sample-img sm" style="background:linear-gradient(145deg,#0ea5e9,#0284c7);">T</div>
+                    <div>
+                        <strong>Caixa à esquerda</strong><br />
+                        <span style="font-size:0.9rem;color:#475569;">Conteúdo alinhado à esquerda dentro da caixa.</span>
+                    </div>
+                </div>
+                <div class="tb-handle"></div>
+            </div>
+            <p style="font-size:0.9rem;color:#475569;margin-top:0.3rem;">
+                A caixa está posicionada à esquerda da página. O texto principal flui ao redor
+                (wrap automático).
+            </p>
+            <div style="font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Caixa de Texto → Formatar → Alinhar à Esquerda</code>
+            </div>
+        </div>
+
+        <!-- ── Caixa centralizada ── -->
+        <div class="demo-box">
+            <div class="label">
+                📦 Caixa de texto centralizada
+                <span>flutuante</span>
+            </div>
+            <div class="word-textbox align-tb-center" style="border-color:#3b82f6;">
+                <span class="tb-label">Caixa centralizada</span>
+                <div class="tb-content" style="justify-content:center;">
+                    <div class="sample-img green sm" style="background:linear-gradient(145deg,#22c55e,#16a34a);">C</div>
+                    <div style="text-align:center;">
+                        <strong>Caixa centralizada</strong><br />
+                        <span style="font-size:0.9rem;color:#475569;">Conteúdo centralizado na página.</span>
+                    </div>
+                </div>
+                <div class="tb-handle"></div>
+            </div>
+            <p style="font-size:0.9rem;color:#475569;margin-top:0.3rem;">
+                Ideal para <strong>títulos, chamadas</strong> e elementos que precisam
+                estar no centro da página.
+            </p>
+            <div style="font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Caixa de Texto → Formatar → Centralizar</code>
+            </div>
+        </div>
+
+        <!-- ── Caixa à direita ── -->
+        <div class="demo-box">
+            <div class="label">
+                📦 Caixa de texto alinhada à direita
+                <span>flutuante</span>
+            </div>
+            <div class="word-textbox align-tb-right" style="border-color:#a855f7;">
+                <span class="tb-label">Caixa à direita</span>
+                <div class="tb-content" style="justify-content:flex-end;">
+                    <div style="text-align:right;">
+                        <strong>Caixa à direita</strong><br />
+                        <span style="font-size:0.9rem;color:#475569;">Conteúdo alinhado à direita.</span>
+                    </div>
+                    <div class="sample-img purple sm" style="background:linear-gradient(145deg,#a855f7,#7c3aed);">D</div>
+                </div>
+                <div class="tb-handle"></div>
+            </div>
+            <p style="font-size:0.9rem;color:#475569;margin-top:0.3rem;">
+                Útil para <strong>notas, sidebars, informações complementares</strong>
+                que não atrapalham o fluxo principal.
+            </p>
+            <div style="font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Inserir → Caixa de Texto → Formatar → Alinhar à Direita</code>
+            </div>
+        </div>
+
+        <!-- ── Distribuir (justificar) ── -->
+        <div class="demo-box">
+            <div class="label">
+                📦 Caixa com conteúdo distribuído
+                <span>justificado</span>
+            </div>
+            <div class="word-textbox align-tb-distribute" style="border-color:#f97316;">
+                <span class="tb-label">Distribuído</span>
+                <div class="tb-content" style="justify-content:space-between;">
+                    <span style="font-weight:500;">🔹 Item 1</span>
+                    <span style="font-weight:500;">🔸 Item 2</span>
+                    <span style="font-weight:500;">🔹 Item 3</span>
+                </div>
+                <div class="tb-handle"></div>
+            </div>
+            <p style="font-size:0.9rem;color:#475569;margin-top:0.3rem;">
+                O conteúdo interno é <strong>distribuído uniformemente</strong> (espaçamento entre
+                os elementos). Funciona como um "justificar" para caixas de texto.
+            </p>
+            <div style="font-size:0.85rem;color:#64748b;background:#f1f5f9;padding:0.4rem 0.8rem;border-radius:30px;display:inline-block;">
+                <code>Word: Caixa de Texto → Formatar → Distribuir Horizontalmente</code>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <strong>💡 Dica avançada:</strong> Para alinhar <strong>duas ou mais caixas de texto</strong>
+            entre si, selecione todas → guia <strong>Formatar</strong> → grupo
+            <strong>Organizar</strong> → <strong>Alinhar</strong> → escolha a opção
+            (esquerda, centro, direita, superior, inferior, etc.).
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ════════════════════════ SEÇÃO 4 — COMPARATIVO ════════════════════════ -->
+        <h2 id="comparacao">
+            📊 Comparativo: Imagem × Figura × Caixa de Texto
+            <span class="badge">resumo</span>
+        </h2>
+
+        <p>
+            Use a tabela abaixo para decidir rapidamente <strong>qual recurso usar</strong>
+            dependendo da sua necessidade:
+        </p>
+
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th style="width:25%;">Critério</th>
+                    <th style="width:25%;">🖼️ Imagem</th>
+                    <th style="width:25%;">🏷️ Figura</th>
+                    <th style="width:25%;">📦 Caixa de Texto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>O que é</strong></td>
+                    <td>Arquivo de imagem (.jpg, .png, etc.)</td>
+                    <td>Imagem + legenda numerada</td>
+                    <td>Contêiner de texto flutuante</td>
+                </tr>
+                <tr>
+                    <td><strong>Posicionamento</strong></td>
+                    <td>Inline ou flutuante (wrap)</td>
+                    <td>Flutuante (wrap) ou inline</td>
+                    <td>Livre (flutuante)</td>
+                </tr>
+                <tr>
+                    <td><strong>Alinhamento</strong></td>
+                    <td>Esquerda, Centro, Direita</td>
+                    <td>Esquerda, Centro, Direita</td>
+                    <td>Esquerda, Centro, Direita, Distribuído</td>
+                </tr>
+                <tr>
+                    <td><strong>Legenda</strong></td>
+                    <td>❌ Não (apenas texto alternativo)</td>
+                    <td>✅ Sim (numerada automaticamente)</td>
+                    <td>❌ Não (mas pode conter texto)</td>
+                </tr>
+                <tr>
+                    <td><strong>Wrap / fluxo</strong></td>
+                    <td>✅ Várias opções (Quadrado, Compacto, etc.)</td>
+                    <td>✅ Mesmas opções da imagem</td>
+                    <td>✅ Sim (flutuante, com wrap)</td>
+                </tr>
+                <tr>
+                    <td><strong>Agrupamento</strong></td>
+                    <td>✅ Pode agrupar com outras formas</td>
+                    <td>✅ Agrupar figura + legenda</td>
+                    <td>✅ Pode agrupar com outras caixas</td>
+                </tr>
+                <tr>
+                    <td><strong>Indicado para</strong></td>
+                    <td>Fotos, ícones, gráficos simples</td>
+                    <td>Relatórios, TCC, artigos</td>
+                    <td>Sidebars, notas, destaques</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="comp-grid">
+            <div class="comp-item">
+                <span class="emoji">🖼️</span>
+                <div class="title">Imagem</div>
+                <div class="desc">Fotos, ícones, gráficos. Alinhe com wrap.</div>
+            </div>
+            <div class="comp-item">
+                <span class="emoji">🏷️</span>
+                <div class="title">Figura</div>
+                <div class="desc">Imagem + legenda. Ideal para trabalhos acadêmicos.</div>
+            </div>
+            <div class="comp-item">
+                <span class="emoji">📦</span>
+                <div class="title">Caixa de Texto</div>
+                <div class="desc">Conteúdo flutuante. Posicionamento livre.</div>
+            </div>
+            <div class="comp-item">
+                <span class="emoji">🎯</span>
+                <div class="title">Alinhamento</div>
+                <div class="desc">Sempre use a guia <strong>Formatar</strong> para ajustes finos.</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ════════════════════════ SEÇÃO 5 — PASSO A PASSO ════════════════════════ -->
+        <h2>📋 Guia prático — 5 passos para alinhar qualquer elemento</h2>
+
+        <ol class="step-list">
+            <li>
+                <strong>Selecione o elemento</strong> — clique na imagem, figura ou caixa de texto
+                que deseja alinhar.
+            </li>
+            <li>
+                <strong>Abra a guia "Formatar"</strong> — no menu superior (ela aparece quando o
+                elemento está selecionado).
+            </li>
+            <li>
+                <strong>Escolha o tipo de wrap</strong> — no grupo <strong>Organizar</strong>,
+                clique em <strong>Quebra de Texto</strong> e selecione a opção desejada
+                (Quadrado, Compacto, etc.).
+            </li>
+            <li>
+                <strong>Alinhe o elemento</strong> — no mesmo grupo <strong>Organizar</strong>,
+                use os botões <strong>Alinhar</strong> (Esquerda, Centralizar, Direita).
+                Para caixas de texto, use também <strong>Distribuir</strong>.
+            </li>
+            <li>
+                <strong>Ajuste a posição fina</strong> — use as setas do teclado ou arraste
+                com o mouse. Para precisão, use <strong>Posição</strong> no grupo
+                <strong>Organizar</strong>.
+            </li>
+        </ol>
+
+        <div class="tip-box">
+            <strong>🚀 Atalho rápido:</strong> Selecione o elemento e use
+            <kbd>Ctrl + E</kbd> (centralizar), <kbd>Ctrl + L</kbd> (esquerda) ou
+            <kbd>Ctrl + R</kbd> (direita) — mas isso alinha o <em>conteúdo interno</em>.
+            Para o posicionamento da caixa em si, use os botões da guia <strong>Formatar</strong>.
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ════════════════════════ RODAPÉ ════════════════════════ -->
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;padding-top:0.5rem;border-top:2px solid #f1f5f9;">
+            <span style="color:#94a3b8;font-size:0.85rem;">
+                📌 Tutorial criado com exemplos visuais — todos os alinhamentos simulados em CSS.
+            </span>
+            <span style="color:#94a3b8;font-size:0.8rem;">
+                <span class="word-badge">Word</span> • Atualizado 2025
+            </span>
+        </div>
+
+    </div>
+    <!-- /container -->
+
+</body>
+</html>

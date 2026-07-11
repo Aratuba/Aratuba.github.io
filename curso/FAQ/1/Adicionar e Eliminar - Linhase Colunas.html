@@ -1,0 +1,268 @@
+<!-- ════════════════════════ SEÇÃO 4 — TABELAS ════════════════════════ -->
+<h2 id="tabelas">
+    📊 Tabelas: Adicionar e Eliminar Linhas/Colunas
+    <span class="badge">Layout > Linhas e Colunas</span>
+</h2>
+
+<p>
+    Manipular a estrutura de uma tabela no Word é uma tarefa comum. Você pode
+    <strong>inserir</strong> ou <strong>excluir</strong> linhas e colunas a qualquer
+    momento, sem perder a formatação do conteúdo. Abaixo, um guia visual com todas
+    as opções disponíveis na guia <strong>Layout</strong> (ferramentas de tabela).
+</p>
+
+<!-- ── Exemplo de Tabela Simulada com Ações ── -->
+<div class="demo-box">
+    <div class="label">
+        🖱️ Tabela de exemplo — Passe o mouse sobre as bordas
+        <span>clique com botão direito para simular</span>
+    </div>
+
+    <style>
+        /* estilos específicos para a tabela simulada */
+        .mock-word-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.95rem;
+            margin: 0.5rem 0 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .mock-word-table th {
+            background: #e9edf2;
+            color: #1e293b;
+            font-weight: 600;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            text-align: left;
+        }
+        .mock-word-table td {
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            background-color: #ffffff;
+            transition: background 0.15s;
+        }
+        .mock-word-table tr:hover td {
+            background-color: #f8fafc;
+        }
+        .mock-word-table .highlight-cell {
+            background-color: #dbeafe;
+            border: 2px solid #3b82f6;
+        }
+        .mock-word-table .action-hint {
+            font-size: 0.7rem;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: #475569;
+            margin-left: 6px;
+        }
+        .mock-word-table .btn-sim {
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #d1d9e6;
+            border-radius: 6px;
+            padding: 0 6px;
+            font-size: 0.7rem;
+            color: #334155;
+            cursor: default;
+            margin: 0 2px;
+        }
+        .tb-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+            margin-top: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: #f1f5f9;
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+        .tb-actions .action-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tb-actions .action-item .icon-box {
+            background: #ffffff;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid #d1d9e6;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+    </style>
+
+    <!-- Tabela simulando o Word -->
+    <table class="mock-word-table">
+        <thead>
+            <tr>
+                <th>Produto <span class="action-hint">⬆️ Clique p/ inserir coluna</span></th>
+                <th>Qtd <span class="action-hint">⬆️</span></th>
+                <th>Preço <span class="action-hint">⬆️</span></th>
+                <th>Total <span class="action-hint">⬆️</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Notebook <span class="action-hint">⬅️ Clique p/ inserir linha</span></td>
+                <td>3</td>
+                <td>R$ 4.200</td>
+                <td>R$ 12.600</td>
+            </tr>
+            <tr>
+                <td>Mouse <span class="action-hint">⬅️</span></td>
+                <td>10</td>
+                <td>R$ 89</td>
+                <td>R$ 890</td>
+            </tr>
+            <tr>
+                <td>Teclado <span class="action-hint">⬅️</span></td>
+                <td>5</td>
+                <td>R$ 220</td>
+                <td>R$ 1.100</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="tb-actions">
+        <span class="action-item">
+            <span class="icon-box">➕</span> Inserir <strong>Acima</strong> / <strong>Abaixo</strong>
+        </span>
+        <span class="action-item">
+            <span class="icon-box">➕</span> Inserir <strong>Esquerda</strong> / <strong>Direita</strong>
+        </span>
+        <span class="action-item">
+            <span class="icon-box">➖</span> Eliminar <strong>Linha</strong> / <strong>Coluna</strong>
+        </span>
+        <span class="action-item">
+            <span class="icon-box">🗑️</span> Eliminar <strong>Tabela</strong> inteira
+        </span>
+    </div>
+    <p style="font-size:0.85rem;color:#64748b;margin-top:0.5rem;">
+        ⚡ No Word, as opções aparecem automaticamente na guia <strong>Layout</strong> (em
+        "Ferramentas de Tabela") quando você clica dentro da tabela.
+    </p>
+</div>
+
+<!-- ── Passo a passo: Adicionar ── -->
+<h3>➕ Adicionar linhas e colunas</h3>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1rem 0;">
+    <div style="background:#f8fafc;padding:1.2rem 1.5rem;border-radius:14px;border:1px solid #e9edf2;">
+        <div style="font-weight:700;color:#0f172a;">⬆️⬇️ Linhas</div>
+        <ol style="margin:0.6rem 0 0 1.2rem;font-size:0.9rem;color:#334155;">
+            <li>Clique em <strong>qualquer célula</strong> da linha adjacente.</li>
+            <li>Vá até a guia <strong>Layout</strong> (Ferramentas de tabela).</li>
+            <li>No grupo <strong>Linhas e Colunas</strong>, clique em:
+                <ul style="margin:0.3rem 0 0 1.2rem;list-style:disc;">
+                    <li><strong>Inserir Acima</strong> (insere antes)</li>
+                    <li><strong>Inserir Abaixo</strong> (insere depois)</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <div style="background:#f8fafc;padding:1.2rem 1.5rem;border-radius:14px;border:1px solid #e9edf2;">
+        <div style="font-weight:700;color:#0f172a;">⬅️➡️ Colunas</div>
+        <ol style="margin:0.6rem 0 0 1.2rem;font-size:0.9rem;color:#334155;">
+            <li>Clique em <strong>qualquer célula</strong> da coluna adjacente.</li>
+            <li>Vá até a guia <strong>Layout</strong> (Ferramentas de tabela).</li>
+            <li>No grupo <strong>Linhas e Colunas</strong>, clique em:
+                <ul style="margin:0.3rem 0 0 1.2rem;list-style:disc;">
+                    <li><strong>Inserir à Esquerda</strong> (insere antes)</li>
+                    <li><strong>Inserir à Direita</strong> (insere depois)</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="tip-box">
+    <strong>⌨️ Atalho rápido (linhas):</strong> Posicione o cursor no final de uma célula
+    e pressione <kbd>Tab</kbd> para <strong>criar uma nova linha abaixo</strong>.
+    Para colunas, infelizmente não há atalho direto, use o menu Layout.
+</div>
+
+<!-- ── Passo a passo: Eliminar ── -->
+<h3>➖ Eliminar linhas, colunas ou a tabela inteira</h3>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:1rem 0;">
+    <div style="background:#fef2f2;padding:1rem;border-radius:14px;border:1px solid #fecaca;">
+        <div style="font-weight:700;color:#991b1b;">🗑️ Linha</div>
+        <p style="font-size:0.85rem;color:#7f1d1d;margin-top:0.3rem;">
+            Selecione a(s) linha(s) → <strong>Layout</strong> → <strong>Eliminar</strong> →
+            <strong>Eliminar Linhas</strong>.
+        </p>
+    </div>
+    <div style="background:#fef2f2;padding:1rem;border-radius:14px;border:1px solid #fecaca;">
+        <div style="font-weight:700;color:#991b1b;">🗑️ Coluna</div>
+        <p style="font-size:0.85rem;color:#7f1d1d;margin-top:0.3rem;">
+            Selecione a(s) coluna(s) → <strong>Layout</strong> → <strong>Eliminar</strong> →
+            <strong>Eliminar Colunas</strong>.
+        </p>
+    </div>
+    <div style="background:#fef2f2;padding:1rem;border-radius:14px;border:1px solid #fecaca;">
+        <div style="font-weight:700;color:#991b1b;">🗑️ Tabela inteira</div>
+        <p style="font-size:0.85rem;color:#7f1d1d;margin-top:0.3rem;">
+            Clique dentro da tabela → <strong>Layout</strong> → <strong>Eliminar</strong> →
+            <strong>Eliminar Tabela</strong>.
+        </p>
+    </div>
+</div>
+
+<div class="tip-box warn">
+    <strong>⚠️ Cuidado com a tecla Delete:</strong> Pressionar <kbd>Delete</kbd> ou <kbd>Backspace</kbd>
+    com a célula selecionada <strong>apenas limpa o conteúdo</strong> (texto/números),
+    <u>não elimina a estrutura</u> (linha/coluna). Para remover a estrutura, use sempre
+    o menu <strong>Eliminar</strong> na guia <strong>Layout</strong> ou o clique com
+    botão direito → <strong>Eliminar Células</strong> → escolha a opção correta.
+</div>
+
+<!-- ── Atalhos e dicas extras ── -->
+<h3>📌 Dicas de produtividade</h3>
+
+<table class="option-table">
+    <thead>
+        <tr>
+            <th style="width:25%;">Ação</th>
+            <th style="width:40%;">Como fazer no Word</th>
+            <th style="width:35%;">Observação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Inserir linha abaixo</strong></td>
+            <td><kbd>Tab</kbd> na última célula da linha</td>
+            <td>Funciona apenas no final da tabela</td>
+        </tr>
+        <tr>
+            <td><strong>Inserir linha acima</strong></td>
+            <td>Clique direito → Inserir → Inserir Linhas Acima</td>
+            <td>Ou use o menu Layout</td>
+        </tr>
+        <tr>
+            <td><strong>Selecionar linha inteira</strong></td>
+            <td>Clique na margem esquerda da linha (cursor vira seta)</td>
+            <td>Facilita para eliminar ou copiar</td>
+        </tr>
+        <tr>
+            <td><strong>Selecionar coluna inteira</strong></td>
+            <td>Clique no topo da coluna (cursor vira seta preta)</td>
+            <td>Funciona como no Excel</td>
+        </tr>
+        <tr>
+            <td><strong>Eliminar múltiplas linhas</strong></td>
+            <td>Selecione várias linhas → Layout → Eliminar Linhas</td>
+            <td>Selecione com Shift ou arrastando</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="tip-box">
+    <strong>💡 Dica bônus:</strong> Se você precisa <strong>mesclar células</strong> ou
+    <strong>dividir</strong> uma célula, essas opções também ficam na guia
+    <strong>Layout</strong> (grupo <strong>Mesclar</strong>). Use para criar cabeçalhos
+    personalizados ou layouts complexos.
+</div>
+
+<div class="divider"></div>
