@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Códigos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #eef2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            max-width: 850px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a2b4c;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        p.sub {
+            text-align: center;
+            color: #5d6f83;
+            margin-bottom: 25px;
+        }
+        .acoes {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .acoes button {
+            background: #2b6f9e;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .acoes button:hover {
+            background: #1d4f73;
+        }
+        .acoes button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .lista-codigos {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 100px;
+        }
+        .lista-codigos h3 {
+            color: #1a2b4c;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .grid-codigos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .codigo-item {
+            background: #fff;
+            border: 1px solid #dce4ec;
+            border-radius: 8px;
+            padding: 10px 12px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            font-size: 15px;
+            color: #1a2b4c;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: 0.1s;
+        }
+        .codigo-item:hover {
+            border-color: #2b6f9e;
+        }
+        .status {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .status.sucesso {
+            color: #27ae60;
+        }
+        .status.erro {
+            color: #c0392b;
+        }
+        .link-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #2b6f9e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .link-voltar:hover {
+            text-decoration: underline;
+        }
+        .info-extra {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #5d6f83;
+            background: #f0f4f8;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .info-extra strong {
+            color: #1a2b4c;
+        }
+        .loading {
+            text-align: center;
+            color: #2b6f9e;
+            padding: 20px;
+            font-weight: 500;
+        }
+        .erro-csv {
+            background: #fef0ef;
+            border: 1px solid #c0392b;
+            border-radius: 8px;
+            padding: 15px;
+            color: #c0392b;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Gerador de Códigos</h1>
+        <p class="sub">Gera 20 códigos únicos (não existentes na base atual)</p>
+
+        <div id="erroCSV" class="erro-csv">
+            ⚠️ Não foi possível carregar a base de dados. Verifique o arquivo <strong>dados.csv</strong>.
+        </div>
+
+        <div class="acoes">
+            <button id="gerarBtn" disabled>🎲 Gerar 20 códigos</button>
+            <button id="copiarBtn" disabled>📋 Copiar todos</button>
+        </div>
+
+        <div class="lista-codigos" id="listaCodigos">
+            <h3>📌 Códigos gerados:</h3>
+            <div id="grid" class="grid-codigos">
+                <p style="grid-column:1/-1; color:#8a9aa8; text-align:center; padding:20px 0;">Nenhum código gerado ainda.</p>
+            </div>
+            <div id="status" class="status"></div>
+        </div>
+
+        <div id="loading" class="loading">⏳ Carregando base de dados...</div>
+
+        <div class="info-extra">
+            <p><strong>ℹ️ Como funciona:</strong> Gera códigos no formato <strong>XXXX-XXXX-XXXX-XXXX</strong> (sem caracteres ambíguos). Verifica se já existem no CSV e evita duplicatas.</p>
+            <p style="margin-top:8px;"><strong>Base atual:</strong> <span id="totalBase">0</span> certificados cadastrados.</p>
+        </div>
+
+        <a href="validar.html" class="link-voltar">← Voltar para validação</a>
+    </div>
+
+    <script>
+        // ===================== GLOBALS =====================
+        let certificados = [];
+        let codigosExistentes = new Set();
+        let dadosCarregados = false;
+        let ultimosCodigos = [];
+
+        // Elementos
+        const grid = document.getElementById('grid');
+        const statusDiv = document.getElementById('status');
+        const gerarBtn = document.getElementById('gerarBtn');
+        const copiarBtn = document.getElementById('copiarBtn');
+        const loadingDiv = document.getElementById('loading');
+        const erroCSV = document.getElementById('erroCSV');
+        const totalBaseSpan = document.getElementById('totalBase');
+
+        // ===================== NORMALIZAR =====================
+        function normalizarCodigo(cod) {
+            return cod.replace(/[-\s]/g, '').toUpperCase();
+        }
+
+        // ===================== CARREGAR CSV =====================
+        async function carregarCSV() {
+            try {
+                const response = await fetch('dados.csv');
+                if (!response.ok) throw new Error('Arquivo não encontrado');
+                const texto = await response.text();
+
+                const linhas = texto.split('\n').filter(line => line.trim() !== '');
+                if (linhas.length < 2) throw new Error('CSV vazio ou inválido');
+
+                const cabecalho = linhas[0].split(';').map(c => c.trim());
+                const idxCod = cabecalho.indexOf('codigo');
+                if (idxCod === -1) throw new Error('Coluna "codigo" não encontrada');
+
+                for (let i = 1; i < linhas.length; i++) {
+                    const colunas = linhas[i].split(';').map(c => c.trim());
+                    if (colunas.length < cabecalho.length) continue;
+                    const cod = normalizarCodigo(colunas[idxCod]);
+                    if (cod) {
+                        codigosExistentes.add(cod);
+                        // Guardamos também o objeto completo (opcional)
+                        const cert = {};
+                        cabecalho.forEach((nomeCol, index) => {
+                            cert[nomeCol] = colunas[index] || '';
+                        });
+                        cert.codigo = cod;
+                        certificados.push(cert);
+                    }
+                }
+
+                dadosCarregados = true;
+                loadingDiv.style.display = 'none';
+                totalBaseSpan.textContent = certificados.length;
+                gerarBtn.disabled = false;
+                console.log(`✅ ${certificados.length} certificados carregados.`);
+
+            } catch (erro) {
+                console.error('Erro ao carregar CSV:', erro);
+                loadingDiv.style.display = 'none';
+                erroCSV.style.display = 'block';
+                gerarBtn.disabled = true;
+            }
+        }
+
+        // ===================== GERADOR =====================
+        function gerarCodigo() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let partes = [];
+            for (let grupo = 0; grupo < 4; grupo++) {
+                let parte = '';
+                for (let i = 0; i < 4; i++) {
+                    parte += chars[Math.floor(Math.random() * chars.length)];
+                }
+                partes.push(parte);
+            }
+            return partes.join('-');
+        }
+
+        function gerarCodigoSemHifen() {
+            return gerarCodigo().replace(/-/g, '');
+        }
+
+        function gerarCodigosUnicos(quantidade) {
+            const novos = [];
+            const tentativasMaximas = 2000;
+            let tentativas = 0;
+
+            while (novos.length < quantidade && tentativas < tentativasMaximas) {
+                tentativas++;
+                const cod = gerarCodigoSemHifen();
+                if (!codigosExistentes.has(cod) && !novos.includes(cod)) {
+                    novos.push(cod);
+                }
+            }
+
+            if (novos.length < quantidade) {
+                throw new Error(`Não foi possível gerar ${quantidade} códigos únicos após ${tentativasMaximas} tentativas.`);
+            }
+            return novos;
+        }
+
+        // ===================== EXIBIR =====================
+        function exibirCodigos(codigos) {
+            grid.innerHTML = '';
+            if (codigos.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; color:#8a9aa8; text-align:center; padding:20px 0;">Nenhum código gerado ainda.</p>';
+                copiarBtn.disabled = true;
+                return;
+            }
+
+            codigos.forEach(cod => {
+                const div = document.createElement('div');
+                div.className = 'codigo-item';
+                const comHifen = cod.match(/.{1,4}/g).join('-');
+                div.textContent = comHifen;
+                grid.appendChild(div);
+            });
+
+            copiarBtn.disabled = false;
+            statusDiv.textContent = `✅ ${codigos.length} códigos gerados com sucesso!`;
+            statusDiv.className = 'status sucesso';
+        }
+
+        function handleGerar() {
+            if (!dadosCarregados) {
+                alert('Aguardando carregamento da base...');
+                return;
+            }
+            statusDiv.textContent = '⏳ Gerando...';
+            statusDiv.className = 'status';
+            gerarBtn.disabled = true;
+
+            setTimeout(() => {
+                try {
+                    const novos = gerarCodigosUnicos(20);
+                    ultimosCodigos = novos;
+                    exibirCodigos(novos);
+                    // Atualiza o conjunto de existentes (para futuras gerações nesta sessão)
+                    novos.forEach(c => codigosExistentes.add(c));
+                    // Atualiza contador (simulação)
+                    totalBaseSpan.textContent = certificados.length + novos.length;
+                } catch (erro) {
+                    statusDiv.textContent = `❌ ${erro.message}`;
+                    statusDiv.className = 'status erro';
+                    grid.innerHTML = '<p style="grid-column:1/-1; color:#c0392b; text-align:center; padding:20px 0;">Falha na geração.</p>';
+                    copiarBtn.disabled = true;
+                } finally {
+                    gerarBtn.disabled = false;
+                }
+            }, 200);
+        }
+
+        function copiarCodigos() {
+            if (ultimosCodigos.length === 0) return;
+            const texto = ultimosCodigos.map(c => c.match(/.{1,4}/g).join('-')).join('\n');
+            navigator.clipboard.writeText(texto).then(() => {
+                statusDiv.textContent = '📋 Códigos copiados para a área de transferência!';
+                statusDiv.className = 'status sucesso';
+            }).catch(() => {
+                alert('Não foi possível copiar. Selecione manualmente.');
+            });
+        }
+
+        // ===================== EVENTOS =====================
+        gerarBtn.addEventListener('click', handleGerar);
+        copiarBtn.addEventListener('click', copiarCodigos);
+
+        // ===================== INICIAR =====================
+        carregarCSV();
+    </script>
+</body>
+</html>

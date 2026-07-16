@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Links - Aratuba</title>
+    <style>
+        /* ── Reset & base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7fc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, #0b2a4a, #1a4b6d);
+            color: #fff;
+            border-radius: 18px;
+            padding: 2rem 2rem 1.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 30px rgba(11, 42, 74, 0.25);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            padding: 0.3rem 1.2rem;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── Stats bar ── */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+            background: #fff;
+            border-radius: 14px;
+            padding: 0.9rem 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e9edf4;
+        }
+
+        .stats .count {
+            font-size: 0.95rem;
+            color: #2c3e50;
+        }
+
+        .stats .count strong {
+            color: #0b2a4a;
+            font-size: 1.1rem;
+        }
+
+        .stats .actions {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+
+        .stats .actions button {
+            background: transparent;
+            border: 1px solid #d0d9e6;
+            border-radius: 30px;
+            padding: 0.45rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .stats .actions button:hover {
+            background: #0b2a4a;
+            border-color: #0b2a4a;
+            color: #fff;
+        }
+
+        .stats .actions button.copy-all {
+            background: #0b2a4a;
+            border-color: #0b2a4a;
+            color: #fff;
+        }
+
+        .stats .actions button.copy-all:hover {
+            background: #1a4b6d;
+            border-color: #1a4b6d;
+        }
+
+        /* ── Lista de links ── */
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .link-item {
+            background: #fff;
+            border-radius: 12px;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem 1rem;
+            border: 1px solid #e9edf4;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+        }
+
+        .link-item:hover {
+            border-color: #b8c9dd;
+            box-shadow: 0 4px 14px rgba(11, 42, 74, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .link-item .code {
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0b2a4a;
+            background: #f0f4fa;
+            padding: 0.2rem 0.9rem;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            min-width: 130px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .link-item .url {
+            flex: 1;
+            min-width: 200px;
+            font-size: 0.88rem;
+            color: #1a4b6d;
+            word-break: break-all;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link-item .url:hover {
+            text-decoration: underline;
+            color: #0b2a4a;
+        }
+
+        .link-item .url .domain {
+            color: #6f8aa5;
+            font-weight: 400;
+        }
+
+        .link-item .url .path {
+            color: #2c3e50;
+        }
+
+        .link-item .url .param {
+            color: #c0392b;
+            font-weight: 500;
+        }
+
+        .link-item .actions-item {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .link-item .actions-item button {
+            background: transparent;
+            border: 1px solid #d0d9e6;
+            border-radius: 30px;
+            padding: 0.25rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .link-item .actions-item button:hover {
+            background: #0b2a4a;
+            border-color: #0b2a4a;
+            color: #fff;
+        }
+
+        .link-item .actions-item button.copy-link:hover {
+            background: #1a6d4b;
+            border-color: #1a6d4b;
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: #0b2a4a;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .link-item {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem;
+            }
+
+            .link-item .code {
+                align-self: flex-start;
+                font-size: 0.8rem;
+                min-width: auto;
+            }
+
+            .link-item .url {
+                font-size: 0.82rem;
+                min-width: auto;
+            }
+
+            .link-item .actions-item {
+                align-self: flex-end;
+            }
+
+            .stats {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .stats .actions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0.6rem;
+            }
+
+            .header {
+                padding: 1.5rem 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .link-item .url {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <h1>🔗 Links de Validação</h1>
+            <p>Aratuba · Curso</p>
+            <span class="badge" id="totalBadge">12 links</span>
+        </header>
+
+        <!-- Stats + ações -->
+        <div class="stats">
+            <span class="count">
+                <strong id="linkCount">12</strong> links disponíveis
+            </span>
+            <div class="actions">
+                <button class="copy-all" id="copyAllBtn">📋 Copiar todos</button>
+                <button id="openAllBtn">⬆ Abrir todos</button>
+            </div>
+        </div>
+
+        <!-- Lista de links -->
+        <div class="link-list" id="linkList"></div>
+
+    </div>
+
+    <!-- Toast de notificação -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ── Dados ──
+            const rawLinks = [
+                'https://aratuba.abc.br/curso/validar.html?codigo=7A4F9C2E1B8D',
+                'https://aratuba.abc.br/curso/validar.html?codigo=B3E6A9F1C2D7',
+                'https://aratuba.abc.br/curso/validar.html?codigo=D8F2A7C4E9B1',
+                'https://aratuba.abc.br/curso/validar.html?codigo=44SF63JXDTJ5LQM5',
+                'https://aratuba.abc.br/curso/validar.html?codigo=FQQK624FG3TRDHPF',
+                'https://aratuba.abc.br/curso/validar.html?codigo=XBZV397X6CUNDVJB',
+                'https://aratuba.abc.br/curso/validar.html?codigo=YE4K4JECYKBM8LLS',
+                'https://aratuba.abc.br/curso/validar.html?codigo=DMY6JV6FUZK2ZW3K',
+                'https://aratuba.abc.br/curso/validar.html?codigo=YUAEYELFVPJLWZDU',
+                'https://aratuba.abc.br/curso/validar.html?codigo=RCQ4PUU24GQ7CN9Y',
+                'https://aratuba.abc.br/curso/validar.html?codigo=PLPU38FRM5M4J28F',
+                'https://aratuba.abc.br/curso/validar.html?codigo=2ZYB78ZK52MDFGX9'
+            ];
+
+            // ── Elementos ──
+            const listEl = document.getElementById('linkList');
+            const countEl = document.getElementById('linkCount');
+            const badgeEl = document.getElementById('totalBadge');
+            const toastEl = document.getElementById('toast');
+
+            let toastTimer = null;
+
+            // ── Helpers ──
+            function extractCode(url) {
+                try {
+                    const u = new URL(url);
+                    return u.searchParams.get('codigo') || '';
+                } catch (_) {
+                    const match = url.match(/[?&]codigo=([^&]*)/);
+                    return match ? match[1] : '';
+                }
+            }
+
+            function formatUrlForDisplay(url) {
+                try {
+                    const u = new URL(url);
+                    return {
+                        domain: u.hostname,
+                        path: u.pathname,
+                        search: u.search,
+                        full: url
+                    };
+                } catch (_) {
+                    return { domain: '', path: '', search: '', full: url };
+                }
+            }
+
+            // ── Toast ──
+            function showToast(msg) {
+                if (toastTimer) {
+                    clearTimeout(toastTimer);
+                    toastEl.classList.remove('show');
+                }
+                // força reflow
+                void toastEl.offsetWidth;
+                toastEl.textContent = msg;
+                toastEl.classList.add('show');
+                toastTimer = setTimeout(() => {
+                    toastEl.classList.remove('show');
+                    toastTimer = null;
+                }, 2500);
+            }
+
+            // ── Render ──
+            function renderLinks() {
+                const total = rawLinks.length;
+                countEl.textContent = total;
+                badgeEl.textContent = total + ' link' + (total > 1 ? 's' : '');
+
+                let html = '';
+                rawLinks.forEach((url, index) => {
+                    const code = extractCode(url);
+                    const parts = formatUrlForDisplay(url);
+                    // monta uma versão legível da URL
+                    let displayUrl = url;
+                    if (parts.domain) {
+                        displayUrl = parts.domain + parts.path + parts.search;
+                    }
+
+                    html += `
+                        <div class="link-item" data-index="${index}">
+                            <span class="code">${code}</span>
+                            <a href="${url}" target="_blank" rel="noopener noreferrer" class="url">
+                                <span class="domain">aratuba.abc.br</span>
+                                <span class="path">/curso/validar.html</span>
+                                <span class="param">?codigo=${code}</span>
+                            </a>
+                            <div class="actions-item">
+                                <button class="copy-link" data-url="${url}" data-code="${code}">Copiar</button>
+                                <button class="open-link" data-url="${url}">Abrir</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                listEl.innerHTML = html;
+
+                // ── Eventos dos botões individuais ──
+                document.querySelectorAll('.copy-link').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const url = this.dataset.url;
+                        const code = this.dataset.code;
+                        navigator.clipboard.writeText(url).then(() => {
+                            showToast(`✅ Código "${code}" copiado!`);
+                        }).catch(() => {
+                            // fallback
+                            const ta = document.createElement('textarea');
+                            ta.value = url;
+                            document.body.appendChild(ta);
+                            ta.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(ta);
+                            showToast(`✅ Código "${code}" copiado!`);
+                        });
+                    });
+                });
+
+                document.querySelectorAll('.open-link').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const url = this.dataset.url;
+                        window.open(url, '_blank');
+                    });
+                });
+            }
+
+            // ── Copiar todos ──
+            document.getElementById('copyAllBtn').addEventListener('click', function() {
+                const text = rawLinks.join('\n');
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('📋 Todos os ' + rawLinks.length + ' links copiados!');
+                }).catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    showToast('📋 Todos os ' + rawLinks.length + ' links copiados!');
+                });
+            });
+
+            // ── Abrir todos ──
+            document.getElementById('openAllBtn').addEventListener('click', function() {
+                const count = rawLinks.length;
+                let opened = 0;
+                rawLinks.forEach(url => {
+                    window.open(url, '_blank');
+                    opened++;
+                });
+                showToast(`⬆ ${opened} link${opened > 1 ? 's' : ''} aberto${opened > 1 ? 's' : ''}!`);
+            });
+
+            // ── Inicializa ──
+            renderLinks();
+
+        })();
+    </script>
+
+</body>
+</html>

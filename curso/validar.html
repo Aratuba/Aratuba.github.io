@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de Certificado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            max-width: 750px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a2b4c;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #dce4ec;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.2s;
+            min-width: 200px;
+        }
+        .search-box input:focus {
+            border-color: #2b6f9e;
+            outline: none;
+        }
+        .search-box button {
+            background: #2b6f9e;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-box button:hover {
+            background: #1d4f73;
+        }
+        .result {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 6px solid #2b6f9e;
+            display: none;
+        }
+        .result.visible {
+            display: block;
+        }
+        .result.invalido {
+            border-left-color: #c0392b;
+            background: #fef0ef;
+        }
+        .result h2 {
+            font-size: 20px;
+            color: #1a2b4c;
+            margin-bottom: 15px;
+        }
+        /* Logo no topo */
+        .logo-topo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-topo img {
+            max-width: 120px;
+            max-height: 120px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .info-item {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9edf2;
+            align-items: center;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            font-weight: 600;
+            width: 140px;
+            color: #2c3e50;
+            flex-shrink: 0;
+        }
+        .info-value {
+            color: #1a2b4c;
+        }
+        .info-value img {
+            max-width: 60px;
+            max-height: 60px;
+            border-radius: 8px;
+            vertical-align: middle;
+        }
+        .mensagem {
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .mensagem.invalido {
+            color: #c0392b;
+        }
+        .mensagem.valido {
+            color: #27ae60;
+        }
+        .dica {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #7f8c8d;
+            text-align: center;
+            border-top: 1px solid #e9edf2;
+            padding-top: 20px;
+        }
+        .dica a {
+            color: #2b6f9e;
+            text-decoration: none;
+        }
+        .dica a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            color: #2b6f9e;
+            padding: 20px;
+            font-weight: 500;
+        }
+        .erro-csv {
+            background: #fef0ef;
+            border: 1px solid #c0392b;
+            border-radius: 8px;
+            padding: 15px;
+            color: #c0392b;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Validação de Certificado</h1>
+        <div id="erroCSV" class="erro-csv">
+            ⚠️ Não foi possível carregar a base de dados. Verifique se o arquivo <strong>dados.csv</strong> está no mesmo diretório.
+        </div>
+        <div class="search-box">
+            <input type="text" id="codigoInput" placeholder="Ex: 7A4F9C2E1B8D ou 7A4-F9C-2E1-B8D">
+            <button id="validarBtn">Validar</button>
+        </div>
+        <div id="resultado" class="result">
+            <!-- Preenchido via JS -->
+        </div>
+        <div id="loading" class="loading">⏳ Carregando base de dados...</div>
+        <div class="dica">
+            <p>Use apenas letras e números <code>?codigo=7A4F9C2E1B8D</code></p>
+        </div>
+    </div>
+
+    <script>
+        // ===================== GLOBALS =====================
+        let certificados = [];          // array de objetos
+        let codigosExistentes = new Set();
+        let dadosCarregados = false;
+
+        // Elementos
+        const inputCodigo = document.getElementById('codigoInput');
+        const validarBtn = document.getElementById('validarBtn');
+        const resultadoDiv = document.getElementById('resultado');
+        const loadingDiv = document.getElementById('loading');
+        const erroCSV = document.getElementById('erroCSV');
+
+        // ===================== FUNÇÃO PARA NORMALIZAR CÓDIGO =====================
+        function normalizarCodigo(cod) {
+            return cod.replace(/[-\s]/g, '').toUpperCase();
+        }
+
+        // ===================== CARREGAR CSV =====================
+        async function carregarCSV() {
+            try {
+                const response = await fetch('dados.csv');
+                if (!response.ok) throw new Error('Arquivo não encontrado');
+                const texto = await response.text();
+
+                // Parse do CSV (separador ;)
+                const linhas = texto.split('\n').filter(line => line.trim() !== '');
+                if (linhas.length < 2) throw new Error('CSV vazio ou inválido');
+
+                // Cabeçalho
+                const cabecalho = linhas[0].split(';').map(c => c.trim());
+                // Mapear índices
+                const idxNome = cabecalho.indexOf('nome');
+                const idxCurso = cabecalho.indexOf('curso');
+                const idxCarga = cabecalho.indexOf('carga');
+                const idxPeriodo = cabecalho.indexOf('periodo');
+                const idxData = cabecalho.indexOf('dataEmissao');
+                const idxInst = cabecalho.indexOf('instituicao');
+                const idxLogo = cabecalho.indexOf('logoInstituicao');
+                const idxCod = cabecalho.indexOf('codigo');
+
+                if (idxCod === -1) throw new Error('Coluna "codigo" não encontrada no CSV');
+
+                // Processar linhas de dados
+                for (let i = 1; i < linhas.length; i++) {
+                    const colunas = linhas[i].split(';').map(c => c.trim());
+                    // Se a linha tiver menos colunas que o cabeçalho, ignorar
+                    if (colunas.length < cabecalho.length) continue;
+
+                    const cert = {
+                        nome: colunas[idxNome] || '',
+                        curso: colunas[idxCurso] || '',
+                        carga: colunas[idxCarga] || '',
+                        periodo: colunas[idxPeriodo] || '',
+                        dataEmissao: colunas[idxData] || '',
+                        instituicao: colunas[idxInst] || '',
+                        logoInstituicao: colunas[idxLogo] || '',
+                        codigo: colunas[idxCod].toUpperCase() // já sem hífen? vamos normalizar depois
+                    };
+                    // Normaliza o código (remove hífens e espaços)
+                    cert.codigo = normalizarCodigo(cert.codigo);
+                    certificados.push(cert);
+                    codigosExistentes.add(cert.codigo);
+                }
+
+                dadosCarregados = true;
+                loadingDiv.style.display = 'none';
+                console.log(`✅ ${certificados.length} certificados carregados.`);
+
+                // Se veio código na URL, validar automaticamente
+                const params = new URLSearchParams(window.location.search);
+                const codUrl = params.get('codigo');
+                if (codUrl) {
+                    inputCodigo.value = codUrl;
+                    validar();
+                }
+
+            } catch (erro) {
+                console.error('Erro ao carregar CSV:', erro);
+                loadingDiv.style.display = 'none';
+                erroCSV.style.display = 'block';
+            }
+        }
+
+        // ===================== VALIDAR =====================
+        function buscarCertificado(codigo) {
+            const codNormal = normalizarCodigo(codigo);
+            return certificados.find(cert => cert.codigo === codNormal);
+        }
+
+        function exibirResultado(cert, codigoDigitado) {
+            resultadoDiv.className = 'result visible';
+            if (cert) {
+                // Formata código com hífens
+                const codExibicao = cert.codigo.match(/.{1,4}/g).join('-');
+                
+                // ===== LOGO NO TOPO =====
+                let logoTopo = '';
+                if (cert.logoInstituicao && cert.logoInstituicao.startsWith('http')) {
+                    logoTopo = `<div class="logo-topo"><img src="${cert.logoInstituicao}" alt="Logo da instituição"></div>`;
+                }
+
+                resultadoDiv.innerHTML = `
+                    ${logoTopo}
+                    <h2>✅ Certificado Válido</h2>
+                    <div class="info-item"><span class="info-label">Aluno(a)</span><span class="info-value">${cert.nome}</span></div>
+                    <div class="info-item"><span class="info-label">Curso</span><span class="info-value">${cert.curso}</span></div>
+                    <div class="info-item"><span class="info-label">Carga Horária</span><span class="info-value">${cert.carga}</span></div>
+                    <div class="info-item"><span class="info-label">Período</span><span class="info-value">${cert.periodo}</span></div>
+                    <div class="info-item"><span class="info-label">Data de Emissão</span><span class="info-value">${cert.dataEmissao}</span></div>
+                    <div class="info-item"><span class="info-label">Instituição</span><span class="info-value">${cert.instituicao}</span></div>
+                    <div class="info-item"><span class="info-label">Código</span><span class="info-value">${codExibicao}</span></div>
+                `;
+                resultadoDiv.classList.remove('invalido');
+            } else {
+                resultadoDiv.classList.add('invalido');
+                resultadoDiv.innerHTML = `
+                    <div class="mensagem invalido">❌ Código inválido</div>
+                    <p style="text-align:center; margin-top:10px;">O código <strong>${codigoDigitado}</strong> não foi encontrado.</p>
+                `;
+            }
+        }
+
+        function validar() {
+            if (!dadosCarregados) {
+                alert('Aguardando carregamento da base de dados...');
+                return;
+            }
+            const codigo = inputCodigo.value.trim();
+            if (!codigo) {
+                alert('Digite um código para validar.');
+                return;
+            }
+            const cert = buscarCertificado(codigo);
+            exibirResultado(cert, codigo);
+        }
+
+        // ===================== EVENTOS =====================
+        validarBtn.addEventListener('click', validar);
+        inputCodigo.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') validar();
+        });
+
+        // ===================== INICIAR =====================
+        carregarCSV();
+    </script>
+</body>
+</html>
