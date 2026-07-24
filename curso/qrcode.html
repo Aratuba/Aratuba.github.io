@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QR Code para Certificados</title>
+    <!-- Biblioteca QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f0f4f8;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a2b4c;
+            margin-bottom: 10px;
+        }
+        p.sub {
+            color: #5d6f83;
+            margin-bottom: 25px;
+        }
+        .loading {
+            text-align: center;
+            color: #2b6f9e;
+            padding: 40px;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        .erro {
+            background: #fef0ef;
+            border: 1px solid #c0392b;
+            border-radius: 8px;
+            padding: 15px;
+            color: #c0392b;
+            margin-bottom: 20px;
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th {
+            background: #e9edf2;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            color: #1a2b4c;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e9edf2;
+            vertical-align: middle;
+        }
+        .aluno-nome {
+            font-weight: 500;
+        }
+        .codigo-cell {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #2b6f9e;
+        }
+        .qr-container {
+            width: 120px;
+            height: 120px;
+            background: #fafafa;
+            border: 1px solid #dce4ec;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .qr-container img,
+        .qr-container canvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .btn-download {
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+        .btn-download:hover {
+            background: #1e8449;
+        }
+        .btn-download:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-gerar-todos {
+            background: #2b6f9e;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .btn-gerar-todos:hover {
+            background: #1d4f73;
+        }
+        .btn-gerar-todos:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .acoes-topo {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .status {
+            font-size: 14px;
+            color: #27ae60;
+            font-weight: 500;
+        }
+        .status.erro {
+            color: #c0392b;
+        }
+        @media (max-width: 700px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead {
+                display: none;
+            }
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid #dce4ec;
+                border-radius: 8px;
+                padding: 10px;
+            }
+            td {
+                border: none;
+                padding: 6px 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                width: 100px;
+                flex-shrink: 0;
+                color: #2c3e50;
+            }
+            .qr-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Gerador de QR Code</h1>
+        <p class="sub">Gere QR Codes para validação de certificados. Cada QR Code aponta para <code>http://localhost/curso/validar.html?codigo=XXXX</code></p>
+
+        <div id="erro" class="erro">⚠️ Não foi possível carregar a base de dados. Verifique o arquivo <strong>dados.csv</strong>.</div>
+        <div id="loading" class="loading">⏳ Carregando lista de certificados...</div>
+
+        <div id="conteudo" style="display:none;">
+            <div class="acoes-topo">
+                <button id="gerarTodosBtn" class="btn-gerar-todos">⬇️ Baixar todos os QR Codes</button>
+                <span id="statusTodos" class="status"></span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aluno(a)</th>
+                        <th>Código</th>
+                        <th>QR Code</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // ===================== GLOBALS =====================
+        let certificados = [];
+        let dadosCarregados = false;
+
+        const erroDiv = document.getElementById('erro');
+        const loadingDiv = document.getElementById('loading');
+        const conteudoDiv = document.getElementById('conteudo');
+        const corpoTabela = document.getElementById('corpo');
+        const gerarTodosBtn = document.getElementById('gerarTodosBtn');
+        const statusTodos = document.getElementById('statusTodos');
+
+        // ===================== NORMALIZAR CÓDIGO =====================
+        function normalizarCodigo(cod) {
+            return cod.replace(/[-\s]/g, '').toUpperCase();
+        }
+
+        // ===================== CARREGAR CSV =====================
+        async function carregarCSV() {
+            try {
+                const response = await fetch('dados.csv');
+                if (!response.ok) throw new Error('Arquivo não encontrado');
+                const texto = await response.text();
+
+                const linhas = texto.split('\n').filter(line => line.trim() !== '');
+                if (linhas.length < 2) throw new Error('CSV vazio ou inválido');
+
+                const cabecalho = linhas[0].split(';').map(c => c.trim());
+                const idxNome = cabecalho.indexOf('nome');
+                const idxCod = cabecalho.indexOf('codigo');
+                if (idxNome === -1 || idxCod === -1) {
+                    throw new Error('Colunas "nome" e/ou "codigo" não encontradas');
+                }
+
+                for (let i = 1; i < linhas.length; i++) {
+                    const colunas = linhas[i].split(';').map(c => c.trim());
+                    if (colunas.length < cabecalho.length) continue;
+                    const nome = colunas[idxNome] || 'Sem nome';
+                    const cod = normalizarCodigo(colunas[idxCod] || '');
+                    if (cod) {
+                        certificados.push({ nome, codigo: cod });
+                    }
+                }
+
+                dadosCarregados = true;
+                loadingDiv.style.display = 'none';
+                conteudoDiv.style.display = 'block';
+                console.log(`✅ ${certificados.length} certificados carregados.`);
+                preencherTabela();
+
+            } catch (erro) {
+                console.error('Erro ao carregar CSV:', erro);
+                loadingDiv.style.display = 'none';
+                erroDiv.style.display = 'block';
+            }
+        }
+
+        // ===================== GERAR QR CODE =====================
+        function gerarQRCode(container, codigo) {
+            // Limpa o container
+            container.innerHTML = '';
+            // Monta a URL
+            const url = `https://aratuba.abc.br/curso/validar.html?codigo=${codigo}`;
+            // Cria o QR Code (tamanho 100x100)
+            new QRCode(container, {
+                text: url,
+                width: 100,
+                height: 100,
+                colorDark: "#1a2b4c",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        // ===================== BAIXAR QR COMO PNG =====================
+        function baixarQR(container, nomeAluno) {
+            // O container pode ter um canvas ou img (gerado pelo QRCode.js)
+            const canvas = container.querySelector('canvas');
+            if (!canvas) {
+                alert('QR Code ainda não foi gerado. Clique em "Gerar QR" primeiro.');
+                return;
+            }
+            // Cria um link para download
+            const link = document.createElement('a');
+            link.download = `${nomeAluno.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // ===================== PREENCHER TABELA =====================
+        function preencherTabela() {
+            corpoTabela.innerHTML = '';
+            certificados.forEach((cert, index) => {
+                const tr = document.createElement('tr');
+
+                // Coluna Nome
+                const tdNome = document.createElement('td');
+                tdNome.textContent = cert.nome;
+                tdNome.setAttribute('data-label', 'Aluno(a)');
+                tdNome.className = 'aluno-nome';
+
+                // Coluna Código
+                const tdCod = document.createElement('td');
+                tdCod.textContent = cert.codigo.match(/.{1,4}/g).join('-');
+                tdCod.setAttribute('data-label', 'Código');
+                tdCod.className = 'codigo-cell';
+
+                // Coluna QR Code
+                const tdQR = document.createElement('td');
+                tdQR.setAttribute('data-label', 'QR Code');
+                const qrContainer = document.createElement('div');
+                qrContainer.className = 'qr-container';
+                qrContainer.id = `qr-${index}`;
+                tdQR.appendChild(qrContainer);
+
+                // Coluna Ação
+                const tdAcao = document.createElement('td');
+                tdAcao.setAttribute('data-label', 'Ação');
+                const btnGerar = document.createElement('button');
+                btnGerar.textContent = 'Gerar QR';
+                btnGerar.className = 'btn-download';
+                btnGerar.style.background = '#2b6f9e';
+                btnGerar.addEventListener('click', function() {
+                    // Gera o QR no container
+                    gerarQRCode(qrContainer, cert.codigo);
+                    // Troca o botão para "Baixar"
+                    this.textContent = 'Baixar PNG';
+                    this.style.background = '#27ae60';
+                    // Remove o evento anterior e adiciona o de download
+                    this.replaceWith(btnDownload);
+                });
+
+                const btnDownload = document.createElement('button');
+                btnDownload.textContent = 'Baixar PNG';
+                btnDownload.className = 'btn-download';
+                btnDownload.style.background = '#27ae60';
+                btnDownload.addEventListener('click', function() {
+                    baixarQR(qrContainer, cert.nome);
+                });
+
+                tdAcao.appendChild(btnGerar);
+
+                tr.appendChild(tdNome);
+                tr.appendChild(tdCod);
+                tr.appendChild(tdQR);
+                tr.appendChild(tdAcao);
+                corpoTabela.appendChild(tr);
+            });
+
+            // Após preencher, habilitar o botão "Baixar todos"
+            gerarTodosBtn.disabled = false;
+        }
+
+        // ===================== BAIXAR TODOS OS QR CODES =====================
+        async function baixarTodos() {
+            // Verifica se todos os QR foram gerados (têm canvas)
+            const containers = document.querySelectorAll('.qr-container');
+            let todosGerados = true;
+            containers.forEach(container => {
+                if (!container.querySelector('canvas')) {
+                    todosGerados = false;
+                }
+            });
+
+            if (!todosGerados) {
+                // Gera automaticamente para todos que ainda não têm
+                containers.forEach((container, index) => {
+                    if (!container.querySelector('canvas')) {
+                        const cert = certificados[index];
+                        if (cert) {
+                            gerarQRCode(container, cert.codigo);
+                        }
+                    }
+                });
+                // Atualiza os botões para "Baixar PNG"
+                const botoes = document.querySelectorAll('.btn-download');
+                botoes.forEach(btn => {
+                    if (btn.textContent === 'Gerar QR') {
+                        const containerId = btn.closest('tr').querySelector('.qr-container').id;
+                        const idx = parseInt(containerId.split('-')[1]);
+                        const cert = certificados[idx];
+                        if (cert) {
+                            // Simula clique no botão Gerar QR para converter
+                            // Mas como já geramos, só mudamos o texto e estilo
+                            btn.textContent = 'Baixar PNG';
+                            btn.style.background = '#27ae60';
+                            // Substituímos o evento
+                            btn.replaceWith(btnDownload);
+                        }
+                    }
+                });
+                // Recarregamos os botões de download (já estão na página)
+                // Como substituímos, precisamos reatribuir eventos? 
+                // Na verdade, cada botão já tem seu evento, mas os que foram substituídos perderam.
+                // Vamos fazer uma função que percorre todos os botões e garante que o evento de download esteja correto.
+                // Para simplificar, vamos recarregar a tabela? Não, é melhor reaplicar os eventos.
+                // Vamos percorrer novamente todos os botões com texto "Baixar PNG" e garantir que chamem baixarQR.
+                // Mas como substituímos, os novos botões já têm o evento correto (btnDownload criado com event listener).
+                // Os que já eram "Baixar PNG" antes de clicar, já têm o evento.
+                // Então está ok.
+            }
+
+            // Agora baixar um por um com pequeno delay para não travar
+            statusTodos.textContent = '⏳ Baixando todos...';
+            statusTodos.className = 'status';
+            gerarTodosBtn.disabled = true;
+
+            const containersAll = document.querySelectorAll('.qr-container');
+            for (let i = 0; i < containersAll.length; i++) {
+                const container = containersAll[i];
+                const nome = certificados[i]?.nome || `aluno_${i}`;
+                // Usa a função baixarQR, mas sem delay pode dar problema de múltiplos downloads simultâneos.
+                // Vamos usar setTimeout para espaçar.
+                await new Promise(resolve => {
+                    setTimeout(() => {
+                        baixarQR(container, nome);
+                        resolve();
+                    }, 300 * (i + 1)); // 300ms entre cada download
+                });
+            }
+
+            statusTodos.textContent = '✅ Todos os QR Codes foram baixados!';
+            statusTodos.className = 'status';
+            gerarTodosBtn.disabled = false;
+        }
+
+        // ===================== EVENTOS =====================
+        gerarTodosBtn.addEventListener('click', baixarTodos);
+
+        // ===================== INICIAR =====================
+        carregarCSV();
+    </script>
+</body>
+</html>

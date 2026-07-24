@@ -85,7 +85,6 @@
             color: #1a2b4c;
             margin-bottom: 15px;
         }
-        /* Logo no topo */
         .logo-topo {
             text-align: center;
             margin-bottom: 20px;
@@ -170,28 +169,29 @@
         <div id="erroCSV" class="erro-csv">
             ⚠️ Não foi possível carregar a base de dados. Verifique se o arquivo <strong>dados.csv</strong> está no mesmo diretório.
         </div>
-        <div class="search-box">
+        <form id="formBusca" class="search-box" onsubmit="return false;">
             <input type="text" id="codigoInput" placeholder="Ex: 7A4F9C2E1B8D ou 7A4-F9C-2E1-B8D">
-            <button id="validarBtn">Validar</button>
-        </div>
+            <button type="submit" id="validarBtn">Validar</button>
+        </form>
         <div id="resultado" class="result">
             <!-- Preenchido via JS -->
         </div>
         <div id="loading" class="loading">⏳ Carregando base de dados...</div>
-        <div class="dica">
-            <p>Use apenas letras e números <code>?codigo=7A4F9C2E1B8D</code></p>
-        </div>
+        <!-- <div class="dica">
+            <p>Use o parâmetro na URL: <code>?codigo=7A4F9C2E1B8D</code></p>
+            <p><a href="gerar.html">➡️ Gerar novos códigos</a> | <a href="gerar-qr.html">📱 Gerar QR Codes</a></p>
+        </div> -->
     </div>
 
     <script>
         // ===================== GLOBALS =====================
-        let certificados = [];          // array de objetos
+        let certificados = [];
         let codigosExistentes = new Set();
         let dadosCarregados = false;
 
         // Elementos
+        const form = document.getElementById('formBusca');
         const inputCodigo = document.getElementById('codigoInput');
-        const validarBtn = document.getElementById('validarBtn');
         const resultadoDiv = document.getElementById('resultado');
         const loadingDiv = document.getElementById('loading');
         const erroCSV = document.getElementById('erroCSV');
@@ -208,13 +208,10 @@
                 if (!response.ok) throw new Error('Arquivo não encontrado');
                 const texto = await response.text();
 
-                // Parse do CSV (separador ;)
                 const linhas = texto.split('\n').filter(line => line.trim() !== '');
                 if (linhas.length < 2) throw new Error('CSV vazio ou inválido');
 
-                // Cabeçalho
                 const cabecalho = linhas[0].split(';').map(c => c.trim());
-                // Mapear índices
                 const idxNome = cabecalho.indexOf('nome');
                 const idxCurso = cabecalho.indexOf('curso');
                 const idxCarga = cabecalho.indexOf('carga');
@@ -226,10 +223,8 @@
 
                 if (idxCod === -1) throw new Error('Coluna "codigo" não encontrada no CSV');
 
-                // Processar linhas de dados
                 for (let i = 1; i < linhas.length; i++) {
                     const colunas = linhas[i].split(';').map(c => c.trim());
-                    // Se a linha tiver menos colunas que o cabeçalho, ignorar
                     if (colunas.length < cabecalho.length) continue;
 
                     const cert = {
@@ -240,10 +235,8 @@
                         dataEmissao: colunas[idxData] || '',
                         instituicao: colunas[idxInst] || '',
                         logoInstituicao: colunas[idxLogo] || '',
-                        codigo: colunas[idxCod].toUpperCase() // já sem hífen? vamos normalizar depois
+                        codigo: normalizarCodigo(colunas[idxCod] || '')
                     };
-                    // Normaliza o código (remove hífens e espaços)
-                    cert.codigo = normalizarCodigo(cert.codigo);
                     certificados.push(cert);
                     codigosExistentes.add(cert.codigo);
                 }
@@ -257,7 +250,7 @@
                 const codUrl = params.get('codigo');
                 if (codUrl) {
                     inputCodigo.value = codUrl;
-                    validar();
+                    validarPelaURL(codUrl);
                 }
 
             } catch (erro) {
@@ -276,10 +269,7 @@
         function exibirResultado(cert, codigoDigitado) {
             resultadoDiv.className = 'result visible';
             if (cert) {
-                // Formata código com hífens
                 const codExibicao = cert.codigo.match(/.{1,4}/g).join('-');
-                
-                // ===== LOGO NO TOPO =====
                 let logoTopo = '';
                 if (cert.logoInstituicao && cert.logoInstituicao.startsWith('http')) {
                     logoTopo = `<div class="logo-topo"><img src="${cert.logoInstituicao}" alt="Logo da instituição"></div>`;
@@ -306,25 +296,31 @@
             }
         }
 
-        function validar() {
+        function validarPelaURL(codigo) {
             if (!dadosCarregados) {
-                alert('Aguardando carregamento da base de dados...');
-                return;
-            }
-            const codigo = inputCodigo.value.trim();
-            if (!codigo) {
-                alert('Digite um código para validar.');
+                // Aguarda o carregamento (já será chamado novamente quando carregar)
                 return;
             }
             const cert = buscarCertificado(codigo);
             exibirResultado(cert, codigo);
         }
 
+        // ===================== SUBMISSÃO DO FORMULÁRIO =====================
+        function handleSubmit(e) {
+            e.preventDefault(); // Evita recarregamento padrão
+            const codigo = inputCodigo.value.trim();
+            if (!codigo) {
+                alert('Digite um código para validar.');
+                return;
+            }
+            // Constrói a URL com o código e recarrega a página
+            const url = new URL(window.location.href);
+            url.searchParams.set('codigo', codigo);
+            window.location.href = url.toString();
+        }
+
         // ===================== EVENTOS =====================
-        validarBtn.addEventListener('click', validar);
-        inputCodigo.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') validar();
-        });
+        form.addEventListener('submit', handleSubmit);
 
         // ===================== INICIAR =====================
         carregarCSV();
