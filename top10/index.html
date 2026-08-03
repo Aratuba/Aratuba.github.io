@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendário Projeto TOP 10 - SPAECE 2026</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f5f7;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #0d7d37;
+            margin-bottom: 5px;
+        }
+        h2 {
+            text-align: center;
+            color: #444;
+            margin-top: 0;
+        }
+        .calendarios {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .mes {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            padding: 15px;
+        }
+        .mes h3 {
+            text-align: center;
+            background: #0d7d37;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th {
+            background: #ddd;
+            padding: 6px 2px;
+            font-size: 13px;
+        }
+        td {
+            border: 1px solid #ddd;
+            height: 58px;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 2px;
+            position: relative;
+        }
+        .vazio {
+            background: #fafafa;
+        }
+        /* cores das atividades */
+        .a123 {
+            background: #7bed9f;
+        }
+        .a4 {
+            background: #74b9ff;
+        }
+        .a5 {
+            background: #ffe66d;
+        }
+        .a6 {
+            background: #ffb347;
+        }
+        .a7 {
+            background: #d980fa;
+        }
+        .a8 {
+            background: #ff7675;
+        }
+        .a9 {
+            background: #a29bfe;
+        }
+        .aplicacao {
+            background: #2ed573;
+            color: white;
+        }
+
+        /* conteúdo da célula */
+        .dia-num {
+            display: block;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        .dia-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1px;
+            font-size: 16px;
+            line-height: 1.2;
+        }
+        .dia-icons span {
+            display: inline-block;
+        }
+
+        /* --- NOVOS ESTILOS PARA HOJE E PASSADO --- */
+        .passado .dia-num,
+        .passado .dia-icons {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        .hoje {
+            border: 3px solid #c00 !important;
+            background-color: #fff3cd !important;
+        }
+
+        /* legenda */
+        .legenda {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .cor {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #999;
+            flex-shrink: 0;
+            border-radius: 4px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+            }
+            .mes {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+        @media (max-width: 700px) {
+            .calendarios {
+                grid-template-columns: 1fr;
+            }
+            .legenda {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PROJETO TOP 10 - SPAECE 2026</h1>
+    <h2>Calendário das Atividades</h2>
+
+    <div class="calendarios" id="calendarios"></div>
+
+    <h2>Legenda</h2>
+    <div class="legenda" id="legenda"></div>
+
+    <script>
+        // --------------------------------------------------------------
+        // DADOS DAS ATIVIDADES
+        // --------------------------------------------------------------
+        const atividades = [{
+            id: 'a123',
+            nome: 'Backdrop • Mobilização • Flash Mob',
+            emojis: ['🎨', '👨‍👩‍👧', '💃'],
+            cor: 'a123',
+            inicio: '2026-07-31',
+            fim: '2026-08-28'
+        }, {
+            id: 'a4',
+            nome: 'SPAECE Minado',
+            emojis: ['💣'],
+            cor: 'a4',
+            inicio: '2026-08-31',
+            fim: '2026-09-11'
+        }, {
+            id: 'a5',
+            nome: 'Quiz Kahoot',
+            emojis: ['❓'],
+            cor: 'a5',
+            inicio: '2026-09-14',
+            fim: '2026-09-18'
+        }, {
+            id: 'a6',
+            nome: 'Bingo',
+            emojis: ['🎲'],
+            cor: 'a6',
+            inicio: '2026-09-21',
+            fim: '2026-09-25'
+        }, {
+            id: 'a7',
+            nome: 'Se Liga no Bizu',
+            emojis: ['💡'],
+            cor: 'a7',
+            inicio: '2026-09-28',
+            fim: '2026-10-16'
+        }, {
+            id: 'a8',
+            nome: 'Baladão',
+            emojis: ['🎉'],
+            cor: 'a8',
+            inicio: '2026-10-19',
+            fim: '2026-10-30'
+        }, {
+            id: 'a9',
+            nome: 'Circuito',
+            emojis: ['🏃'],
+            cor: 'a9',
+            inicio: '2026-11-03',
+            fim: '2026-11-13'
+        }, {
+            id: 'aplicacao',
+            nome: '#NEM1AMENOS – Aplicação SPAECE',
+            emojis: ['✅'],
+            cor: 'aplicacao',
+            inicio: '2026-11-16',
+            fim: '2026-11-16'
+        }];
+
+        // --------------------------------------------------------------
+        // DATA DE HOJE (sem horas)
+        // --------------------------------------------------------------
+        const agora = new Date();
+        const hoje = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+
+        // --------------------------------------------------------------
+        // CONFIGURAÇÃO DOS MESES
+        // --------------------------------------------------------------
+        const meses = [{
+            nome: 'Julho',
+            ano: 2026,
+            mes: 6, // 0-indexado: 6 = Julho
+            dias: 31,
+            primeiroDiaSemana: 3 // 0=Dom, 1=Seg, ... 6=Sáb
+        }, {
+            nome: 'Agosto',
+            ano: 2026,
+            mes: 7,
+            dias: 31,
+            primeiroDiaSemana: 6
+        }, {
+            nome: 'Setembro',
+            ano: 2026,
+            mes: 8,
+            dias: 30,
+            primeiroDiaSemana: 2
+        }, {
+            nome: 'Outubro',
+            ano: 2026,
+            mes: 9,
+            dias: 31,
+            primeiroDiaSemana: 4
+        }, {
+            nome: 'Novembro',
+            ano: 2026,
+            mes: 10,
+            dias: 30,
+            primeiroDiaSemana: 0
+        }];
+
+        // --------------------------------------------------------------
+        // FUNÇÃO PARA VERIFICAR SE UMA DATA ESTÁ DENTRO DE UM INTERVALO
+        // --------------------------------------------------------------
+        function dataNoIntervalo(ano, mes, dia, inicio, fim) {
+            const data = `${ano}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+            return data >= inicio && data <= fim;
+        }
+
+        // --------------------------------------------------------------
+        // FUNÇÃO PARA GERAR O CALENDÁRIO DE UM MÊS
+        // --------------------------------------------------------------
+        function gerarMes(mesInfo) {
+            const { nome, ano, mes, dias, primeiroDiaSemana } = mesInfo;
+
+            const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+            let html = `<div class="mes"><h3>${nome} ${ano}</h3><table><tr>`;
+            for (let d of diasSemana) {
+                html += `<th>${d}</th>`;
+            }
+            html += `</tr>`;
+
+            let diaAtual = 1;
+            let celulasVazias = primeiroDiaSemana;
+
+            let linha = 0;
+            while (diaAtual <= dias) {
+                html += `<tr>`;
+                for (let col = 0; col < 7; col++) {
+                    if (linha === 0 && col < celulasVazias) {
+                        html += `<td class="vazio"></td>`;
+                    } else if (diaAtual > dias) {
+                        html += `<td class="vazio"></td>`;
+                    } else {
+                        // Verifica atividades
+                        const emojis = [];
+                        let corClasse = '';
+                        for (const atv of atividades) {
+                            if (dataNoIntervalo(ano, mes, diaAtual, atv.inicio, atv.fim)) {
+                                emojis.push(...atv.emojis);
+                                if (!corClasse) corClasse = atv.cor;
+                            }
+                        }
+
+                        // Verifica se é hoje ou passado
+                        const dataCelula = new Date(ano, mes, diaAtual);
+                        let classeExtra = '';
+                        if (dataCelula < hoje) {
+                            classeExtra = 'passado';
+                        } else if (dataCelula.getTime() === hoje.getTime()) {
+                            classeExtra = 'hoje';
+                        }
+
+                        // Monta classes da célula
+                        const classes = [];
+                        if (corClasse) classes.push(corClasse);
+                        if (classeExtra) classes.push(classeExtra);
+                        const classeAttr = classes.length ? ` class="${classes.join(' ')}"` : '';
+
+                        const num = diaAtual;
+                        const icones = emojis.map(e => `<span>${e}</span>`).join('');
+
+                        html += `<td${classeAttr}>`;
+                        html += `<span class="dia-num">${num}</span>`;
+                        if (icones) {
+                            html += `<span class="dia-icons">${icones}</span>`;
+                        }
+                        html += `</td>`;
+
+                        diaAtual++;
+                    }
+                }
+                html += `</tr>`;
+                linha++;
+            }
+
+            html += `</table></div>`;
+            return html;
+        }
+
+        // --------------------------------------------------------------
+        // FUNÇÃO PARA GERAR A LEGENDA
+        // --------------------------------------------------------------
+        function gerarLegenda() {
+            let html = '';
+            for (const atv of atividades) {
+                const emojiStr = atv.emojis.join(' ');
+                html += `
+                    <div class="item">
+                        <div class="cor ${atv.cor}"></div>
+                        ${emojiStr} ${atv.nome}
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // --------------------------------------------------------------
+        // RENDERIZAR TUDO
+        // --------------------------------------------------------------
+        const container = document.getElementById('calendarios');
+        let htmlCalendarios = '';
+        for (const m of meses) {
+            htmlCalendarios += gerarMes(m);
+        }
+        container.innerHTML = htmlCalendarios;
+
+        document.getElementById('legenda').innerHTML = gerarLegenda();
+    </script>
+
+</body>
+</html>
