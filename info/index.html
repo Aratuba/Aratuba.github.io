@@ -1,29 +1,276 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>Redirecionando...</title> 
-<style> 
-body {font-family: Arial; text-align:center; padding:50px; background:#f4f4f4;} 
-.box {background:#fff; padding:30px; border-radius:10px; display:inline-block;} 
-.c {font-size:2em; color:#0066cc; font-weight:bold;} 
-</style> 
-<script> 
-var s=5; 
-function go(){ 
-document.getElementById("c").innerText=s; 
-if(s==0){window.location.href="https://pt.pixiz.com/frame/capa-de-revista-1613903";} 
-else{s--;setTimeout(go,1000);} 
-} 
-window.onload=go; 
-</script> 
-</head> 
-<body> 
-<div class="box"> 
-Redirecionando em <span id="c" class="c">5</span> segundos... 
-<br> 
-<a href="https://pt.pixiz.com/frame/capa-de-revista-1613903">Clique aqui se não redirecionar</a> 
-</div> 
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home do Laboratório de Informática</title>
+    <style>
+        /* Reset básico e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f44 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Cartão principal */
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 48px 40px 56px;
+            max-width: 720px;
+            width: 100%;
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 2px rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        /* Ícone / logo */
+        .icon {
+            font-size: 64px;
+            margin-bottom: 12px;
+            display: block;
+            filter: drop-shadow(0 8px 20px rgba(0, 180, 255, 0.3));
+        }
+
+        /* Título principal */
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-weight: 400;
+            letter-spacing: 0.4px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 24px;
+        }
+
+        /* Container dos links */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 8px;
+        }
+
+        /* Cada link estilizado como botão */
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 20px 28px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.04);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 60px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Botão atividades — azul/ciano */
+        .link-btn.atividades {
+            background: linear-gradient(135deg, rgba(0, 180, 255, 0.20), rgba(0, 120, 255, 0.10));
+            border-color: rgba(0, 180, 255, 0.25);
+        }
+
+        .link-btn.atividades:hover {
+            background: linear-gradient(135deg, rgba(0, 180, 255, 0.35), rgba(0, 120, 255, 0.20));
+            border-color: rgba(0, 200, 255, 0.5);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(0, 150, 255, 0.25);
+        }
+
+        .link-btn.atividades .emoji {
+            color: #5bcaff;
+        }
+
+        /* Botão jogos — verde/amarelo */
+        .link-btn.jogos {
+            background: linear-gradient(135deg, rgba(0, 230, 180, 0.15), rgba(0, 200, 100, 0.08));
+            border-color: rgba(0, 230, 180, 0.20);
+        }
+
+        .link-btn.jogos:hover {
+            background: linear-gradient(135deg, rgba(0, 230, 180, 0.30), rgba(0, 200, 100, 0.18));
+            border-color: rgba(0, 255, 200, 0.45);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(0, 230, 180, 0.20);
+        }
+
+        .link-btn.jogos .emoji {
+            color: #5fffd0;
+        }
+
+        /* Emoji / ícone dentro do botão */
+        .link-btn .emoji {
+            font-size: 1.8rem;
+            line-height: 1;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .link-btn .label {
+            flex: 1;
+            text-align: left;
+        }
+
+        .link-btn .arrow {
+            font-size: 1.4rem;
+            opacity: 0.5;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .link-btn:hover .arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* Rodapé com ano */
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 24px;
+        }
+
+        .footer span {
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Responsividade */
+        @media (max-width: 480px) {
+            .card {
+                padding: 32px 20px 40px;
+                border-radius: 32px;
+            }
+
+            h1 {
+                font-size: 1.9rem;
+            }
+
+            .link-btn {
+                font-size: 1.05rem;
+                padding: 16px 20px;
+                gap: 12px;
+            }
+
+            .link-btn .emoji {
+                font-size: 1.5rem;
+            }
+
+            .icon {
+                font-size: 48px;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .link-btn {
+                font-size: 0.95rem;
+                padding: 14px 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .link-btn .label {
+                text-align: center;
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+
+        <!-- Ícone decorativo -->
+        <span class="icon">💻</span>
+
+        <!-- Título -->
+        <h1>Laboratório de Informática</h1>
+        <p class="subtitle">Bem-vindo ao seu espaço digital de aprendizado</p>
+
+        <!-- Links principais -->
+        <div class="links">
+
+            <!-- Link para Atividades → /info/index/ -->
+            <a href="/info/index/" class="link-btn atividades">
+                <span class="emoji">📚</span>
+                <span class="label">Atividades</span>
+                <span class="arrow">→</span>
+            </a>
+
+            <!-- Link para Jogos Educativos → BGBlak.github.io -->
+            <a href="https://BGBlak.github.io" target="_blank" class="link-btn jogos">
+                <span class="emoji">🎮</span>
+                <span class="label">Jogos Educativos</span>
+                <span class="arrow">→</span>
+            </a>
+
+        </div>
+
+        <!-- Rodapé -->
+        <div class="footer">
+            <span>✦</span> &nbsp; explore, aprenda, divirta-se &nbsp; <span>✦</span>
+        </div>
+
+    </div>
+
+</body>
+</html>
