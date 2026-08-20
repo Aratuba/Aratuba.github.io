@@ -1,29 +1,312 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>Redirecionando...</title> 
-<style> 
-body {font-family: Arial; text-align:center; padding:50px; background:#f4f4f4;} 
-.box {background:#fff; padding:30px; border-radius:10px; display:inline-block;} 
-.c {font-size:2em; color:#0066cc; font-weight:bold;} 
-</style> 
-<script> 
-var s=5; 
-function go(){ 
-document.getElementById("c").innerText=s; 
-if(s==0){window.location.href="https://pt.pixiz.com/frame/capa-de-revista-1613903";} 
-else{s--;setTimeout(go,1000);} 
-} 
-window.onload=go; 
-</script> 
-</head> 
-<body> 
-<div class="box"> 
-Redirecionando em <span id="c" class="c">5</span> segundos... 
-<br> 
-<a href="https://pt.pixiz.com/frame/capa-de-revista-1613903">Clique aqui se não redirecionar</a> 
-</div> 
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎈 Clube das Rimas - Jogos Divertidos</title>
+    <!-- Google Fonts para um visual mais bonito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* Reset básico e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(145deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Cabeçalho principal */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.2rem;
+            color: #2d1b12;
+            text-shadow: 4px 4px 0 #f7c948;
+            letter-spacing: 1px;
+        }
+
+        .header h1 i {
+            color: #e85d3a;
+            margin-right: 8px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: #4a2c1e;
+            background: rgba(255, 255, 255, 0.5);
+            display: inline-block;
+            padding: 0.4rem 2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            margin-top: 10px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Grade de cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin-bottom: 3rem;
+        }
+
+        /* Cada card */
+        .game-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 40px 40px 40px 40px;
+            padding: 2rem 1.5rem 2rem;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .game-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 40px -12px rgba(0, 0, 0, 0.3);
+            border-color: #f7c948;
+        }
+
+        /* Cores diferentes para cada card */
+        .game-card:nth-child(1) .card-icon {
+            background: #f7c948;
+            color: #2d1b12;
+        }
+        .game-card:nth-child(2) .card-icon {
+            background: #6ec6ff;
+            color: #0a2f44;
+        }
+        .game-card:nth-child(3) .card-icon {
+            background: #f5a3a3;
+            color: #5e2a2a;
+        }
+        .game-card:nth-child(4) .card-icon {
+            background: #b0d9b1;
+            color: #1f4f1f;
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
+            transition: 0.2s;
+        }
+
+        .game-card h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.6rem;
+            color: #2d1b12;
+            margin-bottom: 0.6rem;
+            line-height: 1.2;
+        }
+
+        .game-card .subtitle {
+            font-size: 0.95rem;
+            color: #5a3f2e;
+            background: rgba(247, 201, 72, 0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+
+        .game-card .description {
+            font-size: 1rem;
+            color: #3d2a1c;
+            margin-bottom: 1.8rem;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+
+        .btn-jogar {
+            display: inline-block;
+            background: #2d1b12;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 0 #1a0f0a;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-jogar i {
+            margin-right: 8px;
+        }
+
+        .btn-jogar:hover {
+            background: #f7c948;
+            color: #2d1b12;
+            border-color: #2d1b12;
+            transform: scale(1.03);
+            box-shadow: 0 6px 0 #b38a2e;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 2rem;
+            color: #4a2c1e;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer i {
+            color: #e85d3a;
+            font-size: 1.3rem;
+        }
+
+        /*animações */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2.4rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .game-card {
+                padding: 1.8rem 1.2rem;
+            }
+            .btn-jogar {
+                padding: 0.7rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1><i class="fas fa-star"></i> Clube das Rimas</h1>
+        <p><i class="fas fa-music"></i> 4 jogos incríveis para aprender brincando!</p>
+    </header>
+
+    <div class="cards-grid">
+
+        <!-- Card 1: RIMANDO... -->
+        <div class="game-card">
+            <div class="card-icon"><i class="fas fa-puzzle-piece"></i></div>
+            <h3>RIMANDO...</h3>
+            <span class="subtitle">🔍 Encontre a combinação</span>
+            <p class="description">
+                Combine as palavras que rimam. Um jogo de associação para testar sua percepção!
+            </p>
+            <a href="https://wordwall.net/pt/resource/18647094/rimas/rimando" target="_blank" class="btn-jogar">
+                <i class="fas fa-play"></i> Jogar agora
+            </a>
+        </div>
+
+        <!-- Card 2: JOGO DAS PALAVRAS QUE RIMAM -->
+        <div class="game-card">
+            <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+            <h3>Palavras que Rimam</h3>
+            <span class="subtitle">📘 2º Ano A e B</span>
+            <p class="description">
+                Jogo de associação desenvolvido para o 2º ano. Diversão e aprendizado garantidos!
+            </p>
+            <a href="https://wordwall.net/pt/resource/56645301/l%C3%ADngua-portuguesa/jogo-das-palavras-que-rimam-2%C2%BA-ano-a-e" target="_blank" class="btn-jogar">
+                <i class="fas fa-play"></i> Jogar agora
+            </a>
+        </div>
+
+        <!-- Card 3: RIMAS -->
+        <div class="game-card">
+            <div class="card-icon"><i class="fas fa-book-open"></i></div>
+            <h3>RIMAS</h3>
+            <span class="subtitle">📝 Português</span>
+            <p class="description">
+                Explore o mundo das rimas com este jogo interativo. Perfeito para treinar a leitura!
+            </p>
+            <a href="https://wordwall.net/pt/resource/72860247/portuguesa/rimas" target="_blank" class="btn-jogar">
+                <i class="fas fa-play"></i> Jogar agora
+            </a>
+        </div>
+
+        <!-- Card 4: ATENÇÃO -->
+        <div class="game-card">
+            <div class="card-icon"><i class="fas fa-eye"></i></div>
+            <h3>ATENÇÃO</h3>
+            <span class="subtitle">🧠 Foco &amp; Concentração</span>
+            <p class="description">
+                Desafie sua atenção com este jogo dinâmico. Você vai adorar!
+            </p>
+            <a href="https://wordwall.net/pt/resource/24970706/aten%C3%A7%C3%A3o" target="_blank" class="btn-jogar">
+                <i class="fas fa-play"></i> Jogar agora
+            </a>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <i class="fas fa-heart"></i>
+        <span>Divirta-se aprendendo com rimas!</span>
+        <i class="fas fa-heart"></i>
+    </div>
+
+</body>
+</html>
