@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Escola José Mendes da Cruz</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #064e3b, #047857, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #047857, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 42px;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.35);
+        }
+
+        h1 {
+            color: #064e3b;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitulo {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 1px solid #a7f3d0;
+            border-radius: 18px;
+            padding: 25px 20px;
+            margin-top: 20px;
+        }
+
+        .card h2 {
+            color: #065f46;
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #4b5563;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .botao {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+            padding: 16px 24px;
+            border-radius: 14px;
+            background: #047857;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.25s;
+            box-shadow: 0 6px 15px rgba(4, 120, 87, 0.3);
+        }
+
+        .botao:hover {
+            background: #065f46;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(4, 120, 87, 0.4);
+        }
+
+        .icone {
+            font-size: 24px;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .logo {
+                width: 85px;
+                height: 85px;
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="logo">
+            JM
+        </div>
+
+        <h1>ESCOLA JOSÉ MENDES DA CRUZ</h1>
+
+        <p class="subtitulo">
+            Acesso às atividades escolares
+        </p>
+
+        <section class="card">
+
+            <h2>🏆 TOP 10</h2>
+
+            <p>
+                Acesse aqui as atividades, materiais e conteúdos
+                do projeto <strong>TOP 10</strong>.
+            </p>
+
+            <a
+                class="botao"
+                href="https://drive.google.com/drive/folders/1XRwja7WIM5tflUkGIgYUjFQFRQSqQqKk?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span class="icone">📚</span>
+                Acessar atividades do TOP 10
+            </a>
+
+        </section>
+
+        <footer>
+            Escola José Mendes da Cruz
+        </footer>
+
+    </main>
+
+</body>
+</html>
