@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Meta tags serão preenchidas pelo JS -->
+  <meta name="description" content="" />
+  <meta name="theme-color" content="#0b0e1a" />
+
+  <!-- Open Graph (preenchido via JS) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+
+  <!-- Twitter Card (preenchido via JS) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
+
+  <title></title>
+  <link id="favicon" rel="icon" type="image/png" href="" />
+  <link id="appleIcon" rel="apple-touch-icon" href="" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    /* ===== ESTILOS (não mexa a menos que saiba o que faz) ===== */
+    :root {
+      --bg: #0b0e1a;
+      --bg-2: #171b2e;
+      --card: rgba(255,255,255,.075);
+      --card-border: rgba(255,255,255,.12);
+      --button: rgba(255,255,255,.075);
+      --button-hover: rgba(255,255,255,.14);
+      --text: #fff;
+      --muted: rgba(255,255,255,.68);
+      --subtle: rgba(255,255,255,.42);
+      --accent: #8b5cf6;
+      --accent-2: #38bdf8;
+      --shadow: rgba(0,0,0,.42);
+      --radius: 28px;
+      --transition: 240ms cubic-bezier(.2,.8,.2,1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 32%),
+        radial-gradient(circle at 85% 85%, color-mix(in srgb, var(--accent-2) 15%, transparent), transparent 30%),
+        linear-gradient(145deg, var(--bg), var(--bg-2));
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      padding: 28px 16px 40px;
+      transition: background .5s ease, color .3s ease;
+    }
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .18;
+      pointer-events: none;
+      z-index: -1;
+      animation: float 12s ease-in-out infinite alternate;
+      background: var(--accent);
+    }
+    body::before { top: -120px; left: -100px; }
+    body::after { right: -120px; bottom: -120px; background: var(--accent-2); animation-delay: -5s; }
+    @keyframes float {
+      to { transform: translate(40px, 25px) scale(1.12); }
+    }
+    .page { width: min(100%, 480px); }
+    .link-tree {
+      position: relative;
+      overflow: hidden;
+      padding: 30px 24px 24px;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 28px 80px var(--shadow);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      animation: pageIn .65s ease both;
+    }
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(18px) scale(.985); }
+      to { opacity: 1; transform: none; }
+    }
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      background: var(--button);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .icon-btn:hover {
+      transform: translateY(-2px) rotate(3deg);
+      background: var(--button-hover);
+    }
+    .profile { text-align: center; }
+    .avatar-wrapper {
+      position: relative;
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 17px;
+      padding: 4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 38px color-mix(in srgb, var(--accent) 38%, transparent);
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .avatar-wrapper:hover {
+      transform: translateY(-3px) scale(1.025);
+      box-shadow: 0 18px 48px color-mix(in srgb, var(--accent) 48%, transparent);
+    }
+    .avatar {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border: 3px solid var(--bg);
+      border-radius: 50%;
+      background: var(--bg-2);
+    }
+    .online-dot {
+      position: absolute;
+      right: 5px;
+      bottom: 8px;
+      width: 20px;
+      height: 20px;
+      border: 4px solid var(--bg);
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    .identity {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .name {
+      font-family: Poppins, Inter, sans-serif;
+      font-size: clamp(24px, 6vw, 30px);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -.7px;
+    }
+    .verified {
+      color: #38bdf8;
+      font-size: 17px;
+      filter: drop-shadow(0 2px 7px rgba(56,189,248,.3));
+    }
+    .handle {
+      margin-top: 5px;
+      color: var(--subtle);
+      font-size: 13px;
+    }
+    .bio {
+      max-width: 390px;
+      margin: 13px auto 24px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      margin-bottom: 24px;
+    }
+    .small-action {
+      min-height: 38px;
+      padding: 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: var(--button);
+      color: var(--text);
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .small-action:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+    .links {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    .link-item {
+      position: relative;
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: 42px 1fr 26px;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px 10px 10px;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      background: var(--button);
+      box-shadow: 0 8px 22px rgba(0,0,0,.12);
+      overflow: hidden;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+      animation: linkIn .45s ease both;
+    }
+    .link-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, rgba(255,255,255,.09), transparent 45%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      pointer-events: none;
+    }
+    .link-item:hover {
+      transform: translateY(-3px);
+      background: var(--button-hover);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--card-border));
+      box-shadow: 0 14px 30px rgba(0,0,0,.2);
+    }
+    .link-item:hover::before { opacity: 1; }
+    @keyframes linkIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+    .link-icon {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: rgba(255,255,255,.08);
+      font-size: 19px;
+      z-index: 1;
+    }
+    .link-content {
+      min-width: 0;
+      text-align: left;
+      z-index: 1;
+    }
+    .link-title {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .link-description {
+      display: block;
+      margin-top: 3px;
+      color: var(--subtle);
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-arrow {
+      color: var(--subtle);
+      font-size: 12px;
+      z-index: 1;
+      transition: transform var(--transition);
+    }
+    .link-item:hover .link-arrow { transform: translateX(3px); }
+    .featured {
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--card-border));
+      background: linear-gradient(100deg,
+        color-mix(in srgb, var(--accent) 18%, var(--button)),
+        var(--button));
+    }
+    .featured-badge {
+      position: absolute;
+      top: 7px;
+      right: 36px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 72%, #000);
+      color: white;
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      z-index: 2;
+    }
+    .social-section {
+      padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+    }
+    .social-label {
+      margin-bottom: 13px;
+      color: var(--subtle);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .social-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+    .social-bar a {
+      width: 43px;
+      height: 43px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      background: var(--button);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 17px;
+      transition: all var(--transition);
+    }
+    .social-bar a:hover {
+      color: var(--text);
+      background: var(--button-hover);
+      transform: translateY(-3px) scale(1.04);
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--card-border));
+    }
+    .footer {
+      margin-top: 23px;
+      text-align: center;
+      color: var(--subtle);
+      font-size: 10px;
+    }
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .theme-panel {
+      margin-top: 18px;
+      padding: 15px;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      background: rgba(0,0,0,.10);
+      display: none;
+    }
+    .theme-panel.open {
+      display: block;
+      animation: panelIn .25s ease both;
+    }
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: none; }
+    }
+    .theme-panel-title {
+      margin-bottom: 11px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      text-align: left;
+    }
+    .theme-selector {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+    .theme-btn {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .theme-btn:hover { transform: scale(1.12); }
+    .theme-btn.active {
+      border-color: white;
+      box-shadow: 0 0 0 2px rgba(0,0,0,.25);
+    }
+    .theme-btn .check {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 11px;
+      opacity: 0;
+      text-shadow: 0 1px 4px #000;
+    }
+    .theme-btn.active .check { opacity: 1; }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 100;
+      max-width: calc(100vw - 30px);
+      padding: 11px 16px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: rgba(10,12,20,.86);
+      color: white;
+      box-shadow: 0 15px 40px rgba(0,0,0,.35);
+      backdrop-filter: blur(14px);
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+      font-size: 12px;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    @media (max-width: 480px) {
+      body { padding: 12px 10px 28px; }
+      .link-tree { padding: 22px 15px 20px; border-radius: 24px; }
+      .avatar-wrapper { width: 98px; height: 98px; }
+      .link-item { min-height: 60px; grid-template-columns: 38px 1fr 22px; }
+      .link-icon { width: 38px; height: 38px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="link-tree" id="linkTree" aria-label="Página de links">
+      <div class="topbar">
+        <button class="icon-btn" id="shareBtn" type="button" aria-label="Compartilhar página" title="Compartilhar">
+          <i class="fas fa-share-nodes" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <header class="profile">
+        <div class="avatar-wrapper" id="avatarWrapper" tabindex="0" role="button" aria-label="Interagir com a foto de perfil">
+          <img class="avatar" id="avatarImg" src="" alt="" />
+          <span class="online-dot" aria-label="Online"></span>
+        </div>
+        <div class="identity">
+          <h1 class="name" id="nameDisplay">Nome</h1>
+          <i class="fas fa-circle-check verified" id="verifiedIcon" aria-label="Perfil verificado"></i>
+        </div>
+        <p class="handle" id="handleDisplay">@usuario</p>
+        <p class="bio" id="bioDisplay">Descrição</p>
+        <div class="actions">
+          <button class="small-action" id="copyProfileBtn" type="button">
+            <i class="far fa-copy" aria-hidden="true"></i> Copiar perfil
+          </button>
+          <button class="small-action" id="themeToggle" type="button" aria-expanded="false">
+            <i class="fas fa-palette" aria-hidden="true"></i> Tema
+          </button>
+        </div>
+      </header>
+
+      <div class="links" id="linksContainer" aria-label="Links principais"></div>
+
+      <section class="social-section" id="socialSection">
+        <p class="social-label">Redes sociais</p>
+        <nav class="social-bar" id="socialBar" aria-label="Redes sociais"></nav>
+      </section>
+
+      <div class="theme-panel" id="themePanel">
+        <p class="theme-panel-title">Escolha um tema</p>
+        <div class="theme-selector" id="themeSelector"></div>
+      </div>
+
+      <footer class="footer">
+        <span id="footerText">© 2026</span>
+        <span> · </span>
+        <a href="#" id="footerLink">@usuario</a>
+      </footer>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span id="toastMessage"></span>
+  </div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      // ================================================================
+      //  CONFIGURAÇÃO ÚNICA – EDITE APENAS ESTA PARTE !
+      // ================================================================
+      const config = {
+        // Dados do perfil
+        foto: "https://aratuba.abc.br/img/icon.png",   // URL da foto (use uma imagem quadrada para favicon)
+        nome: "EMEIEF JOSÉ MENDES DA CRUZ",
+        usuario: "@escolajosemendesdacruz02",
+        descricao: "ESCOLA JOSÉ MENDES DA CRUZ",
+        verificado: true,       // exibe o selo de verificado
+        online: true,           // exibe o ponto verde
+
+        // Links principais (aparecem em ordem)
+        links: [
+          {
+            titulo: "Instagram",
+            descricao: "Fotos, bastidores e novidades",
+            url: "https://www.instagram.com/escolajosemendesdacruz02/",
+            icone: "fab fa-instagram",
+            visivel: true,
+            destaque: true,      // destaque com borda roxa
+            social: true         // aparece também na barra de redes sociais
+          },
+          {
+            titulo: "YouTube",
+            descricao: "Vídeos e tutoriais",
+            url: "https://www.youtube.com/@jmctope",
+            icone: "fab fa-youtube",
+            visivel: true,
+            destaque: false,
+            social: true
+          },
+          // Adicione ou remova links conforme necessário.
+          // Os que tiverem social: true aparecerão tanto na lista principal quanto na barra social.
+          // Se quiser um link que apareça apenas na barra social, coloque visivel: false e social: true.
+          {
+            titulo: "WhatsApp",
+            descricao: "Fale conosco",
+            url: "https://wa.me/5511999999999",
+            icone: "fab fa-whatsapp",
+            visivel: false,
+            destaque: false,
+            social: true
+          },
+          {
+            titulo: "E-mail",
+            descricao: "contato profissional",
+            url: "mailto:contato@escola.com",
+            icone: "fas fa-envelope",
+            visivel: false,
+            destaque: false,
+            social: false
+          }
+        ],
+
+        // Temas disponíveis (não mexa a menos que queira adicionar/remover)
+        temas: [
+          {
+            id: "dark",
+            nome: "Escuro",
+            cor: "#7c3aed",
+            vars: {
+              bg: "#090b14",
+              bg2: "#171a2b",
+              card: "rgba(255,255,255,.075)",
+              border: "rgba(255,255,255,.12)",
+              button: "rgba(255,255,255,.075)",
+              hover: "rgba(255,255,255,.14)",
+              text: "#ffffff",
+              muted: "rgba(255,255,255,.68)",
+              subtle: "rgba(255,255,255,.42)",
+              accent: "#8b5cf6",
+              accent2: "#38bdf8",
+              shadow: "rgba(0,0,0,.42)"
+            }
+          },
+          {
+            id: "light",
+            nome: "Claro",
+            cor: "#64748b",
+            vars: {
+              bg: "#eef2f7",
+              bg2: "#dbe3ee",
+              card: "rgba(255,255,255,.66)",
+              border: "rgba(15,23,42,.10)",
+              button: "rgba(15,23,42,.045)",
+              hover: "rgba(15,23,42,.085)",
+              text: "#172033",
+              muted: "rgba(23,32,51,.70)",
+              subtle: "rgba(23,32,51,.48)",
+              accent: "#7c3aed",
+              accent2: "#0284c7",
+              shadow: "rgba(15,23,42,.18)"
+            }
+          },
+          {
+            id: "sunset",
+            nome: "Pôr do Sol",
+            cor: "#f97316",
+            vars: {
+              bg: "#4a1720",
+              bg2: "#a74328",
+              card: "rgba(255,255,255,.13)",
+              border: "rgba(255,255,255,.18)",
+              button: "rgba(255,255,255,.12)",
+              hover: "rgba(255,255,255,.21)",
+              text: "#ffffff",
+              muted: "rgba(255,255,255,.78)",
+              subtle: "rgba(255,255,255,.55)",
+              accent: "#fb7185",
+              accent2: "#fbbf24",
+              shadow: "rgba(38,10,10,.32)"
+            }
+          },
+          {
+            id: "ocean",
+            nome: "Oceano",
+            cor: "#0284c7",
+            vars: {
+              bg: "#062b43",
+              bg2: "#075985",
+              card: "rgba(255,255,255,.12)",
+              border: "rgba(255,255,255,.16)",
+              button: "rgba(255,255,255,.11)",
+              hover: "rgba(255,255,255,.20)",
+              text: "#ffffff",
+              muted: "rgba(255,255,255,.78)",
+              subtle: "rgba(255,255,255,.53)",
+              accent: "#22d3ee",
+              accent2: "#60a5fa",
+              shadow: "rgba(0,20,45,.35)"
+            }
+          },
+          {
+            id: "forest",
+            nome: "Floresta",
+            cor: "#16a34a",
+            vars: {
+              bg: "#071f16",
+              bg2: "#14532d",
+              card: "rgba(255,255,255,.085)",
+              border: "rgba(255,255,255,.13)",
+              button: "rgba(255,255,255,.08)",
+              hover: "rgba(255,255,255,.15)",
+              text: "#f0fdf4",
+              muted: "rgba(240,253,244,.72)",
+              subtle: "rgba(240,253,244,.45)",
+              accent: "#22c55e",
+              accent2: "#facc15",
+              shadow: "rgba(0,25,12,.42)"
+            }
+          }
+        ],
+
+        temaPadrao: "dark"  // tema inicial (deve existir na lista acima)
+      };
+      // ================================================================
+
+      // ===== ELEMENTOS DOM =====
+      const $ = id => document.getElementById(id);
+      const avatarWrapper = $("avatarWrapper");
+      const avatarImg = $("avatarImg");
+      const nameDisplay = $("nameDisplay");
+      const handleDisplay = $("handleDisplay");
+      const bioDisplay = $("bioDisplay");
+      const verifiedIcon = $("verifiedIcon");
+      const linksContainer = $("linksContainer");
+      const socialBar = $("socialBar");
+      const socialSection = $("socialSection");
+      const footerText = $("footerText");
+      const footerLink = $("footerLink");
+      const themeToggle = $("themeToggle");
+      const themePanel = $("themePanel");
+      const themeSelector = $("themeSelector");
+      const shareBtn = $("shareBtn");
+      const copyProfileBtn = $("copyProfileBtn");
+      const toast = $("toast");
+      const toastMessage = $("toastMessage");
+
+      let currentThemeId = localStorage.getItem("linktree-v2-theme") || config.temaPadrao;
+      let toastTimer;
+
+      // ===== UTILITÁRIOS =====
+      function showToast(message, duration = 2200) {
+        toastMessage.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), duration);
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("✓ Copiado para a área de transferência");
+        } catch {
+          const input = document.createElement("textarea");
+          input.value = text;
+          input.style.position = "fixed";
+          input.style.opacity = "0";
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand("copy");
+          input.remove();
+          showToast("✓ Copiado");
+        }
+      }
+
+      function getVisibleLinks() {
+        return config.links.filter(link => link.visivel !== false && link.url);
+      }
+
+      function safeUrl(url) {
+        return /^(https?:\/\/|mailto:|tel:|https:\/\/wa\.me\/)/i.test(url);
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      // ===== TEMA =====
+      function applyTheme(themeId) {
+        const theme = config.temas.find(t => t.id === themeId);
+        if (!theme) return;
+        Object.entries(theme.vars).forEach(([key, value]) => {
+          document.documentElement.style.setProperty(
+            "--" + key.replace(/[A-Z]/g, m => "-" + m.toLowerCase()),
+            value
+          );
+        });
+        document.documentElement.style.setProperty("--accent", theme.vars.accent);
+        document.documentElement.style.setProperty("--accent-2", theme.vars.accent2);
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme.vars.bg);
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.theme === themeId);
+        });
+        currentThemeId = themeId;
+        localStorage.setItem("linktree-v2-theme", themeId);
+      }
+
+      function renderThemeSelector() {
+        themeSelector.innerHTML = "";
+        config.temas.forEach(theme => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "theme-btn";
+          button.dataset.theme = theme.id;
+          button.title = theme.nome;
+          button.setAttribute("aria-label", "Tema " + theme.nome);
+          button.style.background = theme.cor;
+          button.innerHTML = '<span class="check"><i class="fas fa-check"></i></span>';
+          button.addEventListener("click", () => {
+            applyTheme(theme.id);
+            showToast("Tema: " + theme.nome, 1600);
+          });
+          themeSelector.appendChild(button);
+        });
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const open = themePanel.classList.toggle("open");
+        themeToggle.setAttribute("aria-expanded", String(open));
+      });
+
+      // ===== PERFIL =====
+      function setProfile() {
+        nameDisplay.textContent = config.nome;
+        handleDisplay.textContent = config.usuario || "";
+        bioDisplay.textContent = config.descricao || "";
+        verifiedIcon.style.display = config.verificado ? "inline-block" : "none";
+        const dot = avatarWrapper.querySelector(".online-dot");
+        if (dot) dot.style.display = config.online ? "block" : "none";
+
+        if (config.foto && config.foto.trim()) {
+          avatarImg.src = config.foto;
+          avatarImg.alt = "Foto de " + config.nome;
+          avatarImg.style.display = "block";
+          // Remove fallback se existir
+          const fallback = avatarWrapper.querySelector(".fallback-initials");
+          if (fallback) fallback.remove();
+        } else {
+          avatarImg.style.display = "none";
+          const initials = config.nome
+            .split(/\s+/)
+            .map(p => p[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          let fallback = avatarWrapper.querySelector(".fallback-initials");
+          if (!fallback) {
+            fallback = document.createElement("div");
+            fallback.className = "fallback-initials";
+            fallback.style.cssText =
+              "width:100%;height:100%;border-radius:50%;border:3px solid var(--bg);" +
+              "display:grid;place-items:center;background:var(--bg-2);font-size:30px;font-weight:800;";
+            avatarWrapper.insertBefore(fallback, avatarImg);
+          }
+          fallback.textContent = initials;
+        }
+      }
+
+      // ===== LINKS =====
+      function renderLinks() {
+        linksContainer.innerHTML = "";
+        getVisibleLinks().forEach((link, index) => {
+          const button = document.createElement("a");
+          button.className = "link-item" + (link.destaque ? " featured" : "");
+          button.href = link.url;
+          button.target = (link.url.startsWith("mailto:") || link.url.startsWith("tel:")) ? "_self" : "_blank";
+          button.rel = "noopener noreferrer";
+          button.style.animationDelay = `${index * 45}ms`;
+          button.setAttribute("aria-label", link.titulo);
+          button.innerHTML = `
+            ${link.destaque ? '<span class="featured-badge">Destaque</span>' : ""}
+            <span class="link-icon" aria-hidden="true">
+              <i class="${link.icone || "fas fa-link"}"></i>
+            </span>
+            <span class="link-content">
+              <span class="link-title">${escapeHtml(link.titulo)}</span>
+              ${link.descricao ? `<span class="link-description">${escapeHtml(link.descricao)}</span>` : ""}
+            </span>
+            <i class="fas fa-arrow-up-right-from-square link-arrow" aria-hidden="true"></i>
+          `;
+          button.addEventListener("click", (event) => {
+            if (!safeUrl(link.url)) {
+              event.preventDefault();
+              showToast("Link indisponível");
+            }
+          });
+          linksContainer.appendChild(button);
+        });
+      }
+
+      // ===== REDES SOCIAIS =====
+      function renderSocial() {
+        socialBar.innerHTML = "";
+        const socials = config.links.filter(link => link.social && link.url);
+        if (!socials.length) {
+          socialSection.style.display = "none";
+          return;
+        }
+        socialSection.style.display = "block";
+        socials.forEach(link => {
+          const a = document.createElement("a");
+          a.href = link.url;
+          a.target = link.url.startsWith("mailto:") ? "_self" : "_blank";
+          a.rel = "noopener noreferrer";
+          a.title = link.titulo;
+          a.setAttribute("aria-label", link.titulo);
+          a.innerHTML = `<i class="${link.icone || "fas fa-link"}" aria-hidden="true"></i>`;
+          socialBar.appendChild(a);
+        });
+      }
+
+      // ===== COMPARTILHAR / COPIAR =====
+      shareBtn.addEventListener("click", async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: config.nome,
+              text: config.descricao,
+              url: window.location.href
+            });
+          } catch {}
+        } else {
+          copyText(window.location.href);
+        }
+      });
+
+      copyProfileBtn.addEventListener("click", () => {
+        copyText(`${config.nome} — ${config.usuario}\n${window.location.href}`);
+      });
+
+      // ===== AVATAR INTERATIVO =====
+      const avatarMessages = [
+        "👋 Olá! Que bom te ver por aqui!",
+        "✨ Obrigado pela visita!",
+        "🚀 Vamos criar algo incrível?",
+        "💡 A criatividade é o limite!",
+        "🌟 Volte sempre!"
+      ];
+
+      function avatarInteraction() {
+        const msg = avatarMessages[Math.floor(Math.random() * avatarMessages.length)];
+        showToast(msg);
+      }
+
+      avatarWrapper.addEventListener("click", avatarInteraction);
+      avatarWrapper.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          avatarInteraction();
+        }
+      });
+
+      // ===== FOOTER =====
+      footerText.textContent = `© ${new Date().getFullYear()} ·`;
+      footerLink.textContent = config.usuario || "@usuario";
+      footerLink.href = "#";
+      footerLink.addEventListener("click", e => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // ===== INICIALIZAÇÃO =====
+      function init() {
+        setProfile();
+        renderThemeSelector();
+        renderLinks();
+        renderSocial();
+        applyTheme(currentThemeId);
+
+        // ===== ATUALIZA TODAS AS METATAGS =====
+        document.title = config.nome;
+
+        // Favicon
+        const favicon = document.querySelector('#favicon');
+        const appleIcon = document.querySelector('#appleIcon');
+        if (config.foto) {
+          favicon.href = config.foto;
+          appleIcon.href = config.foto;
+        }
+
+        // Meta description
+        document.querySelector('meta[name="description"]')?.setAttribute('content', config.descricao);
+
+        // Open Graph
+        document.querySelector('meta[property="og:title"]')?.setAttribute('content', config.nome);
+        document.querySelector('meta[property="og:description"]')?.setAttribute('content', config.descricao);
+        document.querySelector('meta[property="og:image"]')?.setAttribute('content', config.foto);
+        document.querySelector('meta[property="og:url"]')?.setAttribute('content', window.location.href);
+
+        // Twitter Card
+        document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', config.nome);
+        document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', config.descricao);
+        document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', config.foto);
+
+        // Mensagem de boas-vindas
+        setTimeout(() => {
+          showToast("👋 Bem-vindo! Escolha um link para continuar.", 2600);
+        }, 700);
+
+        console.log("✅ Link Tree carregado com sucesso!");
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
