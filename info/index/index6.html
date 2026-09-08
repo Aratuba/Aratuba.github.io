@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atividades de Alfabetização</title>
+    <style>
+        /* --- Estilos gerais --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #fdf6e3 0%, #f5e8d8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* --- Cabeçalho --- */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #b45f2e;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 12px rgba(180, 95, 46, 0.15);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #8b6b4c;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        /* --- Grade dos cards --- */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* --- Cards --- */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 40px 30px 45px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px -16px rgba(0, 0, 0, 0.25);
+        }
+
+        .card .icon {
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #7a4d2a;
+            margin-bottom: 8px;
+        }
+
+        .card .badge {
+            background: linear-gradient(135deg, #d17a3a, #b45f2e);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 18px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .card .desc {
+            color: #5a3f2a;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+
+        /* --- BOTÕES GIGANTES (sem iframes) --- */
+        .btn-jogo {
+            display: inline-block;
+            background: #7a4d2a;
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 18px 48px;
+            border-radius: 60px;
+            text-decoration: none;
+            box-shadow: 0 8px 0 #4d2e18, 0 12px 24px rgba(0, 0, 0, 0.15);
+            transition: all 0.08s linear;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        .btn-jogo:hover {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #4d2e18, 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-jogo:active {
+            transform: translateY(8px);
+            box-shadow: 0 0px 0 #4d2e18, 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cores diferentes para cada botão */
+        .btn-escola {
+            background: #2a7a5e;
+            box-shadow: 0 8px 0 #1a4d3b, 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        .btn-escola:hover {
+            box-shadow: 0 4px 0 #1a4d3b, 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        .btn-escola:active {
+            box-shadow: 0 0px 0 #1a4d3b, 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-luz {
+            background: #b48b2e;
+            box-shadow: 0 8px 0 #7a5d1a, 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        .btn-luz:hover {
+            box-shadow: 0 4px 0 #7a5d1a, 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        .btn-luz:active {
+            box-shadow: 0 0px 0 #7a5d1a, 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-jogo span {
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+
+        /* --- Rodapé --- */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #8b6b4c;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(180, 95, 46, 0.12);
+            padding-top: 30px;
+            width: 100%;
+        }
+
+        /* --- Ajustes Mobile --- */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .card {
+                padding: 30px 20px 35px;
+            }
+            .card h2 {
+                font-size: 1.6rem;
+            }
+            .btn-jogo {
+                font-size: 1.2rem;
+                padding: 16px 20px;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>📚 Alfabetização</h1>
+        <p>Clique no botão e abra o jogo em uma nova aba</p>
+    </header>
+
+    <div class="grid">
+
+        <!-- ===== CARD 1 – ESCOLA GAMES ===== -->
+        <div class="card">
+            <div class="icon">🏭</div>
+            <h2>Fábrica de Palavras</h2>
+            <span class="badge">Escola Games</span>
+            <p class="desc">
+                Complete as palavras com a letra que falta e ajude o robô
+                a encontrar as palavras perdidas na fábrica!
+            </p>
+
+            <!-- BOTÃO SEM IFRAME -->
+            <a href="https://www.escolagames.com.br/jogos/fabrica-de-palavras"
+               target="_blank"
+               class="btn-jogo btn-escola">
+                <span>▶</span> Jogar Agora
+            </a>
+        </div>
+
+        <!-- ===== CARD 2 – LUZ DO SABER ===== -->
+        <div class="card">
+            <div class="icon">💡</div>
+            <h2>Luz do Saber</h2>
+            <span class="badge">ABC</span>
+            <p class="desc">
+                Plataforma completa com atividades interativas de letras,
+                sílabas e formação de palavras para aprender brincando.
+            </p>
+
+            <!-- BOTÃO SEM IFRAME -->
+            <a href="https://luzdosaber.abc.br/#/"
+               target="_blank"
+               class="btn-jogo btn-luz">
+                <span>▶</span> Explorar Agora
+            </a>
+        </div>
+
+    </div>
+
+    <footer>
+        <span>★</span> Atividades recomendadas para o Ensino Fundamental I <span>★</span>
+    </footer>
+
+</div>
+
+</body>
+</html>
