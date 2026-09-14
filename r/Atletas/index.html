@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial para Prestação de Contas do Atleta</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 20px;
+      color: #333;
+    }
+
+    .container {
+      background: #ffffff;
+      max-width: 820px;
+      width: 100%;
+      border-radius: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+      padding: 45px 45px 35px;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    header .emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #1e293b;
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 1.05rem;
+      font-weight: 400;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+      margin: 0;
+    }
+
+    .steps > li {
+      position: relative;
+      padding-left: 65px;
+      margin-bottom: 28px;
+      counter-increment: step;
+      line-height: 1.6;
+    }
+
+    .steps > li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 44px;
+      height: 44px;
+      background: #3b82f6;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .steps > li:hover::before {
+      transform: scale(1.08);
+    }
+
+    .steps > li strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1.05rem;
+    }
+
+    .steps > li p,
+    .steps > li {
+      color: #334155;
+    }
+
+    .steps ul {
+      margin-top: 10px;
+      padding-left: 20px;
+      list-style: disc;
+      color: #475569;
+    }
+
+    .steps ul li {
+      margin-bottom: 5px;
+    }
+
+    .icon {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #3b82f6;
+      vertical-align: middle;
+    }
+
+    .access {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      margin-top: 45px;
+      border: 2px dashed #cbd5e1;
+    }
+
+    .access h2 {
+      font-size: 1.3rem;
+      color: #1e293b;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+      transition: all 0.25s ease;
+      margin-bottom: 20px;
+    }
+
+    .btn:hover {
+      background: #2563eb;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(59, 130, 246, 0.5);
+    }
+
+    .qr {
+      margin-top: 10px;
+    }
+
+    .qr img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 5px solid #fff;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 10px;
+    }
+
+    .qr p {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 35px;
+      font-size: 2rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .steps > li {
+        padding-left: 52px;
+      }
+
+      .steps > li::before {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+      }
+
+      .qr img {
+        width: 130px;
+        height: 130px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="emoji">🏃‍♂️</span>
+      <h1>Tutorial para Prestação de Contas do Atleta</h1>
+      <p class="subtitle">Siga o passo a passo para enviar sua frequência bimestral</p>
+    </header>
+
+    <main>
+      <ol class="steps">
+        <li>
+          <strong>Acesse o sistema</strong>
+          Clique em <strong>“Sistema de Acompanhamento do Atleta”</strong> ou escaneie o QR Code disponível no final desta página.
+        </li>
+        <li>
+          <strong>Faça login</strong>
+          Informe os dados solicitados: <strong>CPF</strong> e <strong>data de nascimento</strong>.
+        </li>
+        <li>
+          <strong>Abra o menu lateral</strong>
+          Dentro do sistema, procure o ícone <span class="icon">≡</span> no menu lateral.
+        </li>
+        <li>
+          <strong>Acesse a opção</strong>
+          ➡️ <strong>Frequência Bimestral</strong>.
+        </li>
+        <li>
+          <strong>Clique em</strong>
+          <strong>NOVO</strong>.
+        </li>
+        <li>
+          <strong>Selecione o período</strong>
+          Escolha o <strong>bimestre/período correspondente</strong>.
+        </li>
+        <li>
+          <strong>Informe a frequência</strong>
+          Preencha a frequência dos atletas conforme os treinos realizados.
+        </li>
+        <li>
+          <strong>Preencha também</strong>
+          O sistema solicita informações sobre:
+          <ul>
+            <li>participação em competições;</li>
+            <li>fotos e/ou vídeos dos treinos;</li>
+            <li>fotos e/ou vídeos de competições, quando houver.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Confira tudo</strong>
+          Revise todas as informações antes de enviar.
+        </li>
+        <li>
+          <strong>Envie/salve</strong>
+          Clique para <strong>enviar/salvar a frequência</strong>.
+        </li>
+        <li>
+          <strong>Acompanhe o status</strong>
+          Depois, a própria tela <strong>“Frequências enviadas”</strong> permite acompanhar o status do envio.
+        </li>
+      </ol>
+
+      <section class="access">
+        <h2>Acesse agora</h2>
+        <a href="/index/" class="btn">Sistema de Acompanhamento do Atleta</a>
+        <div class="qr">
+          <img src="/qr.png" alt="QR Code para acesso ao sistema">
+          <p>ou escaneie o QR Code</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>🏃‍♂️</footer>
+  </div>
+</body>
+</html>

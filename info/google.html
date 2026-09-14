@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA para Criar Imagens e Vídeos</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4285f4, #9334e6);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 36px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.10);
+            text-align: center;
+            transition: .2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            margin: 10px 0;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 25px;
+            border-radius: 10px;
+            background: #4285f4;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #3367d6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🤖 Inteligência Artificial</h1>
+    <p>Ferramentas do Google para criar imagens e vídeos</p>
+</header>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🍌</div>
+
+            <h2>Nano Banana</h2>
+
+            <p>
+                Crie e edite imagens usando inteligência artificial
+                diretamente pelo Gemini.
+            </p>
+
+            <a
+                class="btn"
+                href="https://gemini.google.com/"
+                target="_blank">
+                Abrir Nano Banana
+            </a>
+        </div>
+
+
+        <div class="card">
+            <div class="icon">🎬</div>
+
+            <h2>Veo</h2>
+
+            <p>
+                Gere vídeos usando inteligência artificial a partir
+                de textos e imagens.
+            </p>
+
+            <a
+                class="btn"
+                href="https://deepmind.google/models/veo/"
+                target="_blank">
+                Abrir Veo
+            </a>
+        </div>
+
+
+        <div class="card">
+            <div class="icon">🧑‍💻</div>
+
+            <h2>Google AI Studio</h2>
+
+            <p>
+                Experimente modelos de inteligência artificial
+                e ferramentas para desenvolvedores.
+            </p>
+
+            <a
+                class="btn"
+                href="https://aistudio.google.com/"
+                target="_blank">
+                Abrir AI Studio
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    Página de ferramentas de Inteligência Artificial
+</footer>
+
+</body>
+</html>
