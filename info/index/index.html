@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atividades TOP 10 · LP e MT</title>
+  <title>Atividades Kahoot · TOP 10 e Prof. Irineu</title>
   <style>
     * {
       margin: 0;
@@ -22,12 +22,14 @@
       color: #1e293b;
     }
 
-    header {
+    /* ===== CABEÇALHO PRINCIPAL ===== */
+    header.main-header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
+      max-width: 800px;
     }
 
-    header h1 {
+    header.main-header h1 {
       font-size: 2.5rem;
       font-weight: 800;
       background: linear-gradient(135deg, #46178f 0%, #3b6ea5 100%);
@@ -37,18 +39,70 @@
       letter-spacing: -0.5px;
     }
 
-    header p {
-      font-size: 1.2rem;
+    header.main-header p {
+      font-size: 1.15rem;
       color: #475569;
       margin-top: 0.4rem;
       font-weight: 500;
     }
 
+    /* ===== SEÇÕES ===== */
+    .section {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid #e2e8f0;
+      flex-wrap: wrap;
+    }
+
+    .section-header .icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+
+    .section-header h2 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+
+    .section-header .section-subtitle {
+      font-size: 0.95rem;
+      color: #64748b;
+      font-weight: 500;
+      margin-left: auto;
+    }
+
+    .section.top10 .section-header {
+      border-bottom-color: #46178f;
+    }
+
+    .section.top10 .section-header h2 {
+      color: #46178f;
+    }
+
+    .section.irineu .section-header {
+      border-bottom-color: #0b7b3e;
+    }
+
+    .section.irineu .section-header h2 {
+      color: #0b7b3e;
+    }
+
+    /* ===== CARDS ===== */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem;
-      max-width: 1200px;
       width: 100%;
     }
 
@@ -61,6 +115,22 @@
       flex-direction: column;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       border: 1px solid rgba(255, 255, 255, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #46178f 0%, #3b6ea5 100%);
+    }
+
+    .card.prof-card::before {
+      background: linear-gradient(90deg, #0b7b3e 0%, #16a34a 100%);
     }
 
     .card:hover {
@@ -68,11 +138,17 @@
       box-shadow: 0 20px 40px -12px rgba(70, 23, 143, 0.2), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
     }
 
+    .card.prof-card:hover {
+      box-shadow: 0 20px 40px -12px rgba(11, 123, 62, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
+    }
+
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .badge {
@@ -83,9 +159,14 @@
       padding: 0.35rem 1rem;
       border-radius: 999px;
       letter-spacing: 0.3px;
+      white-space: nowrap;
     }
 
-    .card h2 {
+    .badge.professor {
+      background: #0b7b3e;
+    }
+
+    .card h3 {
       font-size: 1.5rem;
       font-weight: 700;
       color: #0f172a;
@@ -119,7 +200,11 @@
       border-left: 4px solid #46178f;
     }
 
-    .sample-questions h3 {
+    .card.prof-card .sample-questions {
+      border-left-color: #0b7b3e;
+    }
+
+    .sample-questions h4 {
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -149,6 +234,10 @@
       font-weight: 700;
     }
 
+    .card.prof-card .sample-questions li::before {
+      color: #0b7b3e;
+    }
+
     .btn {
       display: inline-block;
       text-align: center;
@@ -165,13 +254,23 @@
       margin-top: auto;
     }
 
+    .card.prof-card .btn {
+      background: linear-gradient(135deg, #0b7b3e 0%, #16a34a 100%);
+      box-shadow: 0 4px 12px rgba(11, 123, 62, 0.3);
+    }
+
     .btn:hover {
       opacity: 0.92;
       box-shadow: 0 6px 20px rgba(70, 23, 143, 0.4);
     }
 
+    .card.prof-card .btn:hover {
+      box-shadow: 0 6px 20px rgba(11, 123, 62, 0.45);
+    }
+
+    /* ===== RODAPÉ ===== */
     footer {
-      margin-top: 3rem;
+      margin-top: 1rem;
       text-align: center;
       font-size: 0.9rem;
       color: #94a3b8;
@@ -179,14 +278,22 @@
       line-height: 1.5;
     }
 
+    /* ===== RESPONSIVO ===== */
     @media (max-width: 480px) {
-      header h1 {
+      header.main-header h1 {
         font-size: 1.9rem;
+      }
+      .section-header h2 {
+        font-size: 1.4rem;
+      }
+      .section-header .section-subtitle {
+        margin-left: 0;
+        width: 100%;
       }
       .card {
         padding: 1.4rem 1.2rem 1.6rem;
       }
-      .card h2 {
+      .card h3 {
         font-size: 1.3rem;
       }
     }
@@ -194,91 +301,139 @@
 </head>
 <body>
 
-  <header>
-    <h1>Atividades TOP 10</h1>
-    <p>Língua Portuguesa e Matemática · 2º, 5º e 9º Ano</p>
+  <!-- ===== CABEÇALHO PRINCIPAL ===== -->
+  <header class="main-header">
+    <h1>Atividades Kahoot</h1>
+    <p>Língua Portuguesa e Matemática · Ensino Fundamental</p>
   </header>
 
-  <main class="cards">
+  <!-- ===== SEÇÃO 1: TOP 10 ===== -->
+  <section class="section top10">
+    <div class="section-header">
+      <span class="icon">🏆</span>
+      <h2>TOP 10</h2>
+      <span class="section-subtitle">2º, 5º e 9º Ano · LP e MT</span>
+    </div>
 
-    <!-- ===== 2º ANO ===== -->
-    <article class="card">
-      <div class="card-header">
-        <span class="badge">2º Ano</span>
-      </div>
-      <h2>2 ANO MT E LP</h2>
-      <div class="meta">
-        <span>📋 20 questões</span>
-        <span>👥 251 participantes</span>
-        <span>🎮 188 partidas</span>
-      </div>
-      <p class="description">
-        Atividades de Língua Portuguesa e Matemática para o 2º ano do Ensino Fundamental, com foco em leitura, escrita e operações básicas.
-      </p>
-      <div class="sample-questions">
-        <h3>Exemplos de questões</h3>
-        <ul>
-          <li>Quanto é 5 + 3?</li>
-          <li>Qual número vem depois do 29?</li>
-          <li>Qual é a metade de 8?</li>
-        </ul>
-      </div>
-      <a href="https://create.kahoot.it/share/2-ano-mt-e-lp/3df9fda9-d7ce-4290-8f6a-bd690694e740" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
-    </article>
+    <div class="cards">
 
-    <!-- ===== 5º ANO ===== -->
-    <article class="card">
-      <div class="card-header">
-        <span class="badge">5º Ano</span>
-      </div>
-      <h2>MT/LP 5º ANO TOP 10</h2>
-      <div class="meta">
-        <span>📋 20 questões</span>
-        <span>🌐 Público</span>
-      </div>
-      <p class="description">
-        Atividades de Matemática e Língua Portuguesa para o 5º ano do Ensino Fundamental, com revisão de conteúdos essenciais.
-      </p>
-      <div class="sample-questions">
-        <h3>Exemplos de questões</h3>
-        <ul>
-          <li>Questões de múltipla escolha</li>
-          <li>Revisão de conteúdos de LP e MT</li>
-          <li>Atividade de fixação</li>
-        </ul>
-      </div>
-      <a href="https://create.kahoot.it/share/mt-lp-5-ano-top-10/afa29a8f-4245-452f-a5ee-662d56b1f76d" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
-    </article>
+      <!-- 2º ANO -->
+      <article class="card">
+        <div class="card-header">
+          <span class="badge">2º Ano</span>
+        </div>
+        <h3>2 ANO MT E LP</h3>
+        <div class="meta">
+          <span>📋 20 questões</span>
+          <span>👥 251 participantes</span>
+          <span>🎮 188 partidas</span>
+        </div>
+        <p class="description">
+          Atividades de Língua Portuguesa e Matemática para o 2º ano do Ensino Fundamental, com foco em leitura, escrita e operações básicas.
+        </p>
+        <div class="sample-questions">
+          <h4>Exemplos de questões</h4>
+          <ul>
+            <li>Quanto é 5 + 3?</li>
+            <li>Qual número vem depois do 29?</li>
+            <li>Qual é a metade de 8?</li>
+          </ul>
+        </div>
+        <a href="https://create.kahoot.it/share/2-ano-mt-e-lp/3df9fda9-d7ce-4290-8f6a-bd690694e740" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
+      </article>
 
-    <!-- ===== 9º ANO ===== -->
-    <article class="card">
-      <div class="card-header">
-        <span class="badge">9º Ano</span>
-      </div>
-      <h2>9 ANO - TOP 10 - LP E MT</h2>
-      <div class="meta">
-        <span>📋 20 questões</span>
-        <span>👥 254 participantes</span>
-        <span>🎮 153 partidas</span>
-      </div>
-      <p class="description">
-        Atividades de Língua Portuguesa e Matemática para o 9º ano do Ensino Fundamental, com questões de interpretação textual e raciocínio lógico.
-      </p>
-      <div class="sample-questions">
-        <h3>Exemplos de questões</h3>
-        <ul>
-          <li>O triângulo 2 é uma ampliação do triângulo 1.</li>
-          <li>Em uma competição de natação, o 1º colocado concluiu a prova em 3,9 minutos…</li>
-          <li>Qual é o conflito principal apresentado nesse trecho?</li>
-        </ul>
-      </div>
-      <a href="https://create.kahoot.it/share/9-ano-top-10-lp-e-mt/bfeec078-7175-4fac-8142-3a20d9263281" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
-    </article>
+      <!-- 5º ANO -->
+      <article class="card">
+        <div class="card-header">
+          <span class="badge">5º Ano</span>
+        </div>
+        <h3>MT/LP 5º ANO TOP 10</h3>
+        <div class="meta">
+          <span>📋 20 questões</span>
+          <span>🌐 Público</span>
+        </div>
+        <p class="description">
+          Atividades de Matemática e Língua Portuguesa para o 5º ano do Ensino Fundamental, com revisão de conteúdos essenciais.
+        </p>
+        <div class="sample-questions">
+          <h4>Exemplos de questões</h4>
+          <ul>
+            <li>Questões de múltipla escolha</li>
+            <li>Revisão de conteúdos de LP e MT</li>
+            <li>Atividade de fixação</li>
+          </ul>
+        </div>
+        <a href="https://create.kahoot.it/share/mt-lp-5-ano-top-10/afa29a8f-4245-452f-a5ee-662d56b1f76d" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
+      </article>
 
-  </main>
+      <!-- 9º ANO -->
+      <article class="card">
+        <div class="card-header">
+          <span class="badge">9º Ano</span>
+        </div>
+        <h3>9 ANO - TOP 10 - LP E MT</h3>
+        <div class="meta">
+          <span>📋 20 questões</span>
+          <span>👥 254 participantes</span>
+          <span>🎮 153 partidas</span>
+        </div>
+        <p class="description">
+          Atividades de Língua Portuguesa e Matemática para o 9º ano do Ensino Fundamental, com questões de interpretação textual e raciocínio lógico.
+        </p>
+        <div class="sample-questions">
+          <h4>Exemplos de questões</h4>
+          <ul>
+            <li>O triângulo 2 é uma ampliação do triângulo 1.</li>
+            <li>Em uma competição de natação, o 1º colocado concluiu a prova em 3,9 minutos…</li>
+            <li>Qual é o conflito principal apresentado nesse trecho?</li>
+          </ul>
+        </div>
+        <a href="https://create.kahoot.it/share/9-ano-top-10-lp-e-mt/bfeec078-7175-4fac-8142-3a20d9263281" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
+      </article>
 
+    </div>
+  </section>
+
+  <!-- ===== SEÇÃO 2: PROFESSOR IRINEU ===== -->
+  <section class="section irineu">
+    <div class="section-header">
+      <span class="icon">👨‍🏫</span>
+      <h2>Professor Irineu</h2>
+      <span class="section-subtitle">8º Ano · Matemática</span>
+    </div>
+
+    <div class="cards">
+
+      <!-- 8º ANO -->
+      <article class="card prof-card">
+        <div class="card-header">
+          <span class="badge professor">8º Ano</span>
+        </div>
+        <h3>Simulado de Matemática II</h3>
+        <div class="meta">
+          <span>📋 24 questões</span>
+          <span>🔗 Desafio</span>
+        </div>
+        <p class="description">
+          Simulado de Matemática para o 8º ano, elaborado pelo Professor Irineu. Atividade no formato de desafio (challenge) com 24 questões.
+        </p>
+        <div class="sample-questions">
+          <h4>Exemplos de questões</h4>
+          <ul>
+            <li>Questões de múltipla escolha</li>
+            <li>Revisão de conteúdos do 8º ano</li>
+            <li>Atividade avaliativa</li>
+          </ul>
+        </div>
+        <a href="https://kahoot.it/challenge/06760683?challenge-id=9ea7e23c-14c9-40d6-90c7-0221f3096d6d_1789490170252" target="_blank" rel="noopener" class="btn">Acessar Desafio</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== RODAPÉ ===== -->
   <footer>
-    Atividades disponíveis publicamente no Kahoot. Clique em “Jogar no Kahoot” para acessar cada quiz.
+    Atividades disponíveis publicamente no Kahoot. Clique em “Jogar no Kahoot” ou “Acessar Desafio” para acessar cada quiz.
   </footer>
 
 </body>
