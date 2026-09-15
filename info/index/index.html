@@ -1,29 +1,285 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>Redirecionando...</title> 
-<style> 
-body {font-family: Arial; text-align:center; padding:50px; background:#f4f4f4;} 
-.box {background:#fff; padding:30px; border-radius:10px; display:inline-block;} 
-.c {font-size:2em; color:#0066cc; font-weight:bold;} 
-</style> 
-<script> 
-var s=5; 
-function go(){ 
-document.getElementById("c").innerText=s; 
-if(s==0){window.location.href="https://www.tudosaladeaula.com/2021/04/quiz-de-matematica-4o-ano-5o-ano-espaco-e-localizacao/";} 
-else{s--;setTimeout(go,1000);} 
-} 
-window.onload=go; 
-</script> 
-</head> 
-<body> 
-<div class="box"> 
-Redirecionando em <span id="c" class="c">5</span> segundos... 
-<br> 
-<a href="https://www.tudosaladeaula.com/2021/04/quiz-de-matematica-4o-ano-5o-ano-espaco-e-localizacao/">Clique aqui se não redirecionar</a> 
-</div> 
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividades TOP 10 · LP e MT</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #f5f7fa 0%, #e9edf5 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      color: #1e293b;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #46178f 0%, #3b6ea5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #475569;
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 1.6rem 2rem;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.12), 0 4px 10px -4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(70, 23, 143, 0.2), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .badge {
+      background: #46178f;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: #64748b;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .description {
+      font-size: 1rem;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .sample-questions {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #46178f;
+    }
+
+    .sample-questions h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .sample-questions ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sample-questions li {
+      font-size: 0.92rem;
+      color: #1e293b;
+      padding: 0.25rem 0 0.25rem 1.4rem;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .sample-questions li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #46178f;
+      font-weight: 700;
+    }
+
+    .btn {
+      display: inline-block;
+      text-align: center;
+      background: linear-gradient(135deg, #46178f 0%, #3b6ea5 100%);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 14px;
+      transition: opacity 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(70, 23, 143, 0.3);
+      letter-spacing: 0.2px;
+      margin-top: auto;
+    }
+
+    .btn:hover {
+      opacity: 0.92;
+      box-shadow: 0 6px 20px rgba(70, 23, 143, 0.4);
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.9rem;
+      }
+      .card {
+        padding: 1.4rem 1.2rem 1.6rem;
+      }
+      .card h2 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Atividades TOP 10</h1>
+    <p>Língua Portuguesa e Matemática · 2º, 5º e 9º Ano</p>
+  </header>
+
+  <main class="cards">
+
+    <!-- ===== 2º ANO ===== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="badge">2º Ano</span>
+      </div>
+      <h2>2 ANO MT E LP</h2>
+      <div class="meta">
+        <span>📋 20 questões</span>
+        <span>👥 251 participantes</span>
+        <span>🎮 188 partidas</span>
+      </div>
+      <p class="description">
+        Atividades de Língua Portuguesa e Matemática para o 2º ano do Ensino Fundamental, com foco em leitura, escrita e operações básicas.
+      </p>
+      <div class="sample-questions">
+        <h3>Exemplos de questões</h3>
+        <ul>
+          <li>Quanto é 5 + 3?</li>
+          <li>Qual número vem depois do 29?</li>
+          <li>Qual é a metade de 8?</li>
+        </ul>
+      </div>
+      <a href="https://create.kahoot.it/share/2-ano-mt-e-lp/3df9fda9-d7ce-4290-8f6a-bd690694e740" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
+    </article>
+
+    <!-- ===== 5º ANO ===== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="badge">5º Ano</span>
+      </div>
+      <h2>MT/LP 5º ANO TOP 10</h2>
+      <div class="meta">
+        <span>📋 20 questões</span>
+        <span>🌐 Público</span>
+      </div>
+      <p class="description">
+        Atividades de Matemática e Língua Portuguesa para o 5º ano do Ensino Fundamental, com revisão de conteúdos essenciais.
+      </p>
+      <div class="sample-questions">
+        <h3>Exemplos de questões</h3>
+        <ul>
+          <li>Questões de múltipla escolha</li>
+          <li>Revisão de conteúdos de LP e MT</li>
+          <li>Atividade de fixação</li>
+        </ul>
+      </div>
+      <a href="https://create.kahoot.it/share/mt-lp-5-ano-top-10/afa29a8f-4245-452f-a5ee-662d56b1f76d" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
+    </article>
+
+    <!-- ===== 9º ANO ===== -->
+    <article class="card">
+      <div class="card-header">
+        <span class="badge">9º Ano</span>
+      </div>
+      <h2>9 ANO - TOP 10 - LP E MT</h2>
+      <div class="meta">
+        <span>📋 20 questões</span>
+        <span>👥 254 participantes</span>
+        <span>🎮 153 partidas</span>
+      </div>
+      <p class="description">
+        Atividades de Língua Portuguesa e Matemática para o 9º ano do Ensino Fundamental, com questões de interpretação textual e raciocínio lógico.
+      </p>
+      <div class="sample-questions">
+        <h3>Exemplos de questões</h3>
+        <ul>
+          <li>O triângulo 2 é uma ampliação do triângulo 1.</li>
+          <li>Em uma competição de natação, o 1º colocado concluiu a prova em 3,9 minutos…</li>
+          <li>Qual é o conflito principal apresentado nesse trecho?</li>
+        </ul>
+      </div>
+      <a href="https://create.kahoot.it/share/9-ano-top-10-lp-e-mt/bfeec078-7175-4fac-8142-3a20d9263281" target="_blank" rel="noopener" class="btn">Jogar no Kahoot</a>
+    </article>
+
+  </main>
+
+  <footer>
+    Atividades disponíveis publicamente no Kahoot. Clique em “Jogar no Kahoot” para acessar cada quiz.
+  </footer>
+
+</body>
+</html>
