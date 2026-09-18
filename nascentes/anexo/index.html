@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexos do Projeto</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .lista-anexos {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lista-anexos li {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .lista-anexos li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .lista-anexos a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+            word-break: break-word; /* Para nomes de arquivos muito longos */
+        }
+
+        /* Ícone simples de PDF */
+        .lista-anexos a::before {
+            content: "📄";
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .lista-anexos a:hover {
+            color: #1c5980;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Anexos do Projeto</h1>
+
+    <ul class="lista-anexos">
+        <!-- Documento 1 -->
+        <li>
+            <a href="./AVALIA%C3%87%C3%83O%20E%20CONSERVA%C3%87%C3%83O%20DE%20NASCENTES%20DE%20ARATUBA-CE%20TECNOLOGIA%20E%20EDUCA%C3%87%C3%83O%20AMBIENTAL%20A%20SERVICO%20DA%20COMUNIDADE.pdf" target="_blank" rel="noopener noreferrer">
+                Avaliação e Conservação de Nascentes de Aratuba-CE: Tecnologia e Educação Ambiental a Serviço da Comunidade
+            </a>
+        </li>
+
+        <!-- Documento 2 -->
+        <li>
+            <a href="./PROJETO%20DE%20LEI%20DAS%20NASCENTE.pdf" target="_blank" rel="noopener noreferrer">
+                Projeto de Lei das Nascentes
+            </a>
+        </li>
+    </ul>
+
+    <footer>
+        <p>Projeto Nascentes - Aratuba/CE</p>
+    </footer>
+
+</body>
+</html>
