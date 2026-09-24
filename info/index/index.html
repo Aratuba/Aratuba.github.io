@@ -1,29 +1,64 @@
-<!DOCTYPE html> 
-<html lang="pt-BR"> 
-<head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>Redirecionando...</title> 
-<style> 
-body {font-family: Arial; text-align:center; padding:50px; background:#f4f4f4;} 
-.box {background:#fff; padding:30px; border-radius:10px; display:inline-block;} 
-.c {font-size:2em; color:#0066cc; font-weight:bold;} 
-</style> 
-<script> 
-var s=5; 
-function go(){ 
-document.getElementById("c").innerText=s; 
-if(s==0){window.location.href="https://talkpal.ai/pt-pt/grammar_exercises/top-50-english-verbs-exercicios-para-gramatica-inglesa/";} 
-else{s--;setTimeout(go,1000);} 
-} 
-window.onload=go; 
-</script> 
-</head> 
-<body> 
-<div class="box"> 
-Redirecionando em <span id="c" class="c">5</span> segundos... 
-<br> 
-<a href="https://talkpal.ai/pt-pt/grammar_exercises/top-50-english-verbs-exercicios-para-gramatica-inglesa/">Clique aqui se não redirecionar</a> 
-</div> 
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercícios de Inglês</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      margin: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .btn.secondary {
+      background-color: #28a745;
+    }
+    .btn.secondary:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pratique Inglês</h1>
+    <a href="https://lingua.com/pt/ingles/gramatica/personal-pronouns/" target="_blank" class="btn">
+      Pronomes Pessoais
+    </a>
+    <a href="https://talkpal.ai/pt-pt/grammar_exercises/top-50-english-verbs-exercicios-para-gramatica-inglesa/" target="_blank" class="btn secondary">
+      Top 50 Verbos em Inglês
+    </a>
+  </div>
+</body>
+</html>
